@@ -1,0 +1,76 @@
+/*-----------------------------------*/
+/*FOOTER INFO*/
+/*-----------------------------------*/
+.footerInfo {
+    width: 100vw;
+    max-width: 100%;
+    background-color: #1F1F1F;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.footerInfo h3 {
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+.docsMainBox{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.docsBox {
+    margin: 20px 40px;
+    text-align: left;
+}
+
+.docsBox p {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+
+
+/*-----------------------------------*/
+/*COPYRIGHT*/
+/*-----------------------------------*/
+.copyright {
+    width: 100vw;
+    max-width: 100%;
+    height: 63px;
+    text-align: center;
+    line-height: 63px;
+    background-color: #1A1A1A;
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+
+
+/*-----------------------------------*/
+/*MEDIA QUERY*/
+/*-----------------------------------*/
+@media screen and (max-width: 630px) {
+    .docsMainBox{
+        flex-direction: column;
+        align-items: center;
+    }
+    .docsBox {
+        text-align: center;
+    }
+    .docsBox:last-child{
+        margin-bottom: 0;
+    }
+    .docsBox p{
+        font-size: 14px;
+    }
+    .copyright {
+        font-size: 12px;
+    }
+}

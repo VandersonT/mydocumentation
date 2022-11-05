@@ -1,0 +1,20 @@
+.button {
+    padding: 12px 30px;
+    border-radius: 4px;
+    background-color: #207AE3;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+}
+
+.button:hover{
+    background-color: #1d6fcc;
+    color: rgb(240, 240, 240);
+}
+
+@media screen and (max-width: 600px) {
+    .button {
+        font-size: 15px;
+        padding: 12px 20px;
+    }
+}
