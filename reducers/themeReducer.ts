@@ -12,7 +12,7 @@ export const themeReducer = (state: ThemeType, action: reducerActionType) => {
 
     switch(action.type){
         case 'CHANGE_THEME':
-            return {...state, theme: action.payload.status}
+            return {...state, status: action.payload.status}
             break;
     }
 

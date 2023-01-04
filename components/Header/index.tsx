@@ -1,8 +1,24 @@
 /*----------------IMPORTS-----------------------*/
+import { useContext } from 'react';
+import { Context } from '../../contexts/Context';
 import style from './Header.module.css';
 /*----------------------------------------------*/
 
 const Header = () => {
+
+    const { state, dispatch } = useContext(Context);
+
+    const changeTheme = () => {
+
+        dispatch({
+            type: 'CHANGE_THEME',
+            payload: {
+                status: ((state.theme.status == 'light') ? 'dark' : 'light') 
+            }
+        })
+        
+    }
+
     return (
         <header>
 
@@ -12,9 +28,9 @@ const Header = () => {
                     <input type="text" placeholder="Search for some documentation" />
                     <button><i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
-                <button className={style.button}>
+                <button onClick={changeTheme} className={style.button}>
                     <i className="fa-solid fa-cloud-moon"></i>
-                    DarkMode
+                    {state.theme.status}
                 </button>
             </div>
 
