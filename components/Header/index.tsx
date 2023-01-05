@@ -2,6 +2,7 @@
 import { useContext, useState } from 'react';
 import { Context } from '../../contexts/Context';
 import style from './Header.module.css';
+import themeMode from '../../styles/ThemeMode.module.css';
 import Link from 'next/link';
 /*----------------------------------------------*/
 
@@ -26,17 +27,17 @@ const Header = () => {
     return (
         <header>
 
-            <div className={style.headerDesktop}>
+            <div className={`${style.headerDesktop} ${(state.theme.status == 'dark') ? themeMode.headerDesktopDark : ''}`}>
                 <Link href="/">
-                    <img className={style.logo} src="http://localhost:3000/assets/images/logo2.png" alt="my documentation logo" />
+                    <img className={style.logo} src={"http://localhost:3000/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')} alt="my documentation logo" />
                 </Link>
-                <div className={style.form}>
+                <div className={`${style.form} ${(state.theme.status == 'dark') ? themeMode.formDark : ''}`}>
                     <input type="text" placeholder="Search for some documentation" onChange={handleSearch}/>
                     <button>
                         <Link href={"/docs?search="+search} className={style.formButtond}><i className="fa-solid fa-magnifying-glass"></i></Link>
                     </button>
                 </div>
-                <button onClick={changeTheme} className={style.button}>
+                <button onClick={changeTheme} className={`${style.button} ${(state.theme.status == 'dark') ? themeMode.buttonDark : ''}`}>
                     {(state.theme.status == 'light') ? <i className="fa-solid fa-cloud-moon"></i> : <i className="fa-solid fa-cloud-sun"></i>}
                     {(state.theme.status == 'light') ? 'Dark' : 'Light'}
                 </button>

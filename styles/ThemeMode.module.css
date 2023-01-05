@@ -1,0 +1,19 @@
+/*-----------------------------------*/
+/*DARK HEADER*/
+/*-----------------------------------*/
+.headerDesktopDark{background-color: #25254F !important;}
+.formDark input {background-color: #363661;}
+.buttonDark{background-color: #363661;}
+.buttonDark:hover{background-color: #3a3a64;}
+
+
+
+/*-----------------------------------*/
+/*DARK DOC INDEX*/
+/*-----------------------------------*/
+.mainDark{background-color: #171923;}
+.sideBarDark {background: linear-gradient(0deg, #14161F 44%, #171923 66%);}
+.sideBarDark h3 {color: #D7D7DC;}
+.sideBarDark button {background-color: #25254F;}
+.docsBoxDark h1{color: #FFFFFF;}
+.docSingleDark {border: solid 1px #0E1017;}

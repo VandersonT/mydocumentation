@@ -80,17 +80,17 @@
 }
 
 .menuLink{
-    color: #D66565;
+    color: #282C34;
     text-align: left;
     font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     cursor: pointer;
     font-size: 15px;
 }
 
 .menuLink:hover:not(h4),
 .selected {
-    color: #CDBABA;
+    color: rgb(133, 133, 133);
 }
 /*-----------------------------------*/
 /*CONTENT*/

@@ -2,6 +2,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import style from '../../styles/Docs.module.css';
+import themeMode from '../../styles/ThemeMode.module.css';
 import Link from "next/link";
 //Components
 import Header from '../../components/Header';
@@ -43,8 +44,8 @@ const Docs = () => {
 
             <Header />
 
-            <main className={style.main}>
-                <div className={style.sideBar}>
+            <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
+                <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
                     <i className="fa-regular fa-envelope"></i>
                     <h3>Do you want to receive our newsletters?</h3>
                     <p>We will notify you of any relevant news about technology updates</p>
@@ -53,12 +54,12 @@ const Docs = () => {
                     <button>Join</button>
                     
                 </div>
-                <div className={style.docsBox}>
+                <div className={`${style.docsBox} ${(state.theme.status == 'dark') ? themeMode.docsBoxDark : ''} `}>
                     <h1>All Docs (4)</h1>
                     <div className={style.docs}>
 
                         <Link href="/docs/php_documentation">
-                            <div className={style.docSingle}>
+                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/phpIcon.png" />
                                 <div className={style.docSingle_Info}>
                                     <h3>Documentação PHP</h3>
@@ -68,7 +69,7 @@ const Docs = () => {
                         </Link>
 
                         <Link href="/docs/node_documentation">
-                            <div className={style.docSingle}>
+                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/nodeIcon.png" />
                                 <div className={style.docSingle_Info}>
                                     <h3>Documentação Node</h3>
@@ -78,7 +79,7 @@ const Docs = () => {
                         </Link>
 
                         <Link href="/docs/react_documentation">
-                            <div className={style.docSingle}>
+                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/reactIcon.png" />
                                 <div className={style.docSingle_Info}>
                                     <h3>Documentação React.js</h3>
@@ -88,7 +89,7 @@ const Docs = () => {
                         </Link>
 
                         <Link href="/docs/next_documentation">
-                            <div className={style.docSingle}>
+                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/nextIcon.png" />
                                 <div className={style.docSingle_Info}>
                                     <h3>Documentação Next.js</h3>
