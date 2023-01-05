@@ -14,6 +14,7 @@
 .logo {
     width: 198px;
     height: 58px;
+    cursor: pointer;
 }
 
 .form {
@@ -134,7 +135,7 @@
 /*-----------------------------------*/
 @media screen and (max-width: 1000px){
     .headerDesktop{display: none;}
-    .headerMobile{display: flex;}
+    .headerMobile{display: flex;position: relative;z-index: 2;}
 }
 
 @media screen and (max-width: 400px){

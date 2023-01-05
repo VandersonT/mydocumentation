@@ -7,11 +7,14 @@ import Link from "next/link";
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 /*----------------------------------------------*/
-
+import { useContext } from "react";
+import { Context } from "../../contexts/Context";
 
 const Docs = () => {
     
     const { query } = useRouter(); //query.search
+
+    const { state, dispatch } = useContext(Context);
 
     return (
         <>
