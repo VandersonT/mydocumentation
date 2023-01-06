@@ -1,11 +1,17 @@
 /*----------------IMPORTS-----------------------*/
 import style from './Footer.module.css';
+import themeMode from '../../styles/ThemeMode.module.css';
+import { useContext } from 'react';
+import { Context } from '../../contexts/Context';
 /*----------------------------------------------*/
 
 const Footer = () => {
+
+    const { state, dispatch } = useContext(Context);
+
     return (
         <footer>
-            <div className={style.footerInfo}>
+            <div className={`${style.footerInfo} ${(state.theme.status == 'dark') ? themeMode.footerInfoDark : ''}`}>
                 <h3>Others Docs</h3>
                 <div className={style.docsMainBox}>
                     <div className={style.docsBox}>
@@ -31,7 +37,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className={style.copyright}>
+            <div className={`${style.copyright} ${(state.theme.status == 'dark') ? themeMode.copyrightDark : ''}`}>
                 <p>MyDocumentations 2022 © Some rights reserved</p>
             </div>
         </footer>

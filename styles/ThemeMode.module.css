@@ -2,18 +2,48 @@
 /*DARK HEADER*/
 /*-----------------------------------*/
 .headerDesktopDark{background-color: #25254F !important;}
-.formDark input {background-color: #363661;}
-.buttonDark{background-color: #363661;}
-.buttonDark:hover{background-color: #3a3a64;}
+.formDark input {background-color: #363661 !important;}
+.buttonDark{background-color: #363661 !important;}
+.buttonDark:hover{background-color: #3a3a64 !important;}
+
+
+/*-----------------------------------*/
+/*DARK FOOTER*/
+/*-----------------------------------*/
+.footerInfoDark{background-color: #12141D !important;}
+.copyrightDark{background-color: #12141D !important; border-top: 1px solid #1A1C27 !important;}
+
+
+
+/*-----------------------------------*/
+/*GLOBAL */
+/*-----------------------------------*/
+.mainDark{background-color: #171923 !important;}
 
 
 
 /*-----------------------------------*/
 /*DARK DOC INDEX*/
 /*-----------------------------------*/
-.mainDark{background-color: #171923;}
-.sideBarDark {background: linear-gradient(0deg, #14161F 44%, #171923 66%);}
-.sideBarDark h3 {color: #D7D7DC;}
-.sideBarDark button {background-color: #25254F;}
-.docsBoxDark h1{color: #FFFFFF;}
-.docSingleDark {border: solid 1px #0E1017;}
+.sideBarDark {background: linear-gradient(0deg, #14161F 44%, #171923 66%) !important;}
+.sideBarDark h3 {color: #D7D7DC !important;}
+.sideBarDark button {background-color: #25254F !important;}
+.docsBoxDark h1{color: #FFFFFF !important;}
+.docSingleDark {border: solid 1px #0E1017 !important;}
+
+
+
+/*-----------------------------------*/
+/*DARK DOC SINGLE*/
+/*-----------------------------------*/
+/*SideBar*/
+.sideBarDarkS{background: linear-gradient(180deg, #14151F 44%, #171923 66%) !important;}
+.sideBarBoxDark h4, .sideBarBoxDark h3{color: #FFFFFF !important}
+.moduleSingleDark{color: #FFFFFF !important;}
+.contentSingleDark p{color: #cecece;}
+.selectedDark{color: #878787 !important;}
+
+/*Content*/
+.contentDark h1{color: #FFFFFF !important;}
+.contentDark p {color: #D7D7DC !important;}
+.docContentDark {color: #FFFFFF;}

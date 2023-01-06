@@ -44,7 +44,9 @@ const Docs = () => {
 
             <Header />
 
-            <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
+            teste
+
+            <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
                     <i className="fa-regular fa-envelope"></i>
                     <h3>Do you want to receive our newsletters?</h3>

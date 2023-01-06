@@ -2,14 +2,17 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import style from '../../styles/DocSingle.module.css';
+import themeMode from '../../styles/ThemeMode.module.css';
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { Context } from "../../contexts/Context";
 /*----------------------------------------------*/
 
 const Single = () => {
 
     /*----------------STATES-----------------------*/
+    const { state, dispatch } = useContext(Context);
     const [ modules, setModules ] = useState<boolean[]>([false, false, false]);
     const [ menuMobileStatus, setMenuMobileStatus] = useState(true);
     /*---------------------------------------------*/
@@ -58,10 +61,10 @@ const Single = () => {
 
             <Header/>
 
-            <main className={style.main}>
+            <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 
-                <div className={style.sideBar}>
-                    <div className={style.sideBarBox}>
+                <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
+                    <div className={`${style.sideBarBox} ${(state.theme.status == 'dark') ? themeMode.sideBarBoxDark : ''}`}>
                         <h3>PHP Documentation</h3>
                         
                         <div className={style.search}>
@@ -77,15 +80,15 @@ const Single = () => {
                         {menuMobileStatus &&
                             <div className={style.module}>
 
-                                <div className={style.moduleSingle}>
+                                <div className={`${style.moduleSingle} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
                                     <h4 className={style.menuLink} onClick={()=>openModule(0)}>
                                         <span className={style.mark}>1.</span> Iniciando com PHP
                                     </h4>
                                     
                                     {modules[0] &&
-                                        <div className={style.contentSingle}>
+                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
                                             <Link href="/">
-                                                <p className={`${style.menuLink} ${style.selected}`}><span className={style.mark}>1.1.</span> Instalando Ambiente</p>
+                                                <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}><span className={style.mark}>1.1.</span> Instalando Ambiente</p>
                                             </Link>
                                             <Link href="/">
                                                 <p className={style.menuLink}><span className={style.mark}>1.2.</span> Instalando PhpMyAdmin</p>
@@ -136,7 +139,7 @@ const Single = () => {
                                     </h4>
 
                                     {modules[1] &&
-                                        <div className={style.contentSingle}>
+                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
                                             <Link href="/">
                                                 <p className={style.menuLink}><span className={style.mark}>2.1.</span> Instalando Ambiente</p>
                                             </Link>
@@ -159,7 +162,7 @@ const Single = () => {
                                     </h4>
 
                                     {modules[2] &&
-                                        <div className={style.contentSingle}>
+                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
                                             <Link href="/">
                                                 <p className={style.menuLink}><span className={style.mark}>3.1.</span> Instalando Ambiente</p>
                                             </Link>
@@ -178,10 +181,10 @@ const Single = () => {
                     </div>
                 </div>
                 
-                <div className={style.content}>
+                <div className={`${style.content} ${(state.theme.status == 'dark') ? themeMode.contentDark : ''}`}>
                     <h1>Instalando Ambiente</h1>
                     <p>Instalando e configurando todo o ambiente de desenvolvimento inicial em php.</p>
-                    <div className={style.docContent}>
+                    <div className={`${style.docContent} ${(state.theme.status == 'dark') ? themeMode.docContentDark : ''}`}>
                         Teste de conteudo aleatorio para encher linguiça
                     </div>
                 </div>
