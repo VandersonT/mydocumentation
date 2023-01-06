@@ -1,5 +1,5 @@
 /*----------------IMPORTS-----------------------*/
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../contexts/Context';
 import style from './Header.module.css';
 import themeMode from '../../styles/ThemeMode.module.css';
@@ -11,7 +11,21 @@ const Header = () => {
     const { state, dispatch } = useContext(Context);
     const [search, setSearch] = useState('');
 
+    useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if(theme != null){
+            dispatch({
+                type: 'CHANGE_THEME',
+                payload: {
+                    status: theme
+                }
+            })
+        }
+            
+    }, []);
+
     const changeTheme = () => {
+        localStorage.setItem('theme', ((state.theme.status == 'light') ? 'dark' : 'light'));
         dispatch({
             type: 'CHANGE_THEME',
             payload: {
