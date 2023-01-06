@@ -44,8 +44,6 @@ const Docs = () => {
 
             <Header />
 
-            teste
-
             <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
                     <i className="fa-regular fa-envelope"></i>
@@ -63,7 +61,7 @@ const Docs = () => {
                         <Link href="/docs/php_documentation">
                             <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/phpIcon.png" />
-                                <div className={style.docSingle_Info}>
+                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
                                     <h3>Documentação PHP</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
                                 </div>
@@ -73,7 +71,7 @@ const Docs = () => {
                         <Link href="/docs/node_documentation">
                             <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/nodeIcon.png" />
-                                <div className={style.docSingle_Info}>
+                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
                                     <h3>Documentação Node</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
                                 </div>
@@ -83,7 +81,7 @@ const Docs = () => {
                         <Link href="/docs/react_documentation">
                             <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/reactIcon.png" />
-                                <div className={style.docSingle_Info}>
+                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
                                     <h3>Documentação React.js</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
                                 </div>
@@ -93,7 +91,7 @@ const Docs = () => {
                         <Link href="/docs/next_documentation">
                             <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                 <img src="http://localhost:3000/assets/images/nextIcon.png" />
-                                <div className={style.docSingle_Info}>
+                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
                                     <h3>Documentação Next.js</h3>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
                                 </div>
