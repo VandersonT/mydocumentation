@@ -4,14 +4,19 @@ import { useRouter } from "next/router";
 import style from '../../styles/Docs.module.css';
 import themeMode from '../../styles/ThemeMode.module.css';
 import Link from "next/link";
+import { useContext } from "react";
+import { Context } from "../../contexts/Context";
+import { Doc } from "../../types/Doc";
 //Components
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 /*----------------------------------------------*/
-import { useContext } from "react";
-import { Context } from "../../contexts/Context";
 
-const Docs = () => {
+type Props = {
+    docs: Doc[]
+}
+
+const Docs = ({ docs }: Props) => {
     
     const { query } = useRouter(); //query.search
 
@@ -55,48 +60,20 @@ const Docs = () => {
                     
                 </div>
                 <div className={`${style.docsBox} ${(state.theme.status == 'dark') ? themeMode.docsBoxDark : ''} `}>
-                    <h1>All Docs (4)</h1>
+                    <h1>All Docs ({docs.length})</h1>
                     <div className={style.docs}>
-
-                        <Link href="/docs/php_documentation">
-                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
-                                <img src="http://localhost:3000/assets/images/phpIcon.png" />
-                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
-                                    <h3>Documentação PHP</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
+                        
+                        {docs.map((doc, index) => (
+                            <Link href="/docs/php_documentation">
+                                <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
+                                    <img src={doc['image']} />
+                                    <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
+                                        <h3>{doc['name']}</h3>
+                                        <p>{doc['description']}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-
-                        <Link href="/docs/node_documentation">
-                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
-                                <img src="http://localhost:3000/assets/images/nodeIcon.png" />
-                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
-                                    <h3>Documentação Node</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
-                                </div>
-                            </div>
-                        </Link>
-
-                        <Link href="/docs/react_documentation">
-                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
-                                <img src="http://localhost:3000/assets/images/reactIcon.png" />
-                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
-                                    <h3>Documentação React.js</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
-                                </div>
-                            </div>
-                        </Link>
-
-                        <Link href="/docs/next_documentation">
-                            <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
-                                <img src="http://localhost:3000/assets/images/nextIcon.png" />
-                                <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
-                                    <h3>Documentação Next.js</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce interdum auctor sollicitudin. Ut gravida erat vitae convallis aliquam. Donec ut ex id quam egestas mattis. Duis felis dui, fermentum ut dictum vel, porta at turpis.</p>
-                                </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        ))}
 
                     </div>
                 </div>
@@ -109,3 +86,14 @@ const Docs = () => {
 }
 
 export default Docs;
+
+export const getServerSideProps = async () => {
+    const res = await fetch('http://localhost:4000/docs');
+    const docsResponse = await res.json();
+
+    return {
+        props: {
+            docs: docsResponse['docs']
+        }
+    }
+}
