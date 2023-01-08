@@ -7,13 +7,22 @@ import Head from "next/head";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { Context } from "../../contexts/Context";
+import { GetServerSideProps } from "next";
+import { Doc } from "../../types/Doc";
+import { Module } from "../../types/Module";
 /*----------------------------------------------*/
 
-const Single = () => {
+
+type Props = {
+    doc: Doc,
+    mods: Module[]
+}
+
+const Single = ({ doc, mods }: Props) => {
 
     /*----------------STATES-----------------------*/
     const { state, dispatch } = useContext(Context);
-    const [ modules, setModules ] = useState<boolean[]>([false, false, false]);
+    const [ modules, setModules ] = useState<boolean[]>([false]);
     const [ menuMobileStatus, setMenuMobileStatus] = useState(true);
     /*---------------------------------------------*/
 
@@ -65,7 +74,7 @@ const Single = () => {
                 
                 <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
                     <div className={`${style.sideBarBox} ${(state.theme.status == 'dark') ? themeMode.sideBarBoxDark : ''}`}>
-                        <h3>PHP Documentation</h3>
+                        <h3>{doc['name']}</h3>
                         
                         <div className={style.search}>
                             <input type="text" placeholder="Search"/>
@@ -80,101 +89,21 @@ const Single = () => {
                         {menuMobileStatus &&
                             <div className={style.module}>
 
-                                <div className={`${style.moduleSingle} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
-                                    <h4 className={style.menuLink} onClick={()=>openModule(0)}>
-                                        <span className={style.mark}>1.</span> Iniciando com PHP
-                                    </h4>
-                                    
-                                    {modules[0] &&
-                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
-                                            <Link href="/">
-                                                <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}><span className={style.mark}>1.1.</span> Instalando Ambiente</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.2.</span> Instalando PhpMyAdmin</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>1.3.</span> Instalando Xamp</p>
-                                            </Link>
-                                        </div>
-                                    }
-                                </div>
+                                {mods.map((module, index) => (
+                                    <div key={index} className={`${style.moduleSingle} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
+                                        <h4 className={style.menuLink} onClick={()=>openModule(index)}>
+                                            <span className={style.mark}>{index}.</span> {module['title']}
+                                        </h4>
 
-                                <div className={style.moduleSingle}>
-                                    <h4 className={style.menuLink} onClick={()=>openModule(1)}>
-                                        <span className={style.mark}>2.</span> Bancos de Dados
-                                    </h4>
-
-                                    {modules[1] &&
-                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>2.1.</span> Instalando Ambiente</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>2.2.</span> Instalando Ambiente</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>2.3.</span> Instalando Ambiente</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>2.4.</span> Instalando PhpMyAdmin</p>
-                                            </Link>
-                                        </div>
-                                    }
-                                </div>
-
-                                <div className={style.moduleSingle}>
-                                    <h4 className={style.menuLink} onClick={()=>openModule(2)}>
-                                        <span className={style.mark}>3.</span> Iniciando com PHP
-                                    </h4>
-
-                                    {modules[2] &&
-                                        <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>3.1.</span> Instalando Ambiente</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>3.2.</span> Padrão Mvc Model View Controller teste</p>
-                                            </Link>
-                                            <Link href="/">
-                                                <p className={style.menuLink}><span className={style.mark}>3.3.</span> Instalando Ambiente</p>
-                                            </Link>
-                                        </div>
-                                    }
-                                </div>
+                                        {modules[index] &&
+                                            <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
+                                                <Link href="/">
+                                                    <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}><span className={style.mark}>1.1.</span> Instalando Ambiente</p>
+                                                </Link>
+                                            </div>
+                                        }
+                                    </div>
+                                ))}
 
                             </div>
                         }
@@ -196,3 +125,25 @@ const Single = () => {
 } 
 
 export default Single;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    const slug = context.query.slug as string;
+
+    /*Get Doc data*/
+    const res = await fetch(`http://localhost:4000/doc/${slug}`);
+    const docResponse = await res.json();
+
+    /*Get Doc modules*/
+    const resM = await fetch(`http://localhost:4000/moduleByDoc/${slug}`);
+    const moduleResponse = await resM.json();
+
+    /*Get Module topics*/
+
+    return {
+        props: {
+            doc: docResponse['docFound'],
+            mods: moduleResponse['modulesFound']
+        }
+    }
+}
