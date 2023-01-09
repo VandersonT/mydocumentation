@@ -1,24 +1,27 @@
 /*----------------IMPORTS-----------------------*/
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import style from '../../styles/DocSingle.module.css';
-import themeMode from '../../styles/ThemeMode.module.css';
+import Header from "../../../../components/Header";
+import Footer from "../../../../components/Footer";
+import style from '../../../../styles/DocSingle.module.css';
+import themeMode from '../../../../styles/ThemeMode.module.css';
 import Head from "next/head";
 import Link from "next/link";
-import { useContext, useState } from "react";
-import { Context } from "../../contexts/Context";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../../../contexts/Context";
 import { GetServerSideProps } from "next";
-import { Doc } from "../../types/Doc";
-import { Module } from "../../types/Module";
+import { Doc } from "../../../../types/Doc";
+import { Module } from "../../../../types/Module";
+import { Topic } from "../../../../types/Topic";
 /*----------------------------------------------*/
 
 
 type Props = {
     doc: Doc,
-    mods: Module[]
+    mods: Module[],
+    top: Topic[],
+    currentTopic: any
 }
 
-const Single = ({ doc, mods }: Props) => {
+const Single = ({ doc, mods, top, currentTopic }: Props) => {
 
     /*----------------STATES-----------------------*/
     const { state, dispatch } = useContext(Context);
@@ -42,7 +45,7 @@ const Single = ({ doc, mods }: Props) => {
         setMenuMobileStatus(!menuMobileStatus);
     }
     /*---------------------------------------------*/
-
+    
     return (
         <>
             <Head>
@@ -92,14 +95,24 @@ const Single = ({ doc, mods }: Props) => {
                                 {mods.map((module, index) => (
                                     <div key={index} className={`${style.moduleSingle} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
                                         <h4 className={style.menuLink} onClick={()=>openModule(index)}>
-                                            <span className={style.mark}>{index}.</span> {module['title']}
+                                            <span className={style.mark}>{index+1}.</span> {module['title']}
                                         </h4>
 
                                         {modules[index] &&
                                             <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
-                                                <Link href="/">
-                                                    <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}><span className={style.mark}>1.1.</span> Instalando Ambiente</p>
-                                                </Link>
+                                                
+                                                {top.map((top, indexT)=>(
+                                                    <div>
+                                                        {top['module_id'] === module['id'] &&
+                                                            <Link href="/">
+                                                                <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}>
+                                                                    <span className={style.mark}>{index+1}.{indexT+1}.</span> {top['title']}
+                                                                </p>
+                                                            </Link>
+                                                        }
+                                                    </div>
+                                                ))}
+
                                             </div>
                                         }
                                     </div>
@@ -128,22 +141,59 @@ export default Single;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
-    const slug = context.query.slug as string;
+    const slug = context.query.doc as string;
+    const topicSlug = context.query.topic as string;
 
     /*Get Doc data*/
-    const res = await fetch(`http://localhost:4000/doc/${slug}`);
+    const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
     const docResponse = await res.json();
 
+    if(docResponse['error'] != "") {
+        return {
+            redirect: {
+            destination: '/docs',
+            permanent: false,
+            },
+        }
+    }
+
     /*Get Doc modules*/
-    const resM = await fetch(`http://localhost:4000/moduleByDoc/${slug}`);
+    const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
     const moduleResponse = await resM.json();
 
     /*Get Module topics*/
+    const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
+    const topicResponse = await resT.json();
+
+    let currentTopic;
+    if(topicResponse['topics'].length > 0){
+        currentTopic = topicResponse['topics'].find(function(topic:any) {
+            return topic.slug === topicSlug;
+        });
+
+        if(!currentTopic){
+            currentTopic = topicResponse['topics'][0];
+        }
+    }else{
+        currentTopic = {
+            "id": 0,
+            "title": "",
+            "content": "",
+            "module_id": 0,
+            "image": "",
+            "meta_tags": "",
+            "doc_id": 0,
+            "slug": ""
+        };
+    }
+
 
     return {
         props: {
-            doc: docResponse['docFound'],
-            mods: moduleResponse['modulesFound']
+            doc: docResponse['documentation'],
+            mods: moduleResponse['modulesFound'],
+            top: topicResponse['topics'],
+            currentTopic
         }
     }
 }

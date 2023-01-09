@@ -6,5 +6,6 @@ export type Doc = {
     created_at: Date,
     author: number,
     updated_at: Date,
-    last_author: number
+    last_author: number,
+    slug: string
 }

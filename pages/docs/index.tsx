@@ -64,7 +64,7 @@ const Docs = ({ docs }: Props) => {
                     <div className={style.docs}>
                         
                         {docs.map((doc, index) => (
-                            <Link key={index} href={`/docs/${doc['id']}`}>
+                            <Link key={index} href={`/docs/${doc['slug']}/none`}>
                                 <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
                                     <img src={doc['image']} />
                                     <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
