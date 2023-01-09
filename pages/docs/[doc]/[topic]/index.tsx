@@ -18,10 +18,10 @@ type Props = {
     doc: Doc,
     mods: Module[],
     top: Topic[],
-    currentTopic: any
+    openedTopic: any
 }
 
-const Single = ({ doc, mods, top, currentTopic }: Props) => {
+const Single = ({ doc, mods, top, openedTopic }: Props) => {
 
     /*----------------STATES-----------------------*/
     const { state, dispatch } = useContext(Context);
@@ -49,7 +49,7 @@ const Single = ({ doc, mods, top, currentTopic }: Props) => {
     return (
         <>
             <Head>
-                <title>PHP Documentation - MyDocumentation</title>
+                <title>{doc['name']} - MyDocumentation</title>
                 
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -93,7 +93,7 @@ const Single = ({ doc, mods, top, currentTopic }: Props) => {
                             <div className={style.module}>
 
                                 {mods.map((module, index) => (
-                                    <div key={index} className={`${style.moduleSingle} ${(state.theme.status == 'dark') ? themeMode.sideBarDarkS : ''}`}>
+                                    <div key={index} className={`${style.moduleSingle}`}>
                                         <h4 className={style.menuLink} onClick={()=>openModule(index)}>
                                             <span className={style.mark}>{index+1}.</span> {module['title']}
                                         </h4>
@@ -104,8 +104,12 @@ const Single = ({ doc, mods, top, currentTopic }: Props) => {
                                                 {top.map((top, indexT)=>(
                                                     <div>
                                                         {top['module_id'] === module['id'] &&
-                                                            <Link href="/">
-                                                                <p className={`${style.menuLink} ${(state.theme.status == 'light') ? style.selected : themeMode.selectedDark}`}>
+                                                            <Link href={`/docs/${doc['slug']}/${top['slug']}`}>
+                                                                <p className={`
+                                                                    ${style.menuLink}
+                                                                    ${(state.theme.status == 'light' && (openedTopic['id'] == top['id'])) ? style.selected : ''}
+                                                                    ${(state.theme.status == 'dark' && (openedTopic['id'] == top['id'])) ? themeMode.selectedDark : ''}`}
+                                                                >
                                                                     <span className={style.mark}>{index+1}.{indexT+1}.</span> {top['title']}
                                                                 </p>
                                                             </Link>
@@ -124,10 +128,15 @@ const Single = ({ doc, mods, top, currentTopic }: Props) => {
                 </div>
                 
                 <div className={`${style.content} ${(state.theme.status == 'dark') ? themeMode.contentDark : ''}`}>
-                    <h1>Instalando Ambiente</h1>
-                    <p>Instalando e configurando todo o ambiente de desenvolvimento inicial em php.</p>
+                    {!openedTopic['title'] &&
+                        <h2>
+                            Essa documentação ainda não tem conteúdo.
+                        </h2>
+                    }
+                    <h1>{openedTopic['title']}</h1>
+                    <p>{openedTopic['description']}</p>
                     <div className={`${style.docContent} ${(state.theme.status == 'dark') ? themeMode.docContentDark : ''}`}>
-                        Teste de conteudo aleatorio para encher linguiça
+                        {openedTopic['content']}
                     </div>
                 </div>
             </main>
@@ -165,17 +174,17 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
     const topicResponse = await resT.json();
 
-    let currentTopic;
+    let openedTopic;
     if(topicResponse['topics'].length > 0){
-        currentTopic = topicResponse['topics'].find(function(topic:any) {
+        openedTopic = topicResponse['topics'].find(function(topic:any) {
             return topic.slug === topicSlug;
         });
 
-        if(!currentTopic){
-            currentTopic = topicResponse['topics'][0];
+        if(!openedTopic){
+            openedTopic = topicResponse['topics'][0];
         }
     }else{
-        currentTopic = {
+        openedTopic = {
             "id": 0,
             "title": "",
             "content": "",
@@ -193,7 +202,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
             doc: docResponse['documentation'],
             mods: moduleResponse['modulesFound'],
             top: topicResponse['topics'],
-            currentTopic
+            openedTopic
         }
     }
 }

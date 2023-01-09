@@ -5,5 +5,7 @@ export type Topic = {
     module_id: number,
     image: string,
     meta_tag: string,
-    doc_id: number
+    doc_id: number,
+    slug: string,
+    description: Text
 }
