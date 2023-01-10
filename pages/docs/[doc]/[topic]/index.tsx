@@ -29,6 +29,10 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
     const [ menuMobileStatus, setMenuMobileStatus] = useState(true);
     /*---------------------------------------------*/
 
+    useEffect(()=>{
+        modules[openedTopic['module_id']-1] = true;
+    },[])
+
     /*--------------FUNCTIONS----------------------*/
     const openModule = (index: number) => {
         let aux = [];
@@ -102,7 +106,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                                             <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
                                                 
                                                 {top.map((top, indexT)=>(
-                                                    <div>
+                                                    <div key={indexT}>
                                                         {top['module_id'] === module['id'] &&
                                                             <Link href={`/docs/${doc['slug']}/${top['slug']}`}>
                                                                 <p className={`
