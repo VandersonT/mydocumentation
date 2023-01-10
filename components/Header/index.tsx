@@ -6,7 +6,11 @@ import themeMode from '../../styles/ThemeMode.module.css';
 import Link from 'next/link';
 /*----------------------------------------------*/
 
-const Header = () => {
+type Props = {
+    link: string
+}
+
+const Header = ({ link }: Props) => {
 
     const { state, dispatch } = useContext(Context);
     const [search, setSearch] = useState('');
@@ -42,7 +46,7 @@ const Header = () => {
         <header>
 
             <div className={`${style.headerDesktop} ${(state.theme.status == 'dark') ? themeMode.headerDesktopDark : ''}`}>
-                <Link href="/docs">
+                <Link href={link}>
                     <img className={style.logo} src={"http://localhost:3000/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')} alt="my documentation logo" />
                 </Link>
                 <div className={`${style.form} ${(state.theme.status == 'dark') ? themeMode.formDark : ''}`}>

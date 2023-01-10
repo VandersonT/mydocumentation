@@ -121,7 +121,7 @@ const Home: NextPage = () => {
             <SkillBox2 img="phpImg.png" title="PHP Language" text="Documentation with best practices and methods to build your project with PHP." />
             <SkillBox2 img="nodeImg.png" title="Node.js" text="All the necessary material for you to start from scratch until your application online." />
             <SkillBox2 img="adonisImg.png" title="Framework Adonis" text="Everything you need to build a fully functional web application or API server with Adonis." />
-            <SkillBox2 img="LaravelImg.png" title="Framework Laravel" text="Web application development following the model-view-controller pattern with laravel." />
+            <SkillBox2 img="laravelImg.png" title="Framework Laravel" text="Web application development following the model-view-controller pattern with laravel." />
             <SkillBox2 img="mysqlImg.png" title="Sgbd mysql" text="Database creation for data storage and manipulation using Mysql." />
           </div>
         </section>

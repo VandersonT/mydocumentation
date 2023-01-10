@@ -47,7 +47,7 @@ const Docs = ({ docs }: Props) => {
                 <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
             </Head>
 
-            <Header />
+            <Header link="/"/>
 
             <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>

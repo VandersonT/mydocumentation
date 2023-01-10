@@ -29,9 +29,11 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
     const [ menuMobileStatus, setMenuMobileStatus] = useState(true);
     /*---------------------------------------------*/
 
+    /*----------------EFFECTS-----------------------*/
     useEffect(()=>{
-        modules[openedTopic['module_id']-1] = true;
-    },[])
+        modules[openedTopic['module_id']-1] = true;//Open the current module.
+    },[]);
+    /*---------------------------------------------*/
 
     /*--------------FUNCTIONS----------------------*/
     const openModule = (index: number) => {
@@ -75,7 +77,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                 <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
             </Head>
 
-            <Header/>
+            <Header link="/docs"/>
 
             <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 
