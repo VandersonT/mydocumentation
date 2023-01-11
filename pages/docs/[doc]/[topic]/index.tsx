@@ -101,25 +101,25 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
     return (
         <>
             <Head>
-                <title>{doc['name']} - MyDocumentation</title>
+                <title>{openedTopic['title']} - MyDocumentation</title>
                 
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta name="title" content="MyDocumentation" />
-                <meta name="description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
+                <meta name="title" content={openedTopic['title']+" - MyDocumentation"} />
+                <meta name="description" content={openedTopic['description']} />
                 <meta name="author" content="Vanderson Tiago de Paulo"/>
-                <meta name="keywords" content="" />
+                <meta name="keywords" content={openedTopic['meta_tags']} />
 
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://localhost:3000/" />
-                <meta property="og:title" content="MyDocumentation" />
-                <meta property="og:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
+                <meta property="og:url" content="http://localhost:3000/docs" />
+                <meta property="og:title" content={openedTopic['title']+" - MyDocumentation"} />
+                <meta property="og:description" content={openedTopic['description']} />
                 <meta property="og:image" content="http://localhost:3000/assets/imagem/image.png" />
 
                 <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content="http://localhost:3000/" />
-                <meta property="twitter:title" content="MyDocumentation" />
-                <meta property="twitter:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
+                <meta property="twitter:url" content="http://localhost:3000/docs" />
+                <meta property="twitter:title" content={openedTopic['title']+" - MyDocumentation"} />
+                <meta property="twitter:description" content={openedTopic['description']} />
                 <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
             </Head>
 
