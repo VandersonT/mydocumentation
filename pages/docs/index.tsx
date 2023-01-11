@@ -109,26 +109,35 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     let search = context.query.search as string;
 
+
     let res;
     let docsResponse;
     let docs;
-    if(search){
-        res = await fetch(`http://localhost:4000/docByName/${search}`);
-        docsResponse = await res.json();
-        docs = docsResponse['docFound'];
-    }else{
-        search = '';
-        res = await fetch('http://localhost:4000/docs');
-        docsResponse = await res.json();
-        docs = docsResponse['docs'];
-    }
-    
-    
+    try{
+        if(search){
+            res = await fetch(`http://localhost:4000/docByName/${search}`);
+            docsResponse = await res.json();
+            docs = docsResponse['docFound'];
+        }else{
+            search = '';
+            res = await fetch('http://localhost:4000/docs');
+            docsResponse = await res.json();
+            docs = docsResponse['docs'];
+        }
 
-    return {
-        props: {
-            docs,
-            search
+        return {
+            props: {
+                docs,
+                search
+            }
+        }
+    }catch(error){
+        return {
+            redirect: {
+            destination: '/error',
+            permanent: false,
+            },
         }
     }
+    
 }

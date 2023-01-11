@@ -210,60 +210,73 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
 export default Single;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-
+    /*Get url data*/
     const slug = context.query.doc as string;
     const topicSlug = context.query.topic as string;
 
-    /*Get Doc data*/
-    const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
-    const docResponse = await res.json();
+    /*Try to connect to api and get the data*/
+    let docResponse;
+    let moduleResponse;
+    let topicResponse;
+    let openedTopic;
+    try{
+        const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
+        docResponse = await res.json();
 
-    if(docResponse['error'] != "") {
+        if(!docResponse['documentation']) {
+            return {
+                redirect: {
+                destination: '/404',
+                permanent: false,
+                },
+            }
+        }
+
+        /*Get Doc modules*/
+        const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
+        moduleResponse = await resM.json();
+
+        /*Get Module topics*/
+        const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
+        topicResponse = await resT.json();
+
+        
+        if(topicResponse['topics'].length > 0){
+            openedTopic = topicResponse['topics'].find(function(topic:any) {
+                return topic.slug === topicSlug;
+            });
+
+            if(!openedTopic){
+                openedTopic = topicResponse['topics'][0];
+            }
+        }else{
+            openedTopic = {
+                "id": 0,
+                "title": "",
+                "content": "",
+                "module_id": 0,
+                "image": "",
+                "meta_tags": "",
+                "doc_id": 0,
+                "slug": ""
+            };
+        }
+        
+        return {
+            props: {
+                doc: docResponse['documentation'],
+                mods: moduleResponse['modulesFound'],
+                top: topicResponse['topics'],
+                openedTopic
+            }
+        }
+    }catch(error){
         return {
             redirect: {
-            destination: '/docs',
+            destination: '/error',
             permanent: false,
             },
         }
-    }
-
-    /*Get Doc modules*/
-    const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
-    const moduleResponse = await resM.json();
-
-    /*Get Module topics*/
-    const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
-    const topicResponse = await resT.json();
-
-    let openedTopic;
-    if(topicResponse['topics'].length > 0){
-        openedTopic = topicResponse['topics'].find(function(topic:any) {
-            return topic.slug === topicSlug;
-        });
-
-        if(!openedTopic){
-            openedTopic = topicResponse['topics'][0];
-        }
-    }else{
-        openedTopic = {
-            "id": 0,
-            "title": "",
-            "content": "",
-            "module_id": 0,
-            "image": "",
-            "meta_tags": "",
-            "doc_id": 0,
-            "slug": ""
-        };
-    }
-
-
-    return {
-        props: {
-            doc: docResponse['documentation'],
-            mods: moduleResponse['modulesFound'],
-            top: topicResponse['topics'],
-            openedTopic
-        }
+        
     }
 }
