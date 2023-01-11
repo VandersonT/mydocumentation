@@ -65,6 +65,12 @@
 /*-----------------------------------*/
 /*DOCSBOX*/
 /*-----------------------------------*/
+.noDoc{
+    color: rgb(143, 143, 143);
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: -10px !important;
+}
 .docsBox{
     padding: 90px 0 0 0;
     margin: 0 auto;

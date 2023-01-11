@@ -10,16 +10,16 @@ import { Doc } from "../../types/Doc";
 //Components
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import { GetServerSideProps } from "next";
 /*----------------------------------------------*/
 
 type Props = {
-    docs: Doc[]
+    docs: Doc[],
+    search: string
 }
 
-const Docs = ({ docs }: Props) => {
+const Docs = ({ docs,search }: Props) => {
     
-    const { query } = useRouter(); //query.search
-
     const { state, dispatch } = useContext(Context);
 
     return (
@@ -48,7 +48,7 @@ const Docs = ({ docs }: Props) => {
             </Head>
 
             <Header link="/"/>
-
+            
             <main className={`${style.main} ${(state.theme.status == 'dark') ? themeMode.mainDark : ''}`}>
                 <div className={`${style.sideBar} ${(state.theme.status == 'dark') ? themeMode.sideBarDark : ''}`}>
                     <i className="fa-regular fa-envelope"></i>
@@ -60,20 +60,38 @@ const Docs = ({ docs }: Props) => {
                     
                 </div>
                 <div className={`${style.docsBox} ${(state.theme.status == 'dark') ? themeMode.docsBoxDark : ''} `}>
-                    <h1>All Docs ({docs.length})</h1>
+                    <h1>{(search) ? `Results for "${search}"` : 'All Docs'} ({docs.length})</h1>
                     <div className={style.docs}>
                         
-                        {docs.map((doc, index) => (
-                            <Link key={index} href={`/docs/${doc['slug']}/none`}>
-                                <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
-                                    <img src={doc['image']} />
-                                    <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
-                                        <h3>{doc['name']}</h3>
-                                        <p>{doc['description']}</p>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
+                        {docs.length > 0 &&
+                            <>
+                                {docs.map((doc, index) => (
+                                    <Link key={index} href={`/docs/${doc['slug']}/none`}>
+                                        <div className={`${style.docSingle} ${(state.theme.status == 'dark') ? themeMode.docSingleDark : ''}`}>
+                                            <img src={doc['image']} />
+                                            <div className={`${style.docSingle_Info} ${(state.theme.status == 'dark') ? themeMode.docSingle_InfoDark : ''}`}>
+                                                <h3>{doc['name']}</h3>
+                                                <p>{doc['description']}</p>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </>
+                        }
+
+                        {(search && docs.length < 1) &&
+                            <>
+                                <p className={style.noDoc}>No documentation for "{search}".</p> 
+                                <p className={style.noDoc}>Try again with a different keyword.</p>
+                            </>
+                        }
+
+                        {(!search && docs.length < 1) &&
+                            <>
+                                <p className={style.noDoc}>I'm very sorry! but we don't have any documentation available.</p> 
+                                <p className={style.noDoc}>Try another day again.</p>
+                            </>
+                        }
 
                     </div>
                 </div>
@@ -87,13 +105,30 @@ const Docs = ({ docs }: Props) => {
 
 export default Docs;
 
-export const getServerSideProps = async () => {
-    const res = await fetch('http://localhost:4000/docs');
-    const docsResponse = await res.json();
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    let search = context.query.search as string;
+
+    let res;
+    let docsResponse;
+    let docs;
+    if(search){
+        res = await fetch(`http://localhost:4000/docByName/${search}`);
+        docsResponse = await res.json();
+        docs = docsResponse['docFound'];
+    }else{
+        search = '';
+        res = await fetch('http://localhost:4000/docs');
+        docsResponse = await res.json();
+        docs = docsResponse['docs'];
+    }
+    
+    
 
     return {
         props: {
-            docs: docsResponse['docs']
+            docs,
+            search
         }
     }
 }

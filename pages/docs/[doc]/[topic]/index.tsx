@@ -169,7 +169,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                                                                             ${(state.theme.status == 'dark' && (openedTopic['id'] == top['id'])) ? themeMode.selectedDark : ''}
                                                                             ${(top['id'] === markedTopic) ? style.markedTopic : ''}`}
                                                                         >
-                                                                            <span className={style.mark}>{index+1}.{indexT+1}.</span> {top['title']}
+                                                                            {top['title']}
                                                                         </p>
                                                                     </Link>
                                                                 }

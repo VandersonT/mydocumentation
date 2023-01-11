@@ -50,7 +50,7 @@ const Header = ({ link }: Props) => {
                     <img className={style.logo} src={"http://localhost:3000/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')} alt="my documentation logo" />
                 </Link>
                 <div className={`${style.form} ${(state.theme.status == 'dark') ? themeMode.formDark : ''}`}>
-                    <input type="text" placeholder="Search for some documentation" onChange={handleSearch}/>
+                    <input type="text" placeholder="Search for some documentation" onChange={handleSearch} value={search}/>
                     <button>
                         <Link href={"/docs?search="+search} className={style.formButtond}><i className="fa-solid fa-magnifying-glass"></i></Link>
                     </button>
