@@ -26,12 +26,25 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
     /*----------------STATES-----------------------*/
     const { state, dispatch } = useContext(Context);
     const [ modules, setModules ] = useState<boolean[]>([false]);
+    const [ modulesMirror, setModulesMirror ] = useState<Module[]>([]);
+    const [ topicsMirror, setTopicsMirror ] = useState<Topic[]>([]);
     const [ menuMobileStatus, setMenuMobileStatus] = useState(true);
+    const [ searchTopic, setSearchTopic ] = useState('');
+    const [ markedTopic, setMarkedTopic ] = useState(0);
+    const [ topicWasFound, setTopicWasFound ] = useState(true);
+    const [ errorMessage, setErrorMessage ] = useState('');
     /*---------------------------------------------*/
 
     /*----------------EFFECTS-----------------------*/
     useEffect(()=>{
-        modules[openedTopic['module_id']-1] = true;//Open the current module.
+        setModulesMirror(mods);
+        setTopicsMirror(top);
+
+        /*Open the module of the currently topic open.*/
+        for(let i = 0; i < mods.length; i++)
+            if(mods[i]['id'] == openedTopic['module_id'])
+                modules[i] = true;
+            
     },[]);
     /*---------------------------------------------*/
 
@@ -49,6 +62,39 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
 
     const openMenuMobile = () => {
         setMenuMobileStatus(!menuMobileStatus);
+    }
+
+    const handlerSearchTopic = (e: React.FormEvent<HTMLInputElement>) => {
+        setSearchTopic(e.currentTarget.value);
+    }
+
+    const HaddlerSearchTopic = () => {
+        if(searchTopic != ""){
+
+            setTopicWasFound(false);
+            setErrorMessage(`No result for "${searchTopic}". Try again with a different keyword.`)
+            
+            for(let i = 0; i < top.length; i++){
+                if(top[i]['title'].indexOf(searchTopic) != -1){
+                    //console.log('Achei na posição '+i+" o modulo responsavel é o "+top[i]['module_id']);
+                    setTopicWasFound(true);
+                    for(let j = 0; j < mods.length; j++){
+                        if(mods[j]['id'] == top[i]['module_id']){
+                            setModulesMirror([ mods[j] ]);
+                            setMarkedTopic(top[i]['id']);
+                        }
+                    }
+                    break;
+                }
+            }
+            setModules([true]);
+
+        }else{
+            setModulesMirror(mods);
+            setMarkedTopic(0);
+            setTopicWasFound(true);
+        }
+
     }
     /*---------------------------------------------*/
     
@@ -86,8 +132,8 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                         <h3>{doc['name']}</h3>
                         
                         <div className={style.search}>
-                            <input type="text" placeholder="Search"/>
-                            <button><i className="fa-solid fa-magnifying-glass"></i></button>
+                            <input type="text" placeholder="Search" value={searchTopic} onChange={handlerSearchTopic}/>
+                            <button onClick={HaddlerSearchTopic}><i className="fa-solid fa-magnifying-glass"></i></button>
                         </div>
 
                         <button onClick={openMenuMobile} className={style.menuMobileBtn}>
@@ -97,36 +143,45 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
 
                         {menuMobileStatus &&
                             <div className={style.module}>
+                                
+                                {!topicWasFound &&
+                                    <p className={style.topicNotFound}>{errorMessage}</p>
+                                }
+                                
+                                {topicWasFound &&
+                                    <>
+                                        {modulesMirror.map((module, index) => (
+                                            <div key={index} className={`${style.moduleSingle}`}>
+                                                <h4 className={style.menuLink} onClick={()=>openModule(index)}>
+                                                    <span className={style.mark}>{index+1}.</span> {module['title']}
+                                                </h4>
 
-                                {mods.map((module, index) => (
-                                    <div key={index} className={`${style.moduleSingle}`}>
-                                        <h4 className={style.menuLink} onClick={()=>openModule(index)}>
-                                            <span className={style.mark}>{index+1}.</span> {module['title']}
-                                        </h4>
+                                                {modules[index] &&
+                                                    <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
+                                                        
+                                                        {topicsMirror.map((top, indexT)=>(
+                                                            <div key={indexT}>
+                                                                {top['module_id'] === module['id'] &&
+                                                                    <Link href={`/docs/${doc['slug']}/${top['slug']}`}>
+                                                                        <p className={`
+                                                                            ${style.menuLink}
+                                                                            ${(state.theme.status == 'light' && (openedTopic['id'] == top['id'])) ? style.selected : ''}
+                                                                            ${(state.theme.status == 'dark' && (openedTopic['id'] == top['id'])) ? themeMode.selectedDark : ''}
+                                                                            ${(top['id'] === markedTopic) ? style.markedTopic : ''}`}
+                                                                        >
+                                                                            <span className={style.mark}>{index+1}.{indexT+1}.</span> {top['title']}
+                                                                        </p>
+                                                                    </Link>
+                                                                }
+                                                            </div>
+                                                        ))}
 
-                                        {modules[index] &&
-                                            <div className={`${style.contentSingle} ${(state.theme.status == 'dark') ? themeMode.contentSingleDark : ''}`}>
-                                                
-                                                {top.map((top, indexT)=>(
-                                                    <div key={indexT}>
-                                                        {top['module_id'] === module['id'] &&
-                                                            <Link href={`/docs/${doc['slug']}/${top['slug']}`}>
-                                                                <p className={`
-                                                                    ${style.menuLink}
-                                                                    ${(state.theme.status == 'light' && (openedTopic['id'] == top['id'])) ? style.selected : ''}
-                                                                    ${(state.theme.status == 'dark' && (openedTopic['id'] == top['id'])) ? themeMode.selectedDark : ''}`}
-                                                                >
-                                                                    <span className={style.mark}>{index+1}.{indexT+1}.</span> {top['title']}
-                                                                </p>
-                                                            </Link>
-                                                        }
                                                     </div>
-                                                ))}
-
+                                                }
                                             </div>
-                                        }
-                                    </div>
-                                ))}
+                                        ))}
+                                    </>
+                                }
 
                             </div>
                         }

@@ -47,6 +47,12 @@
     background: transparent;
 }
 
+.topicNotFound{
+    color: rgb(107, 107, 107);
+    font-weight: 400;
+    margin-top: 20px;
+}
+
 /**Module**/
 .sideBar .module {
     width: 100%;
@@ -93,7 +99,10 @@
     color: rgb(133, 133, 133);
 }
 
-
+.markedTopic{
+    background-color: #ffff00 !important;
+    color: black !important;
+}
 
 /*-----------------------------------*/
 /*CONTENT*/
