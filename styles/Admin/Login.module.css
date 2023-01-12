@@ -90,6 +90,17 @@
     margin-bottom: 30px;
 }
 
+.flash{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(204, 16, 16);
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
 .loginBox label{
     font-size: 14px;
     color: #575757;

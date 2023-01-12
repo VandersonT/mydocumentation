@@ -1,33 +1,111 @@
 /*----------------IMPORTS-----------------------*/
-  import Head from 'next/head';
-  //Css's
-  import style from '../../styles/Admin/Login.module.css';
+    import Head from 'next/head';
+    import { useState } from 'react';
+    import Router from 'next/router'
+
+    //Css's
+    import style from '../../styles/Admin/Login.module.css';
 /*----------------------------------------------*/
 
 
 
 
 const Login = () => {
+    
+    /*------------------STATES----------------------*/
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ keepConnected, setKeepConnected ] = useState(false);
+    const [ error, setError ] = useState('');
+    const [ loading, setLoading ] = useState(false);
+    /*----------------------------------------------*/
+
+    /*----------------FUNCTIONS---------------------*/
+    const loginHandler = async (e:React.FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        if(email && password){
+
+            try{
+                setLoading(true);
+                
+                let res = await fetch("http://localhost:4000/login",{
+                    method: 'POST',
+                    body: new URLSearchParams({email, password}),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                });
+                
+                let json = await res.json();
+
+                setLoading(false);
+
+                if(json['error'] == ""){
+                    //Now you're logged in and received the token -> json['token']
+                    setError('');
+                    
+                    if(keepConnected){
+                        localStorage.setItem('token', json['token']);
+                        sessionStorage.removeItem("token");
+                    }else{
+                        sessionStorage.setItem("token", json['token']);
+                        localStorage.removeItem('token');
+                    }
+
+                    Router.push('/Panel');
+                }else{
+                    //Login failed, and you received a error message -> json['error']
+                    setError(json['error']);
+                }
+
+            }catch(error){
+                Router.push('/error');
+            }
+        }
+    }
+
+    const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    }
+
+    const handlerPass = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    }
+    const handlerKeepConnected = () => {
+        setKeepConnected(!keepConnected);
+    }
+    /*----------------------------------------------*/
+
     return (
         <>
             <Head>
                 <title>Login - MyDocumentation</title>
+                <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+                />
             </Head>
             <section className={style.main}>
 
                 <img className={style.loginSvg} src="/assets/svgs/loginSvg.png" />
                 <form className={style.loginBox}>
                     <h2>Panel</h2>
+                    {error &&
+                        <p className={`${style.flash} animate__animated animate__bounceIn`}>{error}</p>
+                    }
                     <label>Email</label>
-                    <input type="email" name="emailI" placeholder="example@gmail.com" />
+                    <input type="email" name="emailI" placeholder="example@gmail.com" onChange={handlerEmail} value={email}/>
                     <label>Password</label>
-                    <input type="password" placeholder="**********" />
+                    <input type="password" placeholder="**********" onChange={handlerPass} value={password}/>
                     <div className={style.formOptions}>
                         <div className={style.keepConnected}>
-                            <input type="checkbox" />
+                            <input type="checkbox" onClick={handlerKeepConnected} />
                             <span>Keep Connected</span>
                         </div>
-                        <button>Login</button>
+                        <button onClick={loginHandler}>
+                            {(loading) ? 'Loading...' : 'Login'}
+                        </button>
                     </div>
                 </form>
 
