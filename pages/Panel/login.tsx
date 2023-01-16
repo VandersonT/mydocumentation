@@ -2,9 +2,11 @@
     import Head from 'next/head';
     import { useState } from 'react';
     import Router from 'next/router'
+    import { setCookie, parseCookies } from 'nookies'
 
     //Css's
     import style from '../../styles/Admin/Login.module.css';
+    import { GetServerSideProps } from 'next';
 /*----------------------------------------------*/
 
 
@@ -46,11 +48,15 @@ const Login = () => {
                     setError('');
                     
                     if(keepConnected){
-                        localStorage.setItem('token', json['token']);
-                        sessionStorage.removeItem("token");
+                        setCookie(null, 'token', json['token'], {
+                            maxAge: 86400 * 30,
+                            path: '/',
+                        })
                     }else{
-                        sessionStorage.setItem("token", json['token']);
-                        localStorage.removeItem('token');
+                        setCookie(null, 'token', json['token'], {
+                            maxAge: 3600,
+                            path: '/',
+                        })
                     }
 
                     Router.push('/Panel');
@@ -119,3 +125,22 @@ const Login = () => {
 }
 
 export default Login;
+
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    const cookies = parseCookies(context);
+
+    if(cookies.token){
+        return {
+            redirect: {
+                destination: '/Panel',
+                permanent: false,
+            },
+        }
+    }
+    
+    return {
+        props: {}
+    }
+}
