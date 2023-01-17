@@ -1,7 +1,12 @@
 /*----------------IMPORTS-----------------------*/
     import { GetServerSideProps } from 'next';
+    import Head from 'next/head';
     import  Router from 'next/router';
     import { destroyCookie, parseCookies } from 'nookies';
+    
+    //Components
+    import { Layout } from '../../Layouts';
+
     //Css's
     import style from '../../styles/Admin/Panel.module.css';
 /*----------------------------------------------*/
@@ -10,17 +15,18 @@
 
 
 const Panel = () => {
-    
-    const logOut = () => {
-        destroyCookie(undefined, 'token');
-        Router.push('/Panel/login');
-    }
 
     return (
-        <>
-            <p className={style.teste}>trr</p>
-            <button onClick={logOut}>sair</button>
-        </>
+        <Layout>
+            <>
+                <Head>
+                    <title>Dashboard - Panel</title>
+                </Head>
+                <main>
+                    text example!!!
+                </main>
+            </>
+        </Layout>
     )
 }
 

@@ -1,0 +1,15 @@
+.content{
+    width: calc(100vw - 180px);
+    min-height: 100vh;
+    position: relative;
+    left: 180px;
+    position: relative;
+    z-index: 1;
+}
+
+@media screen and (max-width: 930px){
+    .content{
+        width: 100vw;
+        left: 0;
+    }
+}

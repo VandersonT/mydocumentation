@@ -1,0 +1,76 @@
+.menuBox{
+    background-color: #1B202F;
+    width: 180px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    overflow-y: auto;
+    padding-bottom: 15px;
+}
+
+.panelLogo{
+    width: 100%;
+    height: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #31373B;
+    margin-bottom: 25px;
+}
+
+.menu{
+    color: #ffffff;
+}
+
+.logOut,
+.menu li{
+    list-style: none;
+    cursor: pointer;
+    padding: 13px 0;
+    padding-left: 20px;
+}
+
+.menu li:hover:not(.logOut),
+.selected{
+    background-color: #2271B1;
+}
+
+.logOut i,
+.menu li i{
+    margin-right: 5px;
+}
+
+.logOut{
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #B32D2E;
+    font-size: 16px;
+}
+
+.btnMenuMobile{
+    display: none;
+    position: fixed;
+    top: 45%;
+    z-index: 3;
+    font-size: 30px;
+    color: #0e111b;
+    background: transparent;
+}
+
+.menuOpened{
+    left: 180px;
+}
+
+
+.menuClosed{
+    left: 0;
+}
+
+@media screen and (max-width: 930px){
+    .btnMenuMobile{
+        display: block;
+    }
+}
