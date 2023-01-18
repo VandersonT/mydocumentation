@@ -6,7 +6,11 @@ import { useState } from 'react';
 import style from './MenuPanel.module.css';
 /*----------------------------------------------*/
 
-const MenuPanel = () => {
+type Props = {
+    selected?: string
+}
+
+const MenuPanel = ({ selected }: Props) => {
 
     const [ showMenu, setShowMenu ] = useState(true);
 
@@ -34,12 +38,27 @@ const MenuPanel = () => {
                     </div>
 
                     <ul className={style.menu}>
-                        <Link href="/"><li className={style.selected}><i className="fa-solid fa-chart-pie"></i> Dashboard</li></Link>
-                        <Link href="/"><li><i className="fa-solid fa-file"></i> Pages</li></Link>
-                        <Link href="/"><li><i className="fa-brands fa-dochub"></i> Documentations</li></Link>
-                        <Link href="/"><li><i className="fa-solid fa-user"></i> Membros</li></Link>
-                        <Link href="/"><li><i className="fa-solid fa-photo-film"></i> Media</li></Link>
-                        <Link href="/"><li><i className="fa-solid fa-desktop"></i> System</li></Link>
+                        <Link href="/Panel">
+                            <li className={(selected == 'dashboard') ? style.selected : ''}>
+                                <i className="fa-solid fa-chart-pie"></i> Dashboard
+                            </li>
+                        </Link>
+
+                        <Link href="/Panel/pages">
+                            <li className={(selected == 'pages') ? style.selected : ''}><i className="fa-solid fa-file"></i> Pages</li>
+                        </Link>
+                        <Link href="/Panel/docs">
+                            <li className={(selected == 'docs') ? style.selected : ''}><i className="fa-brands fa-dochub"></i> Documentations</li>
+                        </Link>
+                        <Link href="/Panel/members">
+                            <li className={(selected == 'members') ? style.selected : ''}><i className="fa-solid fa-user"></i> Members</li>
+                        </Link>
+                        <Link href="/Panel/media">
+                            <li className={(selected == 'media') ? style.selected : ''}><i className="fa-solid fa-photo-film"></i> Media</li>
+                        </Link>
+                        <Link href="/">
+                            <li ><i className="fa-solid fa-desktop"></i> System</li>
+                        </Link>
                         <button className={style.logOut} onClick={logOut}><i className="fa-solid fa-door-open"></i>Log out</button>
                     </ul>
                 </div>

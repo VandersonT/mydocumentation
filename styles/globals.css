@@ -26,3 +26,8 @@ button{
   border: 0;
   cursor: pointer;
 }
+
+.container {
+  padding: 40px 79px;
+  margin: 0 auto;
+}

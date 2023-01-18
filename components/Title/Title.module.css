@@ -1,0 +1,13 @@
+.title{
+    color: #283368;
+    font-weight: 500;
+}
+
+.tittle_center{
+    text-align: center;
+}
+
+.line{
+    width: 63px;
+    border-bottom: 2px solid #12D0D0;
+}

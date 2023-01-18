@@ -3,6 +3,7 @@
     import Head from 'next/head';
     import  Router from 'next/router';
     import { destroyCookie, parseCookies } from 'nookies';
+import { Title } from '../../components/Title';
     
     //Components
     import { Layout } from '../../Layouts';
@@ -17,13 +18,13 @@
 const Panel = () => {
 
     return (
-        <Layout>
+        <Layout selected="dashboard">
             <>
                 <Head>
                     <title>Dashboard - Panel</title>
                 </Head>
                 <main>
-                    text example!!!
+                    <Title content="Dashboard" side="left" />
                 </main>
             </>
         </Layout>

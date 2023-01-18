@@ -4,13 +4,14 @@ import style from './Layout.module.css';
 
 type Props = {
     children: ReactElement
+    selected?: string
 }
 
-export const Layout = ({ children }: Props) => {
+export const Layout = ({ children, selected }: Props) => {
 
     return (
-        <div>
-            <MenuPanel />
+        <div className="container">
+            <MenuPanel selected={selected} />
             <div className={style.content}>
                 {children}
             </div>
