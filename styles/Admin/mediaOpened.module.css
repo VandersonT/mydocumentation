@@ -1,0 +1,108 @@
+.main {
+    background-color: rgba(0, 0, 0, 0.81);
+    width: 100vw;
+    height: 90vh;
+    left: 0px;
+    top: 0px;
+}
+
+.container {
+    position: absolute;
+    width: 95vw;
+    height: 83vh;
+    margin-left: 2em;
+    margin-top: 1.5em;
+    background: #FFFFFF;
+}
+
+.header {
+    position: absolute;
+    width: 95vw;
+    height: 7vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.header h3 {
+    color: #1D2327;
+    padding: 0.8em;
+    word-wrap: break-word;
+}
+
+.header button {
+    margin: 0.8em;
+    background-color: #FFFFFF;
+}
+
+.content {
+    left: 2.2em;
+    box-sizing: border-box;
+    width: 65vw;
+    height: 75vh;
+    margin-top: 2.8em;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.content button {
+    width: 85px;
+    height: 30px;
+    background: #FFFFFF;
+    border: 1px solid #B32D2E;
+    border-radius: 3px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #B32D2E;
+}
+
+.sidebar {
+    position: fixed;
+    right: 2.2em;
+    box-sizing: border-box;
+    width: 32.5vw;
+    height: 75vh;
+    top: 4.5em;
+    background: #F6F7F7;
+    border-left: 1px solid #CDCDCD;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.sidebar input {
+    width: 311px;
+    height: 35px;
+    left: 948px;
+    top: 159px;
+    background: #FFFFFF;
+    border: 1px solid #ADADAD;
+    border-radius: 5px;
+}
+
+.url {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.url button {
+    width: 135px;
+    height: 26px;
+    background: #F6F7F7;
+    border: 1px solid #2271B1;
+    border-radius: 3px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 11px;
+    color: #2271B1;
+}
