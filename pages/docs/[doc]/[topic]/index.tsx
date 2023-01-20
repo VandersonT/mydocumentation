@@ -76,7 +76,6 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
             
             for(let i = 0; i < top.length; i++){
                 if(top[i]['title'].indexOf(searchTopic) != -1){
-                    //console.log('Achei na posição '+i+" o modulo responsavel é o "+top[i]['module_id']);
                     setTopicWasFound(true);
                     for(let j = 0; j < mods.length; j++){
                         if(mods[j]['id'] == top[i]['module_id']){
@@ -136,13 +135,13 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                             <button onClick={HaddlerSearchTopic}><i className="fa-solid fa-magnifying-glass"></i></button>
                         </div>
 
-                        <button onClick={openMenuMobile} className={style.menuMobileBtn}>
+                        <button onClick={openMenuMobile} className={`${style.menuMobileBtn} ${(state.theme.status == 'dark') ? themeMode.menuMobileBtnDark : ''}`}>
                             {(menuMobileStatus) ? <i className="fa-solid fa-caret-down"></i> : <i className="fa-solid fa-caret-right"></i> }
                             <span>Menu</span>
                         </button>
 
                         {menuMobileStatus &&
-                            <div className={style.module}>
+                            <div className={`${style.module} ${(state.theme.status == 'dark') ? themeMode.moduleDark : ''}`}>
                                 
                                 {!topicWasFound &&
                                     <p className={style.topicNotFound}>{errorMessage}</p>
@@ -190,7 +189,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                 
                 <div className={`${style.content} ${(state.theme.status == 'dark') ? themeMode.contentDark : ''}`}>
                     {!openedTopic['title'] &&
-                        <h2>
+                        <h2 className={`${style.flash} ${(state.theme.status == 'dark') ? themeMode.flashDark : ''}`}>
                             Essa documentação ainda não tem conteúdo.
                         </h2>
                     }

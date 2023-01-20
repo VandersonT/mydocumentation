@@ -39,13 +39,7 @@ const MenuPanel = ({ selected }: Props) => {
 
                     <ul className={style.menu}>
                         <Link href="/Panel">
-                            <li className={(selected == 'dashboard') ? style.selected : ''}>
-                                <i className="fa-solid fa-chart-pie"></i> Dashboard
-                            </li>
-                        </Link>
-
-                        <Link href="/Panel/pages">
-                            <li className={(selected == 'pages') ? style.selected : ''}><i className="fa-solid fa-file"></i> Pages</li>
+                            <li className={(selected == 'dashboard') ? style.selected : ''}><i className="fa-solid fa-chart-pie"></i> Dashboard</li>
                         </Link>
                         <Link href="/Panel/docs">
                             <li className={(selected == 'docs') ? style.selected : ''}><i className="fa-brands fa-dochub"></i> Documentations</li>

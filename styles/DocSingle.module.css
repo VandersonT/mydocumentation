@@ -10,11 +10,12 @@
 /*-----------------------------------*/
 .menuMobileBtn{
     display: none;
+    color: #1d1d1d;
 }
 
 .sideBar{
     width: 320px;
-    height: 820px;
+    min-height: 600px;
     background: linear-gradient(180deg, rgba(246,246,246,1) 44%, rgba(255,255,255,1) 66%);
     padding: 50px 20px 0 20px;
     text-align: center;
@@ -120,6 +121,11 @@
     margin-bottom: 30px;
 }
 
+.flash{
+    color: rgb(61, 61, 61);
+    font-weight: 400;
+}
+
 .content p {
     font-size: 19px;
     color: #6D6D6D;
@@ -143,7 +149,7 @@
     }    
     .sideBar{
         width: 100%;
-        height: auto;
+        min-height: auto;
         max-height: 75vh;
         overflow-y: auto;
         display: flex;
@@ -152,8 +158,7 @@
         position: relative;
         z-index: 2;
         padding: 0;
-        background-color: rgb(81, 177, 3);
-        border-bottom: 1px solid #D1D1D1;
+        border-bottom: 2px solid #D1D1D1;
     }
     .sideBarBox{
         background-color: #ffffff;
@@ -197,7 +202,8 @@
         bottom: 0;
     }
     .content{
-        padding: 50px 20px 0 0;
+        padding: 50px 20px 40px 0;
+        margin-bottom: 0;
     }
     .menuMobileBtn{
         display: inline;

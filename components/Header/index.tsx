@@ -62,7 +62,7 @@ const Header = ({ link }: Props) => {
             </div>
 
             <div className={style.headerMobile}>
-                <div className={style.header}>
+                <div className={`${style.header} ${(state.theme.status == 'dark') ? themeMode.headerDark : ''}`}>
                     <div></div>
                     <Link href="/">
                         <img src="http://localhost:3000/assets/images/icon1.png" alt="my documentation logo" />
@@ -71,7 +71,7 @@ const Header = ({ link }: Props) => {
                         {(state.theme.status == 'light') ? <i className="fa-solid fa-cloud-moon"></i> : <i className="fa-solid fa-cloud-sun"></i>}
                     </div>
                 </div>
-                <div className={style.searchBox}>
+                <div className={`${style.searchBox} ${(state.theme.status == 'dark') ? themeMode.searchBoxDark : ''}`}>
                     <input type="text" placeholder="Search for some documentation" />
                     <button> <i className="fa-solid fa-magnifying-glass"></i></button>
                 </div>
