@@ -1,3 +1,259 @@
-.teste{
-    background-color: red;
+/*welcome*/
+.welcome{
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+}
+
+.welcomeMsg{
+    margin: 0 50px;
+}
+
+.welcomeMsg h3{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.welcomeMsg p{
+    margin-bottom: 25px;
+    color: #868686;
+}
+
+.welcomeMsg .buttonHelp{
+    margin-bottom: 15px;
+    color: #FFFFFF;
+    background-color: #4949DE;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.welcomeMsg i{
+    margin-right: 5px;
+}
+
+
+
+/*Status UP*/
+.status{
+    width: 100%;
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rightStatus{
+    width: calc(55% - 20px);
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    height: 420px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    padding: 37px;
+}
+
+.rightStatus h3{
+    font-size: 16px;
+    font-weight: 400;
+    border-bottom: 1px solid #CACACA;
+    padding-bottom: 8px;
+    margin-bottom: 29px;
+}
+
+.rightStatus h3 i{
+    margin-right: 5px;
+    font-size: 15px;
+}
+
+.rightStatus .form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.rightStatus input {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 12px;
+    width: 317px;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+.rightStatus .form button{
+    background-color: #3798F2;
+    color: #FFFFFF;
+    padding: 7px 13px;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-top: 12px;
+}
+
+.rightStatus .form button i{
+    font-size: 12px;
+}
+
+
+.rightStatus table{
+    width: 100%;
+    border: 1px solid #CFCFCF;
+    font-size: 15px;
+    margin-top: 45px;
+    border-collapse: collapse;
+}
+
+.rightStatus th{
+    background-color: #4949DE;
+    border: 1px solid #CFCFCF;
+    color: #FFFFFF;
+    font-weight: 400;
+    padding: 3px;
+}
+
+
+.rightStatus td{
+    border-right: 1px solid #CFCFCF;
+    border-bottom: 1px solid #CFCFCF;
+    border-top: 0;
+    text-align: center;
+    padding: 3px;
+}
+
+.tableControl{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tableControl button{
+    background-color: #3798F2;
+    color: #FFFFFF;
+    padding: 5px 15px;
+    font-size: 15px;
+    border-radius: 2px;
+    margin-top: 12px;
+}
+
+.tableControl .buttonDisabled{
+    background: #DAD8D8;
+}
+
+.leftStatus{
+    width: calc(45% - 20px);
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mostViewed{
+    width: 100%;
+    height: 263px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 8px;
+    padding: 37px;
+}
+
+.mostViewed h3{
+    font-size: 16px;
+    font-weight: 400;
+    border-bottom: 1px solid #CACACA;
+    padding-bottom: 8px;
+    margin-bottom: 29px;
+}
+
+.mostViewed i{
+    color: #46BB33;
+    margin-right: 5px;
+    font-size: 15px;
+}
+
+.mostViewed ul li{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    color: #6D6D6D;
+    margin-bottom: 14px;
+    font-size: 15px;
+}
+
+
+.mostViewed ul li span:nth-child(2){
+    color: #46BB33;
+}
+
+.info{
+    width: 100%;
+    height: 143px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 8px;
+}
+
+
+/*Status DOWM*/
+.info{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.infoSingle{
+    text-align: center;
+}
+
+.infoSingle_amount{
+    background-color: #E3832B;
+    color: #FFFFFF;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50px;
+    margin-bottom: 7px;
+}
+
+
+
+/*Control*/
+.control{
+    height: 169px;
+    margin-top: 31px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.control img{
+    width: 224px;
+    height: 108px;
+}
+
+.controlBox{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.controlBox button{
+    background-color: #4949DE;
+    color: #FFFFFF;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.controlBox p{
+    color: #696969;
 }

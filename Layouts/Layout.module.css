@@ -5,6 +5,8 @@
     left: 180px;
     position: relative;
     z-index: 1;
+    padding: 40px 70px;
+    background-color: #F3F3F3;
 }
 
 @media screen and (max-width: 930px){

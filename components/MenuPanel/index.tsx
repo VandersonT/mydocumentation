@@ -56,9 +56,9 @@ const MenuPanel = ({ selected }: Props) => {
                         <Link href="/Panel/media">
                             <li className={(selected == 'media') ? style.selected : ''}><i className="fa-solid fa-photo-film"></i> Media</li>
                         </Link>
-                        <Link href="/">
+                        <a target="_blank" href="/">
                             <li ><i className="fa-solid fa-desktop"></i> System</li>
-                        </Link>
+                        </a>
                         <button className={style.logOut} onClick={logOut}><i className="fa-solid fa-door-open"></i>Log out</button>
                     </ul>
                 </div>

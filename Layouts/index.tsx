@@ -10,7 +10,7 @@ type Props = {
 export const Layout = ({ children, selected }: Props) => {
 
     return (
-        <div className="container">
+        <div>
             <MenuPanel selected={selected} />
             <div className={style.content}>
                 {children}
