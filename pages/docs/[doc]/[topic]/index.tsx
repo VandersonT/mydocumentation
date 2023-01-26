@@ -190,7 +190,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                 <div className={`${style.content} ${(state.theme.status == 'dark') ? themeMode.contentDark : ''}`}>
                     {!openedTopic['title'] &&
                         <h2 className={`${style.flash} ${(state.theme.status == 'dark') ? themeMode.flashDark : ''}`}>
-                            Essa documentação ainda não tem conteúdo.
+                            This documentation has no content yet.
                         </h2>
                     }
                     <h1>{openedTopic['title']}</h1>

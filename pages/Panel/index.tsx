@@ -3,8 +3,11 @@
     import Head from 'next/head';
     import  Router from 'next/router';
     import { destroyCookie, parseCookies } from 'nookies';
+    import { useEffect } from 'react';
     import { Title } from '../../components/Title';
-    
+    import { User }  from '../../types/User';
+    import { authentication } from '../../helpers/teste';
+
     //Components
     import { Layout } from '../../Layouts';
 
@@ -13,9 +16,18 @@
 /*----------------------------------------------*/
 
 
+type Props = {
+    loggedUser: User
+}
 
-
-const Panel = () => {
+const Panel = ({ loggedUser }: Props) => {
+    
+    useEffect(()=>{
+        if(!loggedUser){
+            destroyCookie(undefined, 'token');
+            Router.push('/Panel/login');
+        }
+    },[])
 
     return (
         <>
@@ -24,6 +36,7 @@ const Panel = () => {
                 <Head>
                     <title>Dashboard - Panel</title>
                 </Head>
+
                 <main className={style.main}>
                     <Title content="Dashboard" side="left" />
 
@@ -140,3 +153,20 @@ const Panel = () => {
 }
 
 export default Panel;
+
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+    
+    /*Get cookies*/
+    const cookies = parseCookies(context);
+
+    /*Try to authenticate*/
+    let user = await authentication(cookies.token);
+
+    /*Final Result*/
+    return {
+        props: {
+            loggedUser: user['userFound'] || null
+        }
+    }
+}
