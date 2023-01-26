@@ -1,0 +1,53 @@
+.table{
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.table th {
+    text-align: left;
+    font-weight: 400;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    padding: 8px 15px;
+}
+
+.table td{
+    padding: 10px 10px 10px 15px ;
+    height: 100px;
+    height: 100px;
+}
+
+.table td p{
+    color: #2271B1;
+    font-size: 15px;
+    margin-bottom: 4px;cursor: pointer;
+}
+
+.table tr {
+    background-color: #FFFFFF;
+}
+
+.table tr:nth-child(even) {
+    background-color: #F6F7F7;
+}
+
+.tdButtonBox button{
+    background-color: transparent;
+    color: #2271B1;
+}
+
+.tdButtonBox button:nth-child(2){
+    padding: 0 7px;
+    margin: 0 7px;
+    color: #B32D2E !important;
+    border-right: 1px solid gray;
+    border-left: 1px solid gray;
+}
+
+.table td:nth-child(1){
+    width: 35%;
+    vertical-align: top;
+    padding-top: 30px;
+}
