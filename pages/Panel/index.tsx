@@ -4,12 +4,12 @@
     import  Router from 'next/router';
     import { destroyCookie, parseCookies } from 'nookies';
     import { useEffect } from 'react';
-    import { Title } from '../../components/Title';
     import { User }  from '../../types/User';
     import { authentication } from '../../helpers/teste';
 
     //Components
     import { Layout } from '../../Layouts';
+    import { Title } from '../../components/Title';
 
     //Css's
     import style from '../../styles/Admin/Panel.module.css';
@@ -38,7 +38,7 @@ const Panel = ({ loggedUser }: Props) => {
                 </Head>
 
                 <main className={style.main}>
-                    <Title content="Dashboard" side="left" />
+                    <Title content="Dashboard" />
 
                     <section className={style.welcome}>
                         <div>

@@ -1,0 +1,39 @@
+.errorBox{
+    width: max-content;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-left: 6px solid #EE5D5C;
+    background-color: #FFFFFF;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 50px;
+}
+
+.errorBox i{
+    font-size: 35px;
+    color: #EE5D5C;
+    margin-right: 20px;
+}
+
+.errorBox_info{
+    margin-right: 117px;
+}
+
+.errorBox_info h3{
+    font-size: 19px;
+    color: #2C2A2A;
+    font-weight: 400;
+}
+
+.errorBox_info p{
+    font-size: 15px;
+    color: #969696;
+}
+
+.errorBox button{
+    color: #969696;
+    background-color: transparent;
+    font-size: 14px;
+}

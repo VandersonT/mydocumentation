@@ -3,6 +3,7 @@ import style from '../../../../styles/Admin/Topic.module.css';
 import JoditEditor from 'jodit-react';
 import { useRef, useState } from 'react';
 import HTMLReactParser from 'html-react-parser';
+import Link from 'next/link';
 
 const Jodit = () => {
 
@@ -22,7 +23,7 @@ const Jodit = () => {
     return (
         <>
             <section className={style.mainTitle}>
-                <i className="fa-solid fa-rotate-left"></i>
+                <Link href="/Panel/docs/php_documentation"><i className="fa-solid fa-rotate-left"></i></Link>
                 <h1>PHP Documentation <i className={`fa-solid fa-pen-to-square ${style.editIcon}`}></i></h1>
                 <button className={style.save}>Save</button>
             </section>
