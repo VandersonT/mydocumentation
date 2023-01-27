@@ -1,5 +1,6 @@
 .content{
     width: calc(100vw - 180px);
+    max-width: calc(1400px - 180px);
     min-height: 100vh;
     position: relative;
     left: 180px;

@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/500.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/500.tsx", "pages/Panel/docs/[doc]/Jodit.js", "pages/Panel/docs/[doc]/[topic].tsx"],
   "exclude": ["node_modules"]
 }
