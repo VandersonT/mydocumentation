@@ -2,15 +2,16 @@ import { Layout } from '../../../../Layouts';
 import style from '../../../../styles/Admin/Topic.module.css';
 import JoditEditor from 'jodit-react';
 import { useRef, useState } from 'react';
+import HTMLReactParser from 'html-react-parser';
 
 const Jodit = () => {
 
     const editor = useRef(null);
-    const [ content, setContent ] = useState('teste');
+    const [ content, setContent ] = useState('');
 
     const config = {
         readonly: false,
-        height: 400
+        height: 500
     };
 
     const handlerUpdate = (event) => {
@@ -20,13 +21,27 @@ const Jodit = () => {
 
     return (
         <>
-            <div className={style.mainTitle}>
+            <section className={style.mainTitle}>
                 <i className="fa-solid fa-rotate-left"></i>
                 <h1>PHP Documentation <i className={`fa-solid fa-pen-to-square ${style.editIcon}`}></i></h1>
-                <div></div>
-            </div>
+                <button className={style.save}>Save</button>
+            </section>
 
-            <div className={style.app}>
+            <section className={style.metaTags}>
+                <h3>Meta Tags</h3>
+                <div className={style.struct}>
+                    <div className={style.col}>
+                        <input type="text" placeholder="Type a title"/>
+                        <textarea placeholder="Type a description"></textarea>
+                    </div>
+                    <div className={style.col}>
+                        <textarea placeholder="type metatags here (ex: carro, veiculo)"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <section className={style.editor}>
+                <h3 className={style.TitleSection}>Editor</h3>
                 <JoditEditor
                     ref={editor}
                     value={content}
@@ -34,11 +49,15 @@ const Jodit = () => {
                     onBlur={newContent => setContent(newContent)}
                     onChange={(newContent) => {}}
                 />
-            </div>
+            </section>
 
-            <div className={style.showResult}>
-                {content}
-            </div>
+            <section className={style.showResultBox}>
+                <h3 className={style.TitleSection}>Preview</h3> 
+                
+                <div className={style.showResult}>
+                   { HTMLReactParser(content)}
+                </div>
+            </section>
 
         </>
     );
