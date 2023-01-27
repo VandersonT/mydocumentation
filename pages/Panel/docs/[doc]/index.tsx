@@ -16,7 +16,11 @@ const Doc = () => {
 
         /*Close all and open just clicked TopicBox*/
         let aux = [false];
-        aux[index] = true;
+
+        if(!topicBoxOpened[index])
+            aux[index] = true;
+        
+        
         setTopicBoxOpened(aux);
     } 
 
@@ -52,7 +56,7 @@ const Doc = () => {
 
                                     {topicOpened[0] &&
                                         <div className={style.linkOptions}>
-                                            <Link href="/">
+                                            <Link href="/Panel/docs/php_documentation/teste">
                                                 <button>View</button>
                                             </Link>
                                             <button>Rename</button>
@@ -81,7 +85,7 @@ const Doc = () => {
                     <div className={style.moduleSingle}>
                         <div className={style.moduleSingle_title} onClick={() => openTopicBox(1)}>
                             <h3>Iniciando com PHP</h3>
-                            <i className="fa-solid fa-minus"></i>
+                            <i className="fa-solid fa-plus"></i>
                         </div>
 
                         {topicBoxOpened[1] &&

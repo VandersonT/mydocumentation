@@ -20,6 +20,7 @@
     align-items: center;
     cursor: pointer;
     padding: 15px;
+    user-select:none;
 }
 
 .moduleSingle h3{
@@ -57,6 +58,7 @@
     margin-bottom: 9px;
     cursor: pointer;
     width: max-content;
+    user-select:none;
 }
 
 .linkOptions button{
