@@ -27,3 +27,22 @@ button{
   border: 0;
   cursor: pointer;
 }
+
+/*-----------------SCROLL-BAR---------------*/
+::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: rgb(165, 165, 165);
+}
+
+::-webkit-scrollbar-button{
+  display: none;
+}
+::-webkit-scrollbar-thumb{
+  background-color: rgb(61, 61, 61);
+  border-radius: 5px;
+}
+/*------------------------------------------*/

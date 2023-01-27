@@ -1,0 +1,17 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.return{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.title{
+    text-align: center;
+    color: #283368;
+    font-weight: 500;
+    font-size: 30px;
+}

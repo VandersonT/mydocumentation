@@ -1,0 +1,66 @@
+.modulesBox{
+    margin-top: 73px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.moduleSingle{
+    width: 710px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin-bottom:15px;
+    border-radius: 5px;
+}
+
+
+.moduleSingle_title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.moduleSingle h3{
+    font-size: 17px;
+    color: #3C3C3C;
+    font-weight: 400;
+}
+
+.menuToggle{
+    padding: 0 15px 5px 15px;
+}
+
+.moduleOptions{
+    padding: 3px 0;
+    border-top: 1px solid rgb(207, 207, 207);
+    border-bottom: 1px solid rgb(207, 207, 207);
+    margin-bottom: 21px;
+}
+
+
+.moduleOptions button{
+    background-color: transparent;
+    margin-right: 12px;
+    color: #2271B1;
+    font-size: 13px;
+}
+
+.deleteColor{
+    color: #B72525 !important;
+}
+
+.link{
+    font-size: 15px;
+    color: #2271B1;
+    margin-bottom: 9px;
+    cursor: pointer;
+    width: max-content;
+}
+
+.linkOptions button{
+    background-color: transparent;
+    margin-right: 9px;
+    color: #464646;
+}

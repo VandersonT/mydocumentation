@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
-import MenuPanel from "../../components/MenuPanel";
-import { Title } from "../../components/Title";
-import { Layout } from "../../Layouts";
-import style from '../../styles/Admin/Docs.module.css';
+import MenuPanel from "../../../components/MenuPanel";
+import { Title } from "../../../components/Title";
+import { Layout } from "../../../Layouts";
+import style from '../../../styles/Admin/Docs.module.css';
 
 const Docs = () => {
 
@@ -31,7 +31,7 @@ const Docs = () => {
                 </Head>
                 <Title content="Documentations" buttonPath="/" />
 
-                <p>All documentation (5)</p>
+                <p className={style.mainTitle}>All documentation (5)</p>
                 <div>
                     <table className={style.table}>
                         <tbody>
@@ -42,7 +42,7 @@ const Docs = () => {
                             </tr>
                             <tr onMouseMove={ () => openMenu(0)} onMouseLeave={() => closeMenu(0)}>
                                 <td>
-                                    <Link href=""><p className={style.pointer}>PHP Documentation</p></Link>
+                                    <Link href="/Panel/docs/php_documentation"><p className={style.pointer}>PHP Documentation</p></Link>
                                     
                                     {docButtonBox[0] &&
                                         <div className={style.tdButtonBox}>
