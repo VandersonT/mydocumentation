@@ -11,7 +11,7 @@ const Members = () => {
                 <Head>
                     <title>Members - Panel</title>
                 </Head>
-                <Title content="Members" buttonPath="/" />
+                <Title content="Members" buttonPath="/Panel/add_member" />
                 
                 <p className={style.subTitle}>All members (3)</p>
                 <table className={style.table}>
