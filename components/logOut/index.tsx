@@ -18,7 +18,7 @@ const LogOut = ({ cancelLO }: Props) => {
 
     return (
         <div className={style.flashBox}>
-            <img src="./assets/images/logout.png" alt="" />
+            <img src="http://localhost:3000/assets/images/logout.png" alt="" />
             <div className={style.flashBox_info}>
                 <h3>Are you sure?</h3>
                 <p>Are you sure you want to log out of this account?

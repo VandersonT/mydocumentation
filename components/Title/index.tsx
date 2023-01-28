@@ -15,9 +15,11 @@ export const Title = ({ content, buttonPath }: Props) => {
                 </h1>
                 <div className={style.line}></div>
             </div>
-            <Link href={(buttonPath) ? buttonPath : '/'}>
-                <button className={style.button}>Add new</button>
-            </Link>
+            {buttonPath &&
+                <Link href={buttonPath}>
+                    <button className={style.button}>Add new</button>
+                </Link>
+            }
         </div>
     )
 }
