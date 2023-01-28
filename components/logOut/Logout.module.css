@@ -1,0 +1,52 @@
+.flashBox{
+    width: 385px;
+    background: #FFFFFF;
+    position: fixed;
+    left: 45%;
+    top: 20px;
+    z-index: 4;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+}
+
+.flashBox img{
+    width: 52px;
+    height: 52px;
+    margin-right: 10px;
+}
+
+.flashBox h3{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2B2B2B;
+    margin-bottom: 5px;
+}
+
+.flashBox p {
+    color: #696969;
+    font-size: 15px;
+}
+
+.buttonBox{
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+.cancelButton{
+    background-color: transparent;
+    color: #AC2525;
+    border: 1px solid #AC2525;
+    border-radius: 3px;
+    margin-right: 10px;
+    padding: 4px 10px;
+}
+
+.logOutButton{
+    background-color: #AC2525;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #ffffff;
+}

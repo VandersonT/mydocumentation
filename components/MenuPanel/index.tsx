@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { destroyCookie } from 'nookies';
 import { useState } from 'react';
+import LogOut from '../logOut';
 import style from './MenuPanel.module.css';
 /*----------------------------------------------*/
 
@@ -13,15 +14,10 @@ type Props = {
 const MenuPanel = ({ selected }: Props) => {
 
     const [ showMenu, setShowMenu ] = useState(true);
-
-    const logOut = () => {
-
-        if(!confirm('Are you sure you want to leave?')){
-            return false;
-        }
-
-        destroyCookie(undefined, 'token');
-        Router.push('/Panel/login');
+    const [ logOut, setLogOut ] = useState(false);
+    
+    const cancelLogOut = () => {
+        setLogOut(false);
     }
 
     const handlerMenuMobile = () => {
@@ -30,6 +26,13 @@ const MenuPanel = ({ selected }: Props) => {
 
     return (
         <div className={style.main}>
+
+            {logOut &&
+                <>
+                    <LogOut cancelLO={cancelLogOut} />
+                </>
+            }
+
             {showMenu &&
                 <div className={style.menuBox}>
 
@@ -53,7 +56,7 @@ const MenuPanel = ({ selected }: Props) => {
                         <a target="_blank" href="/">
                             <li ><i className="fa-solid fa-desktop"></i> System</li>
                         </a>
-                        <button className={style.logOut} onClick={logOut}><i className="fa-solid fa-door-open"></i>Log out</button>
+                        <button className={style.logOut} onClick={() => setLogOut(true)}><i className="fa-solid fa-door-open"></i>Log out</button>
                     </ul>
                 </div>
             }
