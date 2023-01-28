@@ -1,0 +1,53 @@
+.menuBar{
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 13px;
+    background-color: #FFFFFF;
+    margin-top: 46px;
+}
+
+.menuBar select{
+    border: 1px solid #50575E;
+    background-color: #FFFFFF;
+    padding: 4px 10px;
+    border-radius: 3px;
+    outline: none;
+}
+
+.menuBar button{
+    border: 1px solid #B32D2E;
+    color: #B32D2E;
+    background-color: #FFFFFF;
+    padding: 5px 10px;
+    margin-left: 15px;
+    border-radius: 3px;
+}
+
+.mediaBox{
+    width: 100%;
+    margin-top: 33px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.newMedia{
+    width: 162px;
+    height: 162px;
+    border: 2px solid #C0C0C0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #646464;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.mediaSingle{
+    width: 162px;
+    height: 162px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #C0C0C0;
+}

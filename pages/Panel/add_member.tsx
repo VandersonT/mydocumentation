@@ -9,7 +9,7 @@ const add_member = () => {
                 
                 <Title content="Add New Member" />
                 <p className={style.subTitle}>Create a new account and send it to the person who will use it.
-                Afterwards, the person can enter the 'Staff' section and edit their user.</p>
+                Afterwards, the person can enter the 'Members' section and edit their user.</p>
 
                 <form className={style.form}>
                     <label htmlFor="name">Username:</label>
