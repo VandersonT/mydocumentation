@@ -28,3 +28,9 @@
     margin-top: 7px;
     margin-left: 20px;
 }
+
+@media screen and (max-width: 390px) {
+    .title{
+        font-size: 27px;
+    }
+}

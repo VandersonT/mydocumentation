@@ -169,7 +169,7 @@
 
 @media screen and (max-width: 390px){
     .loginBox{
-        width: 85%;
+        width: 90%;
         background-color: #FFFFFF;
         display: flex;
         flex-direction: column;

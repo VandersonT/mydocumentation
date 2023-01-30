@@ -41,21 +41,16 @@ const Panel = ({ loggedUser }: Props) => {
                     <Title content="Dashboard" />
 
                     <section className={style.welcome}>
-                        <div>
-                            <img src="http://localhost:3000/assets/images/logoP.png" alt="" />
-                        </div>
+                        <img src="http://localhost:3000/assets/images/logoP.png" alt="" />
                         <div className={style.welcomeMsg}>
                             <h3>Welcome to Control Panel</h3>
-                            <p>Here you can control the entire system, from changing the theme color to creating, removing or editing some documentation. The platform seeks to be as simple and intuitive as possible so that you don’t encounter problems when using it.
-                            If you need any help just click the button below.</p>
+                            <p>Here you can control the entire system, from changing the theme color to creating, removing or editing some documentation. The platform seeks to be as simple and intuitive as possible so that you don’t encounter problems when using it. If you need any help just click the button below.</p>
                             <a target="_blank" className={style.buttonHelp} href="https://web.whatsapp.com/send?phone=5533988860799">
                                 <i className="fa-solid fa-arrow-right"></i>
                                 Help me
                             </a>
                         </div>
-                        <div>
-                            <img src="http://localhost:3000/assets/images/imgPanel.png" />
-                        </div>
+                        <img src="http://localhost:3000/assets/images/imgPanel.png" />
                     </section>
 
                     <section className={style.status}>

@@ -115,13 +115,13 @@
     padding: 3px;
 }
 
-
 .rightStatus td{
     border-right: 1px solid #CFCFCF;
     border-bottom: 1px solid #CFCFCF;
     border-top: 0;
     text-align: center;
     padding: 3px;
+    font-weight: 300;
 }
 
 .tableControl{
@@ -204,7 +204,9 @@
 }
 
 .infoSingle{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .infoSingle_amount{
@@ -256,4 +258,107 @@
 
 .controlBox p{
     color: #696969;
+    text-align: center;
+}
+
+
+/*-------------------*/
+/*MEDIA QUERY*/
+/*-------------------*/
+@media screen and (max-width: 1200px){
+    .status{
+        flex-direction: column;
+    }
+    .leftStatus{
+        width: 100%;
+        margin: 0 auto;
+    }
+    .rightStatus{
+        width: 100%;
+        padding: 37px;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 830px){
+    .welcome{
+        padding: 50px 50px 40px 50px;
+        flex-direction: column;
+    }
+    .welcomeMsg{
+        margin: 20px 0 50px 0;
+        text-align: center;
+    }
+    .welcomeMsg h3 {
+        font-size: 16px;
+    }
+    .welcomeMsg p {
+        font-size: 14px;
+    }
+    .welcomeMsg .buttonHelp {
+        font-size: 13px;
+    }
+    .control img:nth-child(1){
+        display: none;
+    }
+    .control{
+        height: auto;
+        align-items: center;
+        padding: 40px 20px;
+        flex-direction: column;
+    }
+    .controlBox{
+        margin-bottom: 40px;
+    }
+    
+    .infoSingle_amount{
+        font-size: 14px;
+    }
+    .infoSingle p{
+        font-size: 14px;
+    }
+}
+
+
+@media screen and (max-width: 445px){
+    .welcome{
+        padding: 30px 20px;
+    }
+    .welcome img:nth-child(1){
+        width: 70px;
+    }
+    .welcome img:nth-child(3){
+        width: 120px;
+    }
+    .rightStatus .form{
+        padding: 0;
+    }
+    .rightStatus .form input{
+        font-size: 13px;
+    }
+    .rightStatus .form button i,
+    .rightStatus .form button{
+        font-size: 13px;
+    }
+    .rightStatus input {
+        width: 100%;
+    }
+    .rightStatus{
+        padding: 20px;
+    }
+    .rightStatus tr{
+        font-size: 14px;
+    }
+    .rightStatus td{
+        font-size: 13px;
+    }
+    .tableControl button{
+        font-size: 13px;
+    }
+    .mostViewed ul li{
+        font-size: 13px;
+    }    
+    .controlBox p{
+        font-size: 14px;
+    }
 }
