@@ -20,13 +20,13 @@
 .table td{
     padding: 10px 10px 10px 15px ;
     height: 100px;
-    height: 100px;
 }
 
 .table td p{
     color: #2271B1;
     font-size: 15px;
-    margin-bottom: 4px;cursor: pointer;
+    margin-bottom: 4px;
+    cursor: pointer;
 }
 
 .table tr {
@@ -54,4 +54,25 @@
     width: 35%;
     vertical-align: top;
     padding-top: 39px;
+}
+
+@media screen and (max-width: 736px) {
+    .table td{
+        height: 70px;
+    }
+    .table td:nth-child(1){
+        padding-top: 25px;
+    }
+    .table td p{
+        font-size: 12px;
+    }
+    .table th{
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .mainTitle{
+        margin-top: 35px;
+    }
 }

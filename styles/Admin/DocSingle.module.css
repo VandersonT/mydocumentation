@@ -66,3 +66,22 @@
     margin-right: 9px;
     color: #464646;
 }
+
+@media screen and (max-width: 785px){
+    .modulesBox{
+        margin: 0 auto;
+        margin-top: 70px;
+    }
+    .moduleSingle{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .link{
+        font-size: 13px;
+    }
+    .moduleSingle h3{
+        font-size: 15px;
+    }
+}

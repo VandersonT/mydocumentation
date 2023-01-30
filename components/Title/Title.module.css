@@ -33,4 +33,10 @@
     .title{
         font-size: 27px;
     }
+    .main{
+        flex-direction: column;
+    }
+    .button{
+        margin: 15px 0 0 0;
+    }
 }
