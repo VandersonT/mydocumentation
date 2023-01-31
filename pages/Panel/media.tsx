@@ -25,6 +25,9 @@ const Media = () => {
                     <div className={style.newMedia}>
                         <i className="fa-solid fa-plus"></i>
                     </div>
+                    <Link href="/Panel/mediaOpened">
+                        <img src="http://localhost:3000/assets/images/mediaTest.png" className={style.mediaSingle} />
+                    </Link>
                     <Link href="/">
                         <img src="http://localhost:3000/assets/images/mediaTest.png" className={style.mediaSingle} />
                     </Link>

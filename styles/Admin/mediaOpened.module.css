@@ -1,25 +1,24 @@
 .main {
-    position: relative;
     background-color: rgba(0, 0, 0, 0.81);
     width: 100%;
     height: 100vh;
-    left: 0px;
-    top: 0px;
+    max-height: 900px;
     max-width: 100%;
     padding: 20px;
+    overflow: hidden !important;
 }
 
 .container {
-    position: relative;
     width: 100%;
     height: 95vh;
+    max-height: 900px;
     background: #FFFFFF;
 }
 
 .header {
     position: relative;
     width: 100%;
-    height: 6%;
+    height: 49px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -30,6 +29,7 @@
     color: #1D2327;
     padding: 0.8em;
     word-wrap: break-word;
+    font-size: 20px;
 }
 
 .header button {
@@ -41,16 +41,18 @@
     display: flex;
     width: 100%;
     height: 95vh;
+    max-height: 900px;
 }
 
 .content {
     box-sizing: border-box;
     width: 80%;
     height: 95vh;
+    max-height: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .content button {
@@ -65,19 +67,20 @@
     font-size: 14px;
     line-height: 17px;
     color: #B32D2E;
+    margin-top: 24px;
 }
 
 .sidebar {
-    position: relative;
     box-sizing: border-box;
     width: 40%;
-    height: 89vh;
+    height: 87vh;
+    max-height: 900px;
     background: #F6F7F7;
     border-left: 1px solid #CDCDCD;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     text-align: center;
+    padding-top: 60px;
 }
 
 .sidebar input {
@@ -90,16 +93,26 @@
     border-radius: 5px;
 }
 
+.sidebar p{
+    color: #646970;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.fieldSingle{
+    margin-bottom: 30px;
+}
+
 .url {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5em;
+    margin-bottom: 30px;
 
 }
 
 .url input {
-    background-color: #b0b0b9;
+    background-color: #F0F0F1;
 }
 
 .url button {
@@ -112,8 +125,23 @@
     font-style: normal;
     font-size: 11px;
     color: #2271B1;
+    margin-top: 10px;
 }
 
 .sidebar input {
     padding-left: 10px;
+}
+
+.saveChanges{
+    width: 135px;
+    height: 26px;
+    background: #07a7f1;
+    border-radius: 3px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-size: 13px;
+    color: #FFFFFF;
+    margin-top: 10px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
