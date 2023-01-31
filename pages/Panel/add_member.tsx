@@ -22,8 +22,8 @@ const add_member = () => {
                     <input id="phone" type="text" />
 
                     <label>Password:</label>
-                    <div>
-                        <input type="text" />
+                    <div className={style.passwordBox}>
+                        <input type="password" />
                         <button className={style.togglePass}><i className="fa-solid fa-eye"></i>Hide</button>
                     </div>
                     <button className={style.buttonGenerate}>Generate Password</button>

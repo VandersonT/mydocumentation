@@ -14,38 +14,40 @@ const Members = () => {
                 <Title content="Members" buttonPath="/Panel/add_member" />
                 
                 <p className={style.subTitle}>All members (3)</p>
-                <table className={style.table}>
-                    <tbody>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Position</th>
-                            <th>Since</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://localhost:3000/assets/images/avatarTest.png" />
-                            </td>
-                            <td className={style.link}>Vanderson Tiago</td>
-                            <td>(33)98886-0799</td>
-                            <td className={style.link}>vandersontpaulo@gmail.com</td>
-                            <td>Owner</td>
-                            <td>12/01/2022</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="http://localhost:3000/assets/images/avatarTest.png" />
-                            </td>
-                            <td className={style.link}>Vanderson Tiago</td>
-                            <td>(33)98886-0799</td>
-                            <td className={style.link}>vandersontpaulo@gmail.com</td>
-                            <td>Owner</td>
-                            <td>12/01/2022</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className={style.tableBox}>
+                    <table className={style.table}>
+                        <tbody>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                                <th>Since</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="http://localhost:3000/assets/images/avatarTest.png" />
+                                </td>
+                                <td className={style.link}>Vanderson Tiago</td>
+                                <td>(33)98886-0799</td>
+                                <td className={style.link}>vandersontpaulo@gmail.com</td>
+                                <td>Owner</td>
+                                <td>12/01/2022</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="http://localhost:3000/assets/images/avatarTest.png" />
+                                </td>
+                                <td className={style.link}>Vanderson Tiago</td>
+                                <td>(33)98886-0799</td>
+                                <td className={style.link}>vandersontpaulo@gmail.com</td>
+                                <td>Owner</td>
+                                <td>12/01/2022</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </>
         </Layout>
     )

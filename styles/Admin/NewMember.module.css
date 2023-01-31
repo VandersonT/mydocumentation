@@ -64,3 +64,22 @@
     margin-top: 20px;
     font-size: 14px;
 }
+
+@media screen and (max-width: 450px){
+    .subTitle{
+        width: 100%;
+    }
+    .form{
+        align-items: center;
+    }
+    .passwordBox{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .togglePass{
+        width: 100px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

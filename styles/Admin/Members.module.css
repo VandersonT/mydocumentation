@@ -3,6 +3,10 @@
     margin-top: 70px;
 }
 
+.tableBox{
+    overflow-x: auto;
+}
+
 .table{
     width: 100%;
     margin-top: 10px;
@@ -44,4 +48,18 @@
 .table img {
     width: 49px;
     border-radius: 4px;
+}
+
+/*---------------------*/
+/*    MEDIA SCREEN    */
+/*--------------------*/
+@media screen and (max-width: 450px){
+    .table th,
+    .table td{
+        font-size: 12px;
+    }
+    .table img {
+        width: 43px;
+        border-radius: 2px;
+    }
 }
