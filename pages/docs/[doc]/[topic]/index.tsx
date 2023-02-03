@@ -11,6 +11,7 @@ import { GetServerSideProps } from "next";
 import { Doc } from "../../../../types/Doc";
 import { Module } from "../../../../types/Module";
 import { Topic } from "../../../../types/Topic";
+import { systemStatus } from "../../../../helpers/systemStatus";
 /*----------------------------------------------*/
 
 
@@ -209,6 +210,18 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
 export default Single;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    /*Check if the system is active.*/
+    let systemActive = await systemStatus();
+  
+    if(!systemActive)
+      return {
+          redirect: {
+              destination: '/error',
+              permanent: false,
+          },
+      }
+
     /*Get url data*/
     const slug = context.query.doc as string;
     const topicSlug = context.query.topic as string;

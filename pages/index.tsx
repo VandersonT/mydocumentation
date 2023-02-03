@@ -1,6 +1,6 @@
 /*----------------IMPORTS-----------------------*/
   import { ChangeEvent, useContext, useState } from 'react';
-  import type { NextPage } from 'next';
+  import type { GetServerSideProps, NextPage } from 'next';
   import Head from 'next/head';
   import { Context } from '../contexts/Context';
 
@@ -11,11 +11,8 @@
   import { Button1 } from '../components/Button1';
   import { SkillBox } from '../components/SkillBox';
   import { SkillBox2 } from '../components/SkillBox2';
+import { systemStatus } from '../helpers/systemStatus';
 /*----------------------------------------------*/
-
-
-
-
 
 
 const Home: NextPage = () => {
@@ -242,3 +239,20 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  
+  /*Check if the system is active.*/
+  let systemActive = await systemStatus();
+
+  if(!systemActive)
+    return {
+        redirect: {
+            destination: '/error',
+            permanent: false,
+        },
+    }
+  
+
+  return {props: {}}
+}

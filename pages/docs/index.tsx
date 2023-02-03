@@ -11,6 +11,7 @@ import { Doc } from "../../types/Doc";
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { GetServerSideProps } from "next";
+import { systemStatus } from "../../helpers/systemStatus";
 /*----------------------------------------------*/
 
 type Props = {
@@ -107,6 +108,18 @@ export default Docs;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
+    /*Check if the system is active.*/
+    let systemActive = await systemStatus();
+  
+    if(!systemActive)
+      return {
+          redirect: {
+              destination: '/error',
+              permanent: false,
+          },
+      }
+
+    /*get data*/
     let search = context.query.search as string;
 
 
