@@ -37,3 +37,25 @@
     background-color: transparent;
     font-size: 14px;
 }
+
+@media screen and (max-width: 550px){
+    .warningBox{
+        width: 90%;
+        left: 5%;
+    }
+}
+
+@media screen and (max-width: 390px){
+    .warningBox{
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .warningBox_info{
+        text-align: center;
+        margin-right: 0;
+        margin:  20px 0;
+    }
+    .warningBox i{
+        margin-right: 0;
+    }
+}

@@ -3,10 +3,11 @@ import style from './Warning.module.css';
 
 type Props = {
     title?: string,
-    content: string
+    content: string,
+    closeFunction: () => void
 }
 
-const Warning = ({ title, content }: Props) => {
+const Warning = ({ title, content, closeFunction }: Props) => {
     
     const [ showFlash, setShowFlash ] = useState(true);
 
@@ -16,7 +17,7 @@ const Warning = ({ title, content }: Props) => {
                 <div className={style.warningBox}>
                     <i className="fa-solid fa-triangle-exclamation"></i>
                     <div className={style.warningBox_info}>
-                        <h3>{(title) ? title : 'Success'}</h3>
+                        <h3>{(title) ? title : 'Warning'}</h3>
                         <p>{content}</p>
                     </div>
                     <button onClick={()=>setShowFlash(false)}>Close</button>

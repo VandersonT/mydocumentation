@@ -3,10 +3,11 @@ import style from './Error.module.css';
 
 type Props = {
     title?: string,
-    content: string
+    content: string,
+    closeFunction: () => void
 }
 
-const Error = ({ title, content }: Props) => {
+const Error = ({ title, content, closeFunction }: Props) => {
     
     const [ showFlash, setShowFlash ] = useState(true);
 
@@ -16,10 +17,10 @@ const Error = ({ title, content }: Props) => {
                 <div className={style.errorBox}>
                     <i className="fa-solid fa-bug"></i>
                     <div className={style.errorBox_info}>
-                        <h3>{(title) ? title : 'Success'}</h3>
+                        <h3>{(title) ? title : 'Error'}</h3>
                         <p>{content}</p>
                     </div>
-                    <button onClick={()=>setShowFlash(false)}>Close</button>
+                    <button onClick={closeFunction}>Close</button>
                 </div>
             }
         </>

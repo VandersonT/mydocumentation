@@ -37,3 +37,25 @@
     background-color: transparent;
     font-size: 14px;
 }
+
+@media screen and (max-width: 550px){
+    .successBox{
+        width: 90%;
+        left: 5%;
+    }
+}
+
+@media screen and (max-width: 390px){
+    .successBox{
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .successBox_info{
+        text-align: center;
+        margin-right: 0;
+        margin:  20px 0;
+    }
+    .successBox i{
+        margin-right: 0;
+    }
+}

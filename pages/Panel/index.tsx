@@ -13,6 +13,9 @@
 
     //Css's
     import style from '../../styles/Admin/Panel.module.css';
+import Error from '../../components/Error';
+import Success from '../../components/Success';
+import Warning from '../../components/Warning';
 /*----------------------------------------------*/
 
 
@@ -32,6 +35,8 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
     const [ nexPageExists, setNexPageExists ] = useState(currentDocs['anotherPage']);
     const [ docSearched, setDocSearched ] = useState('');
     const [ showAllDocs, setShowAllDocs ] = useState(true);/*Used to know if are showing all docs or searched docs*/
+    const [ errorFlash, setErrorFlash ] = useState('');/*Error messages*/
+    const [ successFlash, setSuccessFlash ] = useState('');/*Error messages*/
     /*--------------------------------------------------*/
 
     /*-------------------UserEffects--------------------*/
@@ -45,6 +50,11 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
 
 
     /*--------------------Functions---------------------*/
+    const clearFlashs = () => {
+        setErrorFlash('');
+        setSuccessFlash('');
+    }
+    
     const formatDate = (data: any) => {
         return data.substr(0, 16).replace('T', ' ');
     }
@@ -122,6 +132,12 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
 
     const changeSystemStatus = async () => {
 
+        if(parseInt(loggedUser['position']) == 1){
+            setErrorFlash('You have no permission to do this.');
+            setSuccessFlash('');
+            return;
+        }
+
         let res = await fetch('http://localhost:4000/system',{
             method: 'PUT',
             body: new URLSearchParams({
@@ -133,6 +149,13 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
             },
         })
         setSystemStatus(!systemStatus);
+        
+        setErrorFlash('');
+        if(systemStatus){
+            setSuccessFlash('The system has been disabled.')
+        }else{
+            setSuccessFlash('The system has been enabled.')
+        }
     }
     /*--------------------------------------------------*/
 
@@ -143,6 +166,10 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                 <Head>
                     <title>Dashboard - Panel</title>
                 </Head>
+
+                {errorFlash && <Error content={errorFlash} closeFunction={clearFlashs} />}
+
+                {successFlash && <Success content={successFlash} closeFunction={clearFlashs} />}
 
                 <main className={style.main}>
                     <Title content="Dashboard" />

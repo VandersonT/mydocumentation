@@ -345,6 +345,7 @@
     }
     .rightStatus{
         padding: 20px;
+        height: auto;
     }
     .rightStatus tr{
         font-size: 14px;
@@ -360,5 +361,11 @@
     }    
     .controlBox p{
         font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 390px){
+    .rightStatus td{
+        font-size: 11px;
     }
 }
