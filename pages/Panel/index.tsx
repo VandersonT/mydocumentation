@@ -3,9 +3,9 @@
     import Head from 'next/head';
     import  Router from 'next/router';
     import { destroyCookie, parseCookies } from 'nookies';
-    import { useEffect } from 'react';
+    import { useEffect, useState } from 'react';
     import { User }  from '../../types/User';
-    import { authentication } from '../../helpers/teste';
+    import { authentication } from '../../helpers/auth';
 
     //Components
     import { Layout } from '../../Layouts';
@@ -17,17 +17,124 @@
 
 
 type Props = {
-    loggedUser: User
+    loggedUser: User,
+    mostViewedDocs: any,
+    generalData: any,
+    currentDocs: any
 }
 
-const Panel = ({ loggedUser }: Props) => {
+const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) => {
     
+    /*----------------------States----------------------*/
+    const [ systemStatus, setSystemStatus ] = useState(generalData['systemStatus']);
+    const [ currentPagination, setCurrentPagination ] = useState(1);
+    const [ tableDoc, setTableDoc ] = useState(currentDocs['docs']);
+    const [ nexPageExists, setNexPageExists ] = useState(currentDocs['anotherPage']);
+    const [ docSearched, setDocSearched ] = useState('');
+    const [ showAllDocs, setShowAllDocs ] = useState(true);/*Used to know if are showing all docs or searched docs*/
+    /*--------------------------------------------------*/
+
+    /*-------------------UserEffects--------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*--------------------------------------------------*/
+
+
+    /*--------------------Functions---------------------*/
+    const formatDate = (data: any) => {
+        return data.substr(0, 16).replace('T', ' ');
+    }
+    
+    const nextPage = async () => {
+
+        if(!nexPageExists) { alert('tem mais n'); return;}
+        
+        /*Get docs*/
+        if(showAllDocs){
+            let res = await fetch('http://localhost:4000/docs?page='+(currentPagination+1))
+            currentDocs = await res.json();
+            setCurrentPagination(currentPagination+1);
+
+            setTableDoc(currentDocs['docs']);
+            setNexPageExists(currentDocs['anotherPage']);
+        }else{
+            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+(currentPagination+1));
+            currentDocs = await res.json();
+            setCurrentPagination(currentPagination+1);
+
+            setTableDoc(currentDocs['docFound']);
+            setNexPageExists(currentDocs['anotherPage']);
+        }
+    }
+
+    const prevPage = async () => {
+
+        if(currentPagination == 1) { alert('tem mais n'); return;}
+        
+        /*Get docs*/
+        if(showAllDocs){
+            let res = await fetch('http://localhost:4000/docs?page='+(currentPagination-1))
+            currentDocs = await res.json();
+
+            setCurrentPagination(currentPagination-1);
+            setTableDoc(currentDocs['docs']);
+            setNexPageExists(currentDocs['anotherPage']);
+        }else{
+            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+(currentPagination-1));
+            currentDocs = await res.json();
+            setCurrentPagination(currentPagination-1);
+
+            setTableDoc(currentDocs['docFound']);
+            setNexPageExists(currentDocs['anotherPage']);
+        }
+    }
+
+    const searchDoc = async () => {
+        if(docSearched){
+
+            /*Now we aren't showing all docs, but just searched docs*/
+            setShowAllDocs(false);
+
+            setCurrentPagination(1);
+
+            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+1);
+            let aux = await res.json();
+
+            setTableDoc(aux['docFound']);
+            setNexPageExists(aux['anotherPage']);
+
+        }else{
+            /*Now we aren't showing searched docs, but all docs*/
+            setShowAllDocs(true);
+
+            let res = await fetch('http://localhost:4000/docs?page=1')
+            currentDocs = await res.json();
+
+            setCurrentPagination(1);
+            setTableDoc(currentDocs['docs']);
+            setNexPageExists(currentDocs['anotherPage']);
+        }
+    }
+
+    const changeSystemStatus = async () => {
+
+        let res = await fetch('http://localhost:4000/system',{
+            method: 'PUT',
+            body: new URLSearchParams({
+                status: ((systemStatus) ? 'false' : 'true'), /*if enabled, disable, And vice versa.*/
+                id: '1'
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        })
+        setSystemStatus(!systemStatus);
+    }
+    /*--------------------------------------------------*/
 
     return (
         <>
@@ -58,27 +165,25 @@ const Panel = ({ loggedUser }: Props) => {
                             <div className={style.mostViewed}>
                                 <h3>
                                     <i className="fa-solid fa-circle-check"></i>
-                                    Most viewed docs
+                                    Most viewed docs [{currentPagination}]
                                 </h3>
                                 <ul>
-                                    <li><span>1. PHP Documentation</span><span>400</span></li>
-                                    <li><span>2. Node Documentation</span><span>90</span></li>
-                                    <li><span>3. Adonis Documentation</span><span>99</span></li>
-                                    <li><span>4. Laravel Documentation</span><span>32</span></li>
-                                    <li><span>5. Express</span><span>45</span></li>
+                                    {mostViewedDocs.map((docSingle: any, index: any) => (
+                                        <li key={index}><span>{index+1}. {docSingle['name']}</span><span>{(docSingle['amount'] > 10000) ? 9999+'+' : docSingle['amount']}</span></li>
+                                    ))}
                                 </ul>
                             </div>
                             <div className={style.info}>
                                 <div className={style.infoSingle}>
-                                    <div className={style.infoSingle_amount}>2</div>
+                                    <div className={style.infoSingle_amount}>{generalData['totalDocs']}</div>
                                     <p>Total Docs</p>
                                 </div>
                                 <div className={style.infoSingle}>
-                                    <div className={style.infoSingle_amount}>43</div>
+                                    <div className={style.infoSingle_amount}>{generalData['totalStaffs']}</div>
                                     <p>Total Staff</p>
                                 </div>
                                 <div className={style.infoSingle}>
-                                    <div className={style.infoSingle_amount}>100+</div>
+                                    <div className={style.infoSingle_amount}>{(generalData['totalViews'] > 10000) ? 9999+'+' : generalData['totalViews']}</div>
                                     <p>Total Views</p>
                                 </div>
                             </div>
@@ -90,8 +195,8 @@ const Panel = ({ loggedUser }: Props) => {
                             </h3>
 
                             <div className={style.form}>
-                                <input type="text" placeholder="Search for a documentation" />
-                                <button><i className="fa-solid fa-magnifying-glass"></i> Search</button>
+                                <input type="text" placeholder="Search for a documentation" value={docSearched} onChange={(e) => setDocSearched(e.target.value) } />
+                                <button onClick={searchDoc}><i className="fa-solid fa-magnifying-glass"></i> Search</button>
                             </div>
 
                             <table>
@@ -101,31 +206,24 @@ const Panel = ({ loggedUser }: Props) => {
                                         <th>Date</th>
                                         <th>Views</th>
                                     </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
-                                    <tr>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                        <td>teste</td>
-                                    </tr>
+                                    {tableDoc.map((docSingle: any, index: any) => (
+                                        <tr key={index}>
+                                            <td>{docSingle['name']}</td>
+                                            <td>{formatDate(docSingle['created_at'])}</td>
+                                            <td>{docSingle['views']}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                             <div className={style.tableControl}>
-                                <button className={style.buttonDisabled}>Preview</button>
-                                <button>Next</button>
+                                <button
+                                    className={(currentPagination == 1) ? style.buttonDisabled : ''}
+                                    onClick={prevPage}
+                                >Preview</button>
+                                <button
+                                    className={(!nexPageExists) ? style.buttonDisabled : ''}
+                                    onClick={nextPage}
+                                >Next</button>
                             </div>
 
                         </div>
@@ -134,7 +232,9 @@ const Panel = ({ loggedUser }: Props) => {
                     <section className={style.control}>
                         <img src="/assets/images/panelImg2.png" alt="" />
                         <div className={style.controlBox}>
-                            <button>System: On</button>
+                            <button onClick={changeSystemStatus}>
+                                {(systemStatus) ? 'System: On' : 'System: Off'}
+                            </button>
                             <p>The system is currently online, click to deactivate it</p>
                         </div>
                         <img src="/assets/images/panelImg3.png" alt="" />
@@ -157,11 +257,26 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
     /*Try to authenticate*/
     let user = await authentication(cookies.token);
+    
+    /*get most viewed docs*/
+    let res = await fetch('http://localhost:4000/mostViewedDocs/5');
+    let mostViewedDocs = await res.json();
+
+    /*Get general data*/
+    let res2 = await fetch('http://localhost:4000/globalDatas');
+    let generalData = await res2.json();
+
+    /*Get docs*/
+    let res3 = await fetch('http://localhost:4000/docs?page=1')
+    let currentDocs = await res3.json();
 
     /*Final Result*/
     return {
         props: {
-            loggedUser: user['userFound'] || null
+            loggedUser: user['userFound'] || null,
+            mostViewedDocs: mostViewedDocs['result'],
+            generalData: generalData['globalData'],
+            currentDocs
         }
     }
 }
