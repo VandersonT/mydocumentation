@@ -77,6 +77,11 @@ const Docs = ({ docs,search }: Props) => {
                                         </div>
                                     </Link>
                                 ))}
+                                {/*<div className={style.paginateBox}>
+                                    <span className={`${style.pageButton} ${style.selectedPage}`}>1</span>
+                                    <span className={style.pageButton}>2</span>
+                                    <span className={style.pageButton}>3</span>
+                                </div>*/}
                             </>
                         }
 

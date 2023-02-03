@@ -1,14 +1,29 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 import { useState } from "react";
 import MenuPanel from "../../../components/MenuPanel";
 import { Title } from "../../../components/Title";
+import { authentication } from "../../../helpers/auth";
+import { formatDate } from "../../../helpers/tools";
 import { Layout } from "../../../Layouts";
 import style from '../../../styles/Admin/Docs.module.css';
+import { User } from "../../../types/User";
+import Error from '../../../components/Error';
+import Success from "../../../components/Success";
 
-const Docs = () => {
+type Props = {
+    loggedUser: User,
+    docsReceived: any
+}
 
-    const [ docButtonBox, setDocButtonBox ] = useState([false]);
+const Docs = ({ loggedUser, docsReceived }: Props) => {
+
+    const [ docButtonBox, setDocButtonBox ] = useState([false]); /*Show or not the buttons of a box*/
+    const [ docs, setDocs ] = useState(docsReceived);
+    const [ flashError, setFlashError ] = useState('');
+    const [ flashSuccess, setFlashSucces ] = useState('');
 
     const openMenu = (index: number) => {
         let aux = [];
@@ -23,15 +38,51 @@ const Docs = () => {
         setDocButtonBox([false]);
     }
 
+    const deleteDoc = async (docId: number, index: number) => {
+    
+        /*Check admin permission*/
+        if(parseInt(loggedUser['position']) == 1){
+            setFlashError("You aren't allowed to delete any doc.")
+            return;
+        }
+        
+        /*Check if the user is sure*/
+        if(!confirm('Are you sure you want to delete this doc?'))
+            return;
+
+        /*Remove item from array*/
+        docs.splice(index, 1);
+        
+        /*Remove item from database*/
+        let res = await fetch(`http://localhost:4000/doc/${docId}}`, {
+            method: 'DELETE'
+        });
+
+        setFlashSucces("You've successfully deleted this doc.")
+    }
+
+    const closeFlashs = () => {
+        setFlashError('');
+        setFlashSucces('');
+    }
+
     return (
         <Layout selected="docs">
             <>
                 <Head>
                     <title>Documentations - Panel</title>
                 </Head>
+
+                {flashError && 
+                    <Error content={flashError} closeFunction={closeFlashs} />
+                }
+                {flashSuccess && 
+                    <Success content={flashSuccess} closeFunction={closeFlashs} />
+                }
+
                 <Title content="Documentations" buttonPath="/" />
 
-                <p className={style.mainTitle}>All documentation (5)</p>
+                <p className={style.mainTitle}>All documentation ({docs.length})</p>
                 <div>
                     <table className={style.table}>
                         <tbody>
@@ -40,51 +91,29 @@ const Docs = () => {
                                 <th>Author</th>
                                 <th>Date</th>
                             </tr>
-                            <tr onMouseMove={ () => openMenu(0)} onMouseLeave={() => closeMenu(0)}>
-                                <td>
-                                    <Link href="/Panel/docs/php_documentation"><p className={style.pointer}>PHP Documentation</p></Link>
-                                    
-                                    {docButtonBox[0] &&
-                                        <div className={style.tdButtonBox}>
-                                            <Link href=""><button>Edit</button></Link>
-                                            <button>Trash</button>
-                                            <a href="" target="_blank"><button>View Online</button></a>
-                                        </div>
-                                    }
-                                </td>
-                                <td><Link href=""><p>Vanderson Tiago</p></Link></td>
-                                <td><p>20/11/2022</p></td>
-                            </tr>
-                            <tr onMouseMove={ () => openMenu(1)} onMouseLeave={() => closeMenu(1)}>
-                                <td>
-                                    <Link href=""><p className={style.pointer}>Node Documentation</p></Link>
-                                    
-                                    {docButtonBox[1] &&
-                                        <div className={style.tdButtonBox}>
-                                            <Link href=""><button>Edit</button></Link>
-                                            <button>Trash</button>
-                                            <a href="" target="_blank"><button>View Online</button></a>
-                                        </div>
-                                    }
-                                </td>
-                                <td><Link href=""><p>Vanderson Tiago</p></Link></td>
-                                <td><p>20/11/2022</p></td>
-                            </tr>
-                            <tr onMouseMove={ () => openMenu(2)} onMouseLeave={() => closeMenu(2)}>
-                                <td>
-                                    <Link href=""><p className={style.pointer}>Adonis Documentation</p></Link>
-                                    
-                                    {docButtonBox[2] &&
-                                        <div className={style.tdButtonBox}>
-                                            <Link href=""><button>Edit</button></Link>
-                                            <button>Trash</button>
-                                            <a href="" target="_blank"><button>View Online</button></a>
-                                        </div>
-                                    }
-                                </td>
-                                <td><Link href=""><p>Vanderson Tiago</p></Link></td>
-                                <td><p>20/11/2022</p></td>
-                            </tr>
+                            {docs.map((doc: any, index: number) => (
+                                <tr key={index} onMouseMove={ () => openMenu(index)} onMouseLeave={() => closeMenu(index)}>
+                                    <td>
+                                        <Link href={`/Panel/docs/${doc['slug']}`}>
+                                            <p className={style.pointer}>{doc['name']}</p>
+                                        </Link>
+                                        
+                                        {docButtonBox[index] &&
+                                            <div className={style.tdButtonBox}>
+                                                <Link href={`/Panel/docs/${doc['slug']}`}>
+                                                    <button>Edit</button>
+                                                </Link>
+                                                <button onClick={() => deleteDoc(doc['id'], index)}>Trash</button>
+                                                <a href={`/docs/${doc['slug']}/none`} target="_blank">
+                                                    <button>View Online</button>
+                                                </a>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td><Link href=""><p>{doc['author']}</p></Link></td>
+                                    <td><p>{formatDate(doc['created_at'])}</p></td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -94,3 +123,20 @@ const Docs = () => {
 }
 
 export default Docs;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    /*Try to authenticate*/
+    const cookies = parseCookies(context);
+    let user = await authentication(cookies.token);
+
+    let res = await fetch('http://localhost:4000/docs');
+    let docsResponse = await res.json();
+
+    return {
+        props:{
+            loggedUser: user['userFound'] || null,
+            docsReceived: docsResponse['docs']
+        }
+    }
+}

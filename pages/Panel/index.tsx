@@ -10,12 +10,14 @@
     //Components
     import { Layout } from '../../Layouts';
     import { Title } from '../../components/Title';
+    import Error from '../../components/Error';
+    import Success from '../../components/Success';
+    import Warning from '../../components/Warning';
+    import { formatDate } from '../../helpers/tools';
 
     //Css's
     import style from '../../styles/Admin/Panel.module.css';
-import Error from '../../components/Error';
-import Success from '../../components/Success';
-import Warning from '../../components/Warning';
+
 /*----------------------------------------------*/
 
 
@@ -53,10 +55,6 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
     const clearFlashs = () => {
         setErrorFlash('');
         setSuccessFlash('');
-    }
-    
-    const formatDate = (data: any) => {
-        return data.substr(0, 16).replace('T', ' ');
     }
     
     const nextPage = async () => {
