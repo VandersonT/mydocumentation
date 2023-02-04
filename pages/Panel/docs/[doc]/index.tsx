@@ -8,6 +8,8 @@ import { authentication } from '../../../../helpers/auth';
 import { Layout } from '../../../../Layouts';
 import style from '../../../../styles/Admin/DocSingle.module.css';
 import { User } from '../../../../types/User';
+import Error from '../../../../components/Error';
+import Success from '../../../../components/Success';
 
 type Props = {
     loggedUser: User,
@@ -22,6 +24,8 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
     const [ topicOpened, setTopicOpened ] = useState([false]);
     const [ modules, setModules ] = useState(mods);
     const [ topics, setTopics ] = useState(tops);
+    const [ flashError, setFlashError ] = useState('');
+    const [ flashSuccess, setFlashSuccess ] = useState('');
 
     useEffect(()=>{
         if(!loggedUser){
@@ -29,6 +33,11 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
             Router.push('/Panel/login');
         }
     },[])
+
+    const clearFlashs = () => {
+        setFlashError('');
+        setFlashSuccess('');
+    }
 
     const openTopicBox = (index: number) => {
         /*Reset Topics Status*/
@@ -51,23 +60,78 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         setTopicOpened(aux);
     }
 
+    const newModuleAction = async () => {
+        let moduleName = prompt('teste');
+
+        if(moduleName){
+            if(confirm('Are you sure you want to create this module?')){
+
+                let res = await fetch('http://localhost:4000/module',{
+                    method: 'POST',
+                    body: new URLSearchParams({title: moduleName, doc_id: doc['id']}),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                });
+                let response = await res.json();
+
+                if(response['error']){
+                    setFlashError(response['error']);
+                    return;
+                }
+                
+                modules.push(response['newModule']);
+                setFlashSuccess('Module created successfully.');
+            }
+        }else{
+            setFlashError('You must provide us with a name.');
+        }
+        
+
+        //console.log('nome do novo modulo: '+moduleName+' e pertence a doc: '+doc['id'])
+    }
+
+    const deleteModule = (moduleId: number, index: number) => {
+
+        if(!confirm('Are you sure you want to delete this module?'))
+            return;
+        
+        /*Remove item from database with all its topics*/
+        fetch(`http://localhost:4000/module/${moduleId}`, {
+            method: 'DELETE'
+        });
+
+        /*Remove item from array*/
+        modules.splice(index, 1);
+
+        setFlashSuccess('Module deleted successfully.')
+    }
+
     return (
         <Layout>
             <>
+
+                {flashError &&
+                    <Error content={flashError} closeFunction={clearFlashs} />
+                }
+
+                {flashSuccess &&
+                    <Success content={flashSuccess} closeFunction={clearFlashs} />
+                }
+
                 <Title2 content={doc['name']} returnPath="/Panel/docs" />
 
-                <div className={style.modulesBox}>
-                    
+                <div className={style.modulesBox}>            
                     
                     {(modules.length < 1) && <p className={style.warning}>
                         We didn't find any modules.<br/>
                         If you want to create now,
-                        <Link href=""><span className={style.clickHere}> click here</span></Link>
+                        <span className={style.clickHere} onClick={newModuleAction}> click here</span>
                     </p> }
 
                     {(modules.length > 0) &&
                     <>
-                        <Link href=""><p className={style.newModule}>New Module</p></Link>
+                        <p className={style.newModule} onClick={newModuleAction}>New Module</p>
                         {modules.map((module: any, index: any) => (
                             <div className={style.moduleSingle} key={index}>
                                 <div className={style.moduleSingle_title} onClick={() => openTopicBox(index)}>
@@ -80,7 +144,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                                         <div className={style.moduleOptions}>
                                             <button>Rename module</button>
                                             <button>New Topic</button>
-                                            <button className={style.deleteColor}>Delete module</button>
+                                            <button className={style.deleteColor} onClick={() => deleteModule(module['id'], index)}>Delete module</button>
                                         </div>
                                         
                                         {topics.length > 0 && <>
