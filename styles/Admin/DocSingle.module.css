@@ -67,11 +67,30 @@
     color: #464646;
 }
 
+.warning{
+    color: rgb(99, 99, 99);
+    font-size: 17px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.clickHere{
+    color: #2271B1;
+}
+
+.newModule{
+    width: 710px;
+    color: #00a2ff ;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 785px){
     .modulesBox{
         margin: 0 auto;
         margin-top: 70px;
     }
+    .newModule,
     .moduleSingle{
         width: 100%;
     }
@@ -82,6 +101,9 @@
         font-size: 13px;
     }
     .moduleSingle h3{
+        font-size: 15px;
+    }
+    .newModule{
         font-size: 15px;
     }
 }

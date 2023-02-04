@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { parseCookies } from "nookies";
-import { useState } from "react";
+import { destroyCookie, parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 import MenuPanel from "../../../components/MenuPanel";
 import { Title } from "../../../components/Title";
 import { authentication } from "../../../helpers/auth";
@@ -12,6 +12,7 @@ import style from '../../../styles/Admin/Docs.module.css';
 import { User } from "../../../types/User";
 import Error from '../../../components/Error';
 import Success from "../../../components/Success";
+import Router from "next/router";
 
 type Props = {
     loggedUser: User,
@@ -24,6 +25,13 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
     const [ docs, setDocs ] = useState(docsReceived);
     const [ flashError, setFlashError ] = useState('');
     const [ flashSuccess, setFlashSucces ] = useState('');
+
+    useEffect(()=>{
+        if(!loggedUser){
+            destroyCookie(undefined, 'token');
+            Router.push('/Panel/login');
+        }
+    },[])
 
     const openMenu = (index: number) => {
         let aux = [];
