@@ -107,6 +107,32 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         setFlashSuccess('Module deleted successfully.')
     }
 
+    const renameModule = (moduleId: number, index: number) => {
+
+        let newName = prompt("What's the new name of this module?");
+
+        if(newName){
+
+            fetch(`http://localhost:4000/module/${moduleId}`,{
+                method: 'PUT',
+                body: new URLSearchParams({title: newName}),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+
+            /*Rename in array*/
+            let aux = modules;
+            aux[index]['title'] = newName;
+            setModules([...aux]);
+
+            setFlashSuccess('Module name successfully changed.')
+        }else{
+            setFlashError('You must submit a name.')
+        }
+
+    }
+
     return (
         <Layout>
             <>
@@ -142,7 +168,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                                 {topicBoxOpened[index] &&
                                     <div className={style.menuToggle}>
                                         <div className={style.moduleOptions}>
-                                            <button>Rename module</button>
+                                            <button onClick={() => renameModule(module['id'], index)}>Rename module</button>
                                             <button>New Topic</button>
                                             <button className={style.deleteColor} onClick={() => deleteModule(module['id'], index)}>Delete module</button>
                                         </div>
