@@ -83,12 +83,8 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                 modules.push(response['newModule']);
                 setFlashSuccess('Module created successfully.');
             }
-        }else{
-            setFlashError('You must provide us with a name.');
         }
         
-
-        //console.log('nome do novo modulo: '+moduleName+' e pertence a doc: '+doc['id'])
     }
 
     const deleteModule = (moduleId: number, index: number) => {
@@ -174,8 +170,6 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
             topics.push(response['createdTopic'])
             setFlashSuccess('Topic successfully created.');
 
-        }else{
-            setFlashError('You must provide us with a name.');
         }
 
 
@@ -205,6 +199,20 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
         }else{
             setFlashError('You must privide us with a name.');
+        }
+
+    }
+
+    const deleteTopic = (topicId: number, index: number) => {
+
+        if(confirm('Are you sure you want to delete this topic?')){
+            fetch(`http://localhost:4000/topic/${topicId}`, {
+                method: 'DELETE'
+            });
+
+            /*Remove item from array*/
+            topics.splice(index, 1);
+            setFlashSuccess('Topic deleted successfully.');
         }
 
     }
@@ -261,7 +269,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                                                                     <button>View</button>
                                                                 </Link>
                                                                 <button onClick={() => renameTopic(topic['id'], index)}>Rename</button>
-                                                                <button className={style.deleteColor}>Delete</button>
+                                                                <button onClick={ () => deleteTopic(topic['id'], index) } className={style.deleteColor}>Delete</button>
                                                             </div>
                                                         }
                                                     </div>
