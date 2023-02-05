@@ -133,6 +133,54 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
     }
 
+    const slugGenerate = () => {
+        let first = Math.random().toString(36).substring(0, 6)
+        let firstFormated = first.slice(2, 6);
+
+        let secound = Math.random().toString(36).substring(0, 18)
+        let secoundFormated = secound.slice(2, 18);
+
+        return firstFormated+'_'+secoundFormated;
+    }
+
+    const newTopic = async (moduleId: string) => {
+
+
+        let newTopicName = prompt("What's the topic name?");
+
+
+        if(newTopicName){
+            let slug = slugGenerate();
+
+            let res = await fetch('http://localhost:4000/topic', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    title: newTopicName as string,
+                    content: 'No content yet',
+                    module_id: moduleId,
+                    image: 'none',
+                    metaTags: 'example',
+                    doc_id: doc['id'],
+                    slug: slug,
+                    description: 'No descriiption yet'
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+
+            let response = await res.json();
+
+            topics.push(response['createdTopic'])
+            setFlashSuccess('Topic successfully created.');
+
+        }else{
+            setFlashError('You must provide us with a name.');
+        }
+
+
+    }
+
     return (
         <Layout>
             <>
@@ -169,7 +217,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                                     <div className={style.menuToggle}>
                                         <div className={style.moduleOptions}>
                                             <button onClick={() => renameModule(module['id'], index)}>Rename module</button>
-                                            <button>New Topic</button>
+                                            <button onClick={() => newTopic(module['id'])}>New Topic</button>
                                             <button className={style.deleteColor} onClick={() => deleteModule(module['id'], index)}>Delete module</button>
                                         </div>
                                         
