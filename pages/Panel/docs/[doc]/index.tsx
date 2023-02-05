@@ -181,6 +181,34 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
     }
 
+    const renameTopic = (topicId: number, index: number) => {
+
+        let newTopicName = prompt("What's the new topic name?");
+
+        if(newTopicName){
+
+            fetch(`http://localhost:4000/topic/${topicId}`,{
+                method: 'PUT',
+                body: new URLSearchParams({
+                    title: newTopicName as string,
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            });
+
+            /*Rename in array*/
+            let aux = topics;
+            aux[index]['title'] = newTopicName;
+            setTopics([...aux]);
+            setFlashSuccess('Topic name successfully changed.')
+
+        }else{
+            setFlashError('You must privide us with a name.');
+        }
+
+    }
+
     return (
         <Layout>
             <>
@@ -229,15 +257,14 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
                                                         {topicOpened[index] &&
                                                             <div className={style.linkOptions}>
-                                                                <Link href="/Panel/docs/php_documentation/teste">
+                                                                <Link href={`/Panel/docs/${doc['slug']}/${topic['slug']}`}>
                                                                     <button>View</button>
                                                                 </Link>
-                                                                <button>Rename</button>
+                                                                <button onClick={() => renameTopic(topic['id'], index)}>Rename</button>
                                                                 <button className={style.deleteColor}>Delete</button>
                                                             </div>
                                                         }
                                                     </div>
-                                                
                                             ))}
                                         </>}
 
