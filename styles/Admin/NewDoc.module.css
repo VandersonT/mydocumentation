@@ -1,0 +1,62 @@
+.subTitle{
+    max-width: 490px;
+    color: #3C434A;
+    font-size: 14px;
+}
+
+.form{
+     display: flex;
+     flex-direction: column;
+     margin-top: 42px;
+}
+
+.form input{
+    border: 1px solid #969696;
+    width: 272px;
+    padding: 7px;
+    border-radius: 4px;
+}
+
+.form label {
+    color: #111111;
+    font-size: 14px;
+    margin-bottom: 9px;
+    margin-top: 27px;
+}
+
+.togglePass{
+    background-color: #FFFFFF;
+    color: #2271B1;
+    border: 1px solid #2271B1;
+    padding: 6px 12px;
+    margin-left: 10px;
+    border-radius: 2px;
+}
+
+.togglePass i{
+    margin-right: 4px;
+}
+
+.registerButton{
+    width: max-content;
+    color: #FFFFFF;
+    background-color: #2271B1;
+    padding: 8px 25px;
+    border-radius: 2px;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 450px){
+    .subTitle{
+        width: 100%;
+    }
+    .form{
+        align-items: center;
+    }
+    .togglePass{
+        width: 100px;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}

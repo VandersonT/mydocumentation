@@ -88,7 +88,7 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
                     <Success content={flashSuccess} closeFunction={closeFlashs} />
                 }
 
-                <Title content="Documentations" buttonPath="/" />
+                <Title content="Documentations" buttonPath="/Panel/docs/newDoc" />
 
                 <p className={style.mainTitle}>All documentation ({docs.length})</p>
                 <div>

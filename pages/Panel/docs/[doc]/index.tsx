@@ -229,7 +229,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                     <Success content={flashSuccess} closeFunction={clearFlashs} />
                 }
 
-                <Title2 content={doc['name']} returnPath="/Panel/docs" />
+                <Title2 content={doc['name']} returnPath="/Panel/docs" buttonPath="/Panel/docs/newDoc" />
 
                 <div className={style.modulesBox}>            
                     

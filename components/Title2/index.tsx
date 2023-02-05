@@ -2,11 +2,12 @@ import Link from 'next/link';
 import style from './Title2.module.css';
 
 type Props = {
-    content: string;
-    returnPath: string
+    content: string,
+    returnPath: string,
+    buttonPath: string
 }
 
-const Title2 = ({ content, returnPath }: Props) => {
+const Title2 = ({ content, returnPath, buttonPath }: Props) => {
     return (
         <main className={style.main}>
             <Link href={returnPath}>
