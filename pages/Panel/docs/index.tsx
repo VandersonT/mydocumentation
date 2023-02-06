@@ -108,7 +108,7 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
                                         
                                         {docButtonBox[index] &&
                                             <div className={style.tdButtonBox}>
-                                                <Link href={`/Panel/docs/${doc['slug']}`}>
+                                                <Link href={`/Panel/docs/editDoc/${doc['slug']}`}>
                                                     <button>Edit</button>
                                                 </Link>
                                                 <button onClick={() => deleteDoc(doc['id'], index)}>Trash</button>

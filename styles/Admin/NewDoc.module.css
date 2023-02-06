@@ -10,7 +10,7 @@
      margin-top: 42px;
 }
 
-.form input{
+.form input:not(input[type=checkbox]){
     border: 1px solid #969696;
     width: 272px;
     padding: 7px;
@@ -45,6 +45,17 @@
     border-radius: 2px;
     margin-top: 30px;
     font-size: 14px;
+}
+
+.changeSlug{
+    width: 272px;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    color: rgb(68, 68, 68);
+}
+.changeSlug span{
+    margin-left: 5px;
 }
 
 @media screen and (max-width: 450px){
