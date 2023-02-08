@@ -4,5 +4,6 @@ export type User = {
     email: string,
     phone: string,
     position: string,
-    token: string
+    token: string,
+    created_at: Date
 }
