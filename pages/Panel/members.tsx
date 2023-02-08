@@ -1,18 +1,31 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Router from "next/router";
+import { destroyCookie, parseCookies } from "nookies";
+import { useEffect } from "react";
 import MenuPanel from "../../components/MenuPanel";
 import { Title } from "../../components/Title";
+import { authentication } from "../../helpers/auth";
 import { Layout } from "../../Layouts";
 import style from '../../styles/Admin/Members.module.css';
 import { User } from "../../types/User";
 
 type Props = {
-    admins: User[]
+    admins: User[],
+    loggedAdmin: User
 }
 
-const Members = ({ admins }: Props) => {
+const Members = ({ admins, loggedAdmin }: Props) => {
 
-    console.log(admins)
+    /*-------------------UserEffects--------------------*/
+    useEffect(()=>{
+        if(!loggedAdmin){
+            destroyCookie(undefined, 'token');
+            Router.push('/Panel/login');
+        }
+    },[])
+    /*--------------------------------------------------*/
+
     return (
         <Layout selected="members">
             <>
@@ -59,13 +72,19 @@ export default Members;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
+    /*Try to authenticate*/
+    const cookies = parseCookies(context);
+    let user = await authentication(cookies.token);
+
+    /*Get staff's*/
     let res = await fetch('http://localhost:4000/staff');
     let response = await res.json();
 
 
     return {
         props:{
-            admins: response['admins']
+            admins: response['admins'],
+            loggedAdmin: user['userFound'] || null
         }
     }
 }

@@ -190,7 +190,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                             <div className={style.mostViewed}>
                                 <h3>
                                     <i className="fa-solid fa-circle-check"></i>
-                                    Most viewed docs [{currentPagination}]
+                                    Most viewed docs
                                 </h3>
                                 <ul>
                                     {mostViewedDocs.map((docSingle: any, index: any) => (
@@ -277,10 +277,8 @@ export default Panel;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
     
-    /*Get cookies*/
-    const cookies = parseCookies(context);
-
     /*Try to authenticate*/
+    const cookies = parseCookies(context);
     let user = await authentication(cookies.token);
     
     /*get most viewed docs*/

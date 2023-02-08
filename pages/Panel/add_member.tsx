@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { GetServerSideProps } from "next";
+import Router from "next/router";
+import { destroyCookie, parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 import { Title } from "../../components/Title";
+import { authentication } from "../../helpers/auth";
 import { Layout } from "../../Layouts";
 import style from '../../styles/Admin/NewMember.module.css';
+import { User } from "../../types/User";
 
-const add_member = () => {
+type Props = {
+    loggedAdmin: User
+}
+
+const add_member = ({ loggedAdmin }: Props) => {
 
     const [ showPass, setShowPass ] = useState(false);
     const [ name, setName ] = useState('');
@@ -11,6 +20,16 @@ const add_member = () => {
     const [ phone, setPhone ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ position, setPosition ] = useState("1");
+
+
+    /*-------------------UserEffects--------------------*/
+    useEffect(()=>{
+        if(!loggedAdmin){
+            destroyCookie(undefined, 'token');
+            Router.push('/Panel/login');
+        }
+    },[])
+    /*--------------------------------------------------*/
 
     const generatePass = () => {
         let chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$&ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -36,7 +55,7 @@ const add_member = () => {
     return (
         <Layout selected="members">
             <>
-                ddddd: {position}
+                ddddd: {loggedAdmin['name']}
                 <Title content="Add New Member" />
                 <p className={style.subTitle}>Create a new account and send it to the person who will use it.
                 Afterwards, the person can enter the 'Members' section and edit their user.</p>
@@ -73,3 +92,17 @@ const add_member = () => {
 }
 
 export default add_member;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    /*Try to authenticate*/
+    const cookies = parseCookies(context);
+    let user = await authentication(cookies.token);
+
+
+    return {
+        props:{
+            loggedAdmin: user['userFound'] || null
+        }
+    }
+}
