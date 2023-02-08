@@ -12,6 +12,7 @@ import { Doc } from "../../../../types/Doc";
 import { Module } from "../../../../types/Module";
 import { Topic } from "../../../../types/Topic";
 import { systemStatus } from "../../../../helpers/systemStatus";
+import HTMLReactParser from "html-react-parser";
 /*----------------------------------------------*/
 
 
@@ -195,9 +196,9 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                         </h2>
                     }
                     <h1>{openedTopic['title']}</h1>
-                    <p>{openedTopic['description']}</p>
+                    <p className={style.description}>{openedTopic['description']}</p>
                     <div className={`${style.docContent} ${(state.theme.status == 'dark') ? themeMode.docContentDark : ''}`}>
-                        {openedTopic['content']}
+                        {HTMLReactParser(openedTopic['content'])}
                     </div>
                 </div>
             </main>

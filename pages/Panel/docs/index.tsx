@@ -119,7 +119,7 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
                                         }
                                     </td>
                                     <td><Link href=""><p>{doc['author']}</p></Link></td>
-                                    <td><p>{formatDate(doc['created_at'])}</p></td>
+                                    <td><p>{formatDate(doc['updated_at'])}</p></td>
                                 </tr>
                             ))}
                         </tbody>

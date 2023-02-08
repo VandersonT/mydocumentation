@@ -17,13 +17,26 @@
     cursor: pointer;
 }
 
+.editorHead{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgb(177, 177, 177);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.syncButton{
+    padding: 5px 10px;
+    background-color: #0199ff;
+    color: #FFFFFF;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
 .TitleSection{
     font-size: 25px;
     color: #283368;
     font-weight: 400;
-    border-bottom: 1px solid rgb(177, 177, 177);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
 }
 
 .save{
@@ -65,7 +78,7 @@
     align-items: center;
 }
 
-.col input, .col textarea{
+.col input:not(input[type=checkbox]), .col textarea{
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     margin: 20px 0;
     padding: 7px 10px;
@@ -79,6 +92,16 @@
     box-shadow:none;
     border: 1px solid rgb(212, 212, 212);
     border-radius: 3px;
+}
+
+.changeSlug{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: rgb(68, 68, 68);
+}
+.changeSlug span{
+    margin-left: 5px;
 }
 
 /*EDITOR*/

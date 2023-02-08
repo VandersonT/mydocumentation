@@ -1,14 +1,16 @@
 import { Layout } from '../../../../Layouts';
 import style from '../../../../styles/Admin/Topic.module.css';
 import JoditEditor from 'jodit-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import HTMLReactParser from 'html-react-parser';
 import Link from 'next/link';
+import Success from '../../../../components/Success';
 
-const Jodit = () => {
-
+const Jodit = ({sendContent, defaultContent}) => {
+    
     const editor = useRef(null);
-    const [ content, setContent ] = useState('');
+    const [ content, setContent ] = useState(defaultContent);
+    const [ flashSuccess, setFlashSuccess ] = useState('');
 
     const config = {
         readonly: false,
@@ -20,29 +22,28 @@ const Jodit = () => {
         setContent(editorContent);
     }
 
+    const syncAction = () => {
+        sendContent(content);
+        setFlashSuccess('You can save now, your data is synced.')
+    }
+
+    const closeFlash = () => {
+        setFlashSuccess('');
+    }
+
     return (
         <>
-            <section className={style.mainTitle}>
-                <Link href="/Panel/docs/php_documentation"><i className="fa-solid fa-rotate-left"></i></Link>
-                <h1>PHP Documentation <i className={`fa-solid fa-pen-to-square ${style.editIcon}`}></i></h1>
-                <button className={style.save}>Save</button>
-            </section>
-
-            <section className={style.metaTags}>
-                <h3>Meta Tags</h3>
-                <div className={style.struct}>
-                    <div className={style.col}>
-                        <input type="text" placeholder="Type a title"/>
-                        <textarea placeholder="Type a description"></textarea>
-                    </div>
-                    <div className={style.col}>
-                        <textarea placeholder="type metatags here (ex: carro, veiculo)"></textarea>
-                    </div>
-                </div>
-            </section>
+            {flashSuccess &&
+                <Success content={flashSuccess} closeFunction={closeFlash} />
+            }
 
             <section className={style.editor}>
-                <h3 className={style.TitleSection}>Editor</h3>
+                <div className={style.editorHead}>
+                    <h3 className={style.TitleSection}>Editor</h3>
+                    <button className={style.syncButton} onClick={syncAction}>
+                        Sync <i className="fa-solid fa-rotate"></i>
+                    </button>
+                </div>
                 <JoditEditor
                     ref={editor}
                     value={content}
@@ -52,13 +53,16 @@ const Jodit = () => {
                 />
             </section>
 
-            <section className={style.showResultBox}>
-                <h3 className={style.TitleSection}>Preview</h3> 
+            {/*<section className={style.showResultBox}>
+                <div className={style.editorHead}>
+                    <h3 className={style.TitleSection}>Preview</h3>
+                </div>
                 
                 <div className={style.showResult}>
-                   { HTMLReactParser(content)}
+                   { content}
                 </div>
             </section>
+            */}
 
         </>
     );

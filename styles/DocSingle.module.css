@@ -126,7 +126,7 @@
     font-weight: 400;
 }
 
-.content p {
+.description{
     font-size: 19px;
     color: #6D6D6D;
     font-family: 'Roboto', sans-serif;
@@ -135,8 +135,9 @@
 
 .docContent{
     margin-top: 70px;
-    color: #1A1A1A;
     font-size: 16px;
+    font-family: arial;
+    color: #333333; 
 }
 
 
