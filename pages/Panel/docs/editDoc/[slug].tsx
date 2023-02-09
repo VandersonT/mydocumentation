@@ -1,3 +1,4 @@
+/*-----------------------------Imports------------------------------------*/
 import { Layout } from "../../../../Layouts";
 import style from '../../../../styles/Admin/NewDoc.module.css';
 import dynamic from 'next/dynamic'
@@ -9,29 +10,40 @@ import nookies, { destroyCookie, parseCookies } from "nookies";
 import { GetServerSideProps } from "next";
 import {authentication} from '../../../../helpers/auth';
 import { User } from "../../../../types/User";
+/*------------------------------------------------------------------------*/
 
 
+/*------------------------------Types-------------------------------------*/
 type Props = {
     loggedUser: User,
     docOpened: any
 }
+/*------------------------------------------------------------------------*/
+
 
 const Docs = ({ loggedUser, docOpened }: Props) => {
 
+    /*------------------------------States------------------------------------*/
     const [ docName, setDocName ] = useState(docOpened['name']);
     const [ description, setDescription ] = useState(docOpened['description']);
     const [ imageUrl, setImageUrl ] = useState(docOpened['image']);
     const [ slug, setSlug ] = useState(docOpened['slug']);
     const [ flashError, setFlashError ] = useState('');
     const [ changeSlug, setChangeSlug ] = useState(false);
+    /*------------------------------------------------------------------------*/
 
+
+    /*-----------------------------UseEffects---------------------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*------------------------------------------------------------------------*/
 
+
+    /*-----------------------------Functions----------------------------------*/
     const clearFlashs = () => {
         setFlashError('');
     }
@@ -67,7 +79,9 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
         }
 
     }
+    /*------------------------------------------------------------------------*/
     
+
     return (
         <Layout selected="docs">
             <>
@@ -105,6 +119,8 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
 
 export default Docs;
 
+
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*----------------------Try to authenticate-------------------------------*/
@@ -120,11 +136,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     /*------------------------------------------------------------------------*/
     
-    /*Get doc data*/
+
+    /*------------------------Get doc data------------------------------------*/
     const slug = context.query.slug as string;
     let res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
     let response = await res.json();
+    /*------------------------------------------------------------------------*/
     
+
     return {
         props:{
             loggedUser: user['userFound'] || null,

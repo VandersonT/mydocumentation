@@ -1,3 +1,4 @@
+/*------------------------------Imports---------------------------------*/
 import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -10,30 +11,42 @@ import style from '../../../../styles/Admin/DocSingle.module.css';
 import { User } from '../../../../types/User';
 import Error from '../../../../components/Error';
 import Success from '../../../../components/Success';
+/*------------------------------------------------------------------------*/
 
+
+/*-------------------------------Types------------------------------------*/
 type Props = {
     loggedUser: User,
     doc: any,
     mods: any,
     tops: any,
 }
+/*------------------------------------------------------------------------*/
+
 
 const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
+    /*---------------------------State------------------------------------*/
     const [ topicBoxOpened, setTopicBoxOpened ] = useState([false]);
     const [ topicOpened, setTopicOpened ] = useState([false]);
     const [ modules, setModules ] = useState(mods);
     const [ topics, setTopics ] = useState(tops);
     const [ flashError, setFlashError ] = useState('');
     const [ flashSuccess, setFlashSuccess ] = useState('');
+    /*------------------------------------------------------------------------*/
 
+
+    /*--------------------------UseEffects------------------------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*------------------------------------------------------------------------*/
 
+
+    /*---------------------------Functions------------------------------------*/
     const clearFlashs = () => {
         setFlashError('');
         setFlashSuccess('');
@@ -216,6 +229,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         }
 
     }
+    /*------------------------------------------------------------------------*/
 
     return (
         <Layout>
@@ -308,11 +322,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     /*------------------------------------------------------------------------*/
 
-    /*Get doc data*/
+
+
+    /*----------------------Get doc data--------------------------------------*/
     const slug = context.query.doc as string;
     const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
     let docResponse = await res.json();
 
+    
     if(!docResponse['documentation']) 
         return {
             redirect: {
@@ -320,15 +337,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             permanent: false,
             },
         }
+    /*------------------------------------------------------------------------*/
 
-    /*Get doc module*/
+
+
+    /*---------------------Get doc module-------------------------------------*/
     const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
     let moduleResponse = await resM.json();
+    /*------------------------------------------------------------------------*/
     
-    /*Get Module topics*/
+
+
+    /*---------------------Get Module topics----------------------------------*/
     const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
     let topicResponse = await resT.json();
+    /*------------------------------------------------------------------------*/
 
+    
     return {
         props:{
             loggedUser: user['userFound'] || null,

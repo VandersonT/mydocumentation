@@ -1,4 +1,4 @@
-/*----------------IMPORTS-----------------------*/
+/*----------------------------Imports-------------------------------------*/
 import Header from "../../../../components/Header";
 import Footer from "../../../../components/Footer";
 import style from '../../../../styles/DocSingle.module.css';
@@ -13,19 +13,21 @@ import { Module } from "../../../../types/Module";
 import { Topic } from "../../../../types/Topic";
 import { systemStatus } from "../../../../helpers/systemStatus";
 import HTMLReactParser from "html-react-parser";
-/*----------------------------------------------*/
+/*------------------------------------------------------------------------*/
 
 
+/*----------------------------Types---------------------------------------*/
 type Props = {
     doc: Doc,
     mods: Module[],
     top: Topic[],
     openedTopic: any
 }
+/*------------------------------------------------------------------------*/
 
 const Single = ({ doc, mods, top, openedTopic }: Props) => {
 
-    /*----------------STATES-----------------------*/
+    /*-----------------------------States-------------------------------------*/
     const { state, dispatch } = useContext(Context);
     const [ modules, setModules ] = useState<boolean[]>([false]);
     const [ modulesMirror, setModulesMirror ] = useState<Module[]>([]);
@@ -35,9 +37,10 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
     const [ markedTopic, setMarkedTopic ] = useState(0);
     const [ topicWasFound, setTopicWasFound ] = useState(true);
     const [ errorMessage, setErrorMessage ] = useState('');
-    /*---------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
-    /*----------------EFFECTS-----------------------*/
+
+    /*----------------------------UseEffects----------------------------------*/
     useEffect(()=>{
         setModulesMirror(mods);
         setTopicsMirror(top);
@@ -48,9 +51,10 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                 modules[i] = true;
             
     },[]);
-    /*---------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
-    /*--------------FUNCTIONS----------------------*/
+
+    /*---------------------------Functions------------------------------------*/
     const openModule = (index: number) => {
         let aux = [];
 
@@ -97,7 +101,8 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
         }
 
     }
-    /*---------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+
     
     return (
         <>
@@ -212,7 +217,7 @@ export default Single;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
-    /*Check if the system is active.*/
+    /*----------------Check if the system is active.--------------------------*/
     let systemActive = await systemStatus();
   
     if(!systemActive)
@@ -222,16 +227,21 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
               permanent: false,
           },
       }
+    /*------------------------------------------------------------------------*/
 
-    /*Get url data*/
+
+    /*-------------------------Get url data-----------------------------------*/
     const slug = context.query.doc as string;
     const topicSlug = context.query.topic as string;
+    /*------------------------------------------------------------------------*/
 
-    /*Try to connect to api and get the data*/
+
+    /*-------------Try to connect to api and get the data---------------------*/
     let docResponse;
     let moduleResponse;
     let topicResponse;
     let openedTopic;
+    
     try{
         const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
         docResponse = await res.json();
@@ -292,4 +302,5 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
         }
         
     }
+    /*------------------------------------------------------------------------*/
 }

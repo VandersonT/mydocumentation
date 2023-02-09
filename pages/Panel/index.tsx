@@ -1,37 +1,41 @@
-/*----------------IMPORTS-----------------------*/
-    import { GetServerSideProps } from 'next';
-    import Head from 'next/head';
-    import  Router from 'next/router';
-    import nookies, { destroyCookie, parseCookies } from 'nookies';
-    import { useEffect, useState } from 'react';
-    import { User }  from '../../types/User';
-    import { authentication } from '../../helpers/auth';
+/*------------------------------Imports------------------------------------*/
+import { GetServerSideProps } from 'next';
+import Head from 'next/head';
+import  Router from 'next/router';
+import nookies, { destroyCookie, parseCookies } from 'nookies';
+import { useEffect, useState } from 'react';
+import { User }  from '../../types/User';
+import { authentication } from '../../helpers/auth';
 
-    //Components
-    import { Layout } from '../../Layouts';
-    import { Title } from '../../components/Title';
-    import Error from '../../components/Error';
-    import Success from '../../components/Success';
-    import Warning from '../../components/Warning';
-    import { formatDate } from '../../helpers/tools';
+//Components
+import { Layout } from '../../Layouts';
+import { Title } from '../../components/Title';
+import Error from '../../components/Error';
+import Success from '../../components/Success';
+import Warning from '../../components/Warning';
+import { formatDate } from '../../helpers/tools';
 
-    //Css's
-    import style from '../../styles/Admin/Panel.module.css';
+//Css's
+import style from '../../styles/Admin/Panel.module.css';
 
-/*----------------------------------------------*/
+/*------------------------------------------------------------------------*/
 
 
+
+/*-------------------------------Types------------------------------------*/
 type Props = {
     loggedUser: User,
     mostViewedDocs: any,
     generalData: any,
     currentDocs: any
 }
+/*------------------------------------------------------------------------*/
+
 
 
 const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) => {
     
-    /*----------------------States----------------------*/
+    /*---------------------------------States---------------------------------*/
     const [ systemStatus, setSystemStatus ] = useState(generalData['systemStatus']);
     const [ currentPagination, setCurrentPagination ] = useState(1);
     const [ tableDoc, setTableDoc ] = useState(currentDocs['docs']);
@@ -40,14 +44,15 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
     const [ showAllDocs, setShowAllDocs ] = useState(true);/*Used to know if are showing all docs or searched docs*/
     const [ errorFlash, setErrorFlash ] = useState('');/*Error messages*/
     const [ successFlash, setSuccessFlash ] = useState('');/*Error messages*/
-    /*--------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
-    /*-------------------UserEffects--------------------*/
+
+    /*-------------------------------UseEffects-------------------------------*/
     
-    /*--------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
 
-    /*--------------------Functions---------------------*/
+    /*-------------------------------Functions--------------------------------*/
     const clearFlashs = () => {
         setErrorFlash('');
         setSuccessFlash('');
@@ -151,7 +156,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
             setSuccessFlash('The system has been enabled.')
         }
     }
-    /*--------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
     return (
         <>
@@ -160,8 +165,6 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                 <Head>
                     <title>Dashboard - Panel</title>
                 </Head>
-
-                ddddd: {loggedUser['id']}
 
                 {errorFlash && <Error content={errorFlash} closeFunction={clearFlashs} />}
 
@@ -271,6 +274,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
 }
 
 export default Panel;
+
 
 
 export const getServerSideProps: GetServerSideProps = async(context) => {

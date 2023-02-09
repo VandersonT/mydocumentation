@@ -1,3 +1,4 @@
+/*----------------------------------Imports-------------------------------*/
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -10,22 +11,33 @@ import { authentication } from "../../helpers/auth";
 import { Layout } from "../../Layouts";
 import style from '../../styles/Admin/Members.module.css';
 import { User } from "../../types/User";
+/*------------------------------------------------------------------------*/
 
+
+
+/*-------------------------------------Types------------------------------*/
 type Props = {
     admins: User[],
     loggedAdmin: User
 }
+/*------------------------------------------------------------------------*/
+
+
 
 const Members = ({ admins, loggedAdmin }: Props) => {
 
-    /*-------------------UserEffects--------------------*/
-    useEffect(()=>{
-        if(!loggedAdmin){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
-    /*--------------------------------------------------*/
+
+    /*--------------------------------States----------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+
+    /*------------------------------UseEffects--------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*-------------------------------Functions--------------------------------*/
+    /*------------------------------------------------------------------------*/
 
     return (
         <Layout selected="members">
@@ -71,6 +83,8 @@ const Members = ({ admins, loggedAdmin }: Props) => {
 
 export default Members;
 
+
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*----------------------Try to authenticate-------------------------------*/
@@ -86,9 +100,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     /*------------------------------------------------------------------------*/
 
-    /*Get staff's*/
+
+    /*-----------------------Get staff's--------------------------------------*/
     let res = await fetch('http://localhost:4000/staff');
     let response = await res.json();
+    /*------------------------------------------------------------------------*/
 
 
     return {

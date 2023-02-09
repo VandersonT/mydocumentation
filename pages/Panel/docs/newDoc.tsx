@@ -1,3 +1,4 @@
+/*----------------------------Imports-------------------------------------*/
 import { Layout } from "../../../Layouts";
 import style from '../../../styles/Admin/NewDoc.module.css';
 import dynamic from 'next/dynamic'
@@ -9,27 +10,38 @@ import nookies, { destroyCookie, parseCookies } from "nookies";
 import { GetServerSideProps } from "next";
 import {authentication} from '../../../helpers/auth';
 import { User } from "../../../types/User";
+/*------------------------------------------------------------------------*/
 
 
+/*-----------------------------Types--------------------------------------*/
 type Props = {
     loggedUser: User
 }
+/*------------------------------------------------------------------------*/
+
 
 const Docs = ({ loggedUser }: Props) => {
 
+    /*-----------------------------States-------------------------------------*/
     const [ docName, setDocName ] = useState('');
     const [ description, setDescription ] = useState('');
     const [ imageUrl, setImageUrl ] = useState('');
     const [ slug, setSlug ] = useState('');
     const [ flashError, setFlashError ] = useState('');
+    /*------------------------------------------------------------------------*/
 
+
+    /*---------------------------UseEffects-----------------------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*------------------------------------------------------------------------*/
 
+    
+    /*---------------------------Functions------------------------------------*/
     const clearFlashs = () => {
         setFlashError('');
     }
@@ -65,6 +77,7 @@ const Docs = ({ loggedUser }: Props) => {
         }
 
     }
+    /*------------------------------------------------------------------------*/
 
     return (
         <Layout selected="docs">

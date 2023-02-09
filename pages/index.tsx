@@ -1,42 +1,47 @@
-/*----------------IMPORTS-----------------------*/
-  import { ChangeEvent, useContext, useState } from 'react';
-  import type { GetServerSideProps, NextPage } from 'next';
-  import Head from 'next/head';
-  import { Context } from '../contexts/Context';
+/*-------------------------------Imports----------------------------------*/
+import { ChangeEvent, useContext, useState } from 'react';
+import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
+import { Context } from '../contexts/Context';
 
-  //Css's
-  import style from '../styles/Home.module.css';
+//Css's
+import style from '../styles/Home.module.css';
 
-  //Components
-  import { Button1 } from '../components/Button1';
-  import { SkillBox } from '../components/SkillBox';
-  import { SkillBox2 } from '../components/SkillBox2';
+//Components
+import { Button1 } from '../components/Button1';
+import { SkillBox } from '../components/SkillBox';
+import { SkillBox2 } from '../components/SkillBox2';
 import { systemStatus } from '../helpers/systemStatus';
-/*----------------------------------------------*/
+/*------------------------------------------------------------------------*/
 
 
 const Home: NextPage = () => {
+  
+  /*-------------------------------States-----------------------------------*/
+  const [ questions, setQuestions ] = useState([false]);
+  const [ search, setSearch ] = useState('');
+  /*------------------------------------------------------------------------*/
 
-  /*----------------STATES-----------------------*/
-    const [ questions, setQuestions ] = useState([false]);
-    const [ search, setSearch ] = useState('');
-  /*---------------------------------------------*/
 
-  /*--------------FUNCTIONS----------------------*/
-    const openQuestion = (index: number) => {
-      let list = [];
+  /*------------------------------UseEffects--------------------------------*/
+  /*------------------------------------------------------------------------*/
 
-      for(let i = 0; i < questions.length; i++)
-        list[i] = false;
+  
+  /*------------------------------Function----------------------------------*/
+  const openQuestion = (index: number) => {
+    let list = [];
 
-      list[index] = true;
-      setQuestions(list);
-    }
+    for(let i = 0; i < questions.length; i++)
+      list[i] = false;
 
-    const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSearch(event.target.value);
-    }
-  /*---------------------------------------------*/
+    list[index] = true;
+    setQuestions(list);
+  }
+
+  const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  }
+  /*------------------------------------------------------------------------*/
 
   return (
     <>
@@ -240,18 +245,21 @@ const Home: NextPage = () => {
 
 export default Home
 
+
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   
-  /*Check if the system is active.*/
+  /*----------------------Check if the system is active.----------------------*/
   let systemActive = await systemStatus();
 
   if(!systemActive)
-    return {
-        redirect: {
-            destination: '/error',
-            permanent: false,
-        },
-    }
+  return {
+      redirect: {
+          destination: '/error',
+          permanent: false,
+      },
+  }
+  /*------------------------------------------------------------------------*/
   
 
   return {props: {}}

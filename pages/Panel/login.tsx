@@ -1,28 +1,30 @@
-/*----------------IMPORTS-----------------------*/
-    import Head from 'next/head';
-    import { useState } from 'react';
-    import Router from 'next/router'
-    import { setCookie, parseCookies } from 'nookies'
+/*------------------------------Imports-----------------------------------*/
+import Head from 'next/head';
+import { useState } from 'react';
+import Router from 'next/router'
+import { setCookie, parseCookies } from 'nookies'
 
-    //Css's
-    import style from '../../styles/Admin/Login.module.css';
-    import { GetServerSideProps } from 'next';
-/*----------------------------------------------*/
+//Css's
+import style from '../../styles/Admin/Login.module.css';
+import { GetServerSideProps } from 'next';
+/*------------------------------------------------------------------------*/
 
 
 
 
 const Login = () => {
     
-    /*------------------STATES----------------------*/
+    /*-------------------------------States-----------------------------------*/
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ keepConnected, setKeepConnected ] = useState(false);
     const [ error, setError ] = useState('');
     const [ loading, setLoading ] = useState(false);
-    /*----------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
-    /*----------------FUNCTIONS---------------------*/
+
+
+    /*-----------------------------Functions----------------------------------*/
     const loginHandler = async (e:React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
@@ -81,7 +83,7 @@ const Login = () => {
     const handlerKeepConnected = () => {
         setKeepConnected(!keepConnected);
     }
-    /*----------------------------------------------*/
+    /*------------------------------------------------------------------------*/
 
     return (
         <>
@@ -129,8 +131,9 @@ export default Login;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
-    const cookies = parseCookies(context);
 
+    /*-------------------------Check if is logged------------------------------*/
+    const cookies = parseCookies(context);
     if(cookies.token){
         return {
             redirect: {
@@ -139,6 +142,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
             },
         }
     }
+    /*------------------------------------------------------------------------*/
     
     return {
         props: {}

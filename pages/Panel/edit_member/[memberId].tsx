@@ -1,3 +1,4 @@
+/*---------------------------Imports-------------------------------------*/
 import { GetServerSideProps } from "next";
 import Router from "next/router";
 import nookies, { destroyCookie, parseCookies } from "nookies";
@@ -9,14 +10,20 @@ import { authentication } from "../../../helpers/auth";
 import { Layout } from "../../../Layouts";
 import style from '../../../styles/Admin/NewMember.module.css';
 import { User } from "../../../types/User";
+/*------------------------------------------------------------------------*/
 
+
+/*-----------------------------Types--------------------------------------*/
 type Props = {
     adminInfo: User,
     loggedAdmin: User
 }
+/*------------------------------------------------------------------------*/
+
 
 const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
     
+    /*--------------------------------States----------------------------------*/
     const [ showPass, setShowPass ] = useState(false);
     const [ name, setName ] = useState(adminInfo['name']);
     const [ email, setEmail ] = useState(adminInfo['email']);
@@ -25,11 +32,14 @@ const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
     const [ position, setPosition ] = useState(adminInfo['position']);
     const [ flashSuccess, setFlashSuccess ] = useState('');
     const [ flashError, setFlashError ] = useState('');
+    /*------------------------------------------------------------------------*/
 
-    /*-------------------UserEffects--------------------*/
-    
-    /*--------------------------------------------------*/
 
+    /*---------------------------UserEffects----------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*-------------------------------Functions--------------------------------*/
     const closeFlashs = () => {
         setFlashError('');
         setFlashSuccess('');
@@ -68,6 +78,7 @@ const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
 
         setFlashSuccess("This profile has been updated.")
     }
+    /*------------------------------------------------------------------------*/
 
     return (
         <Layout selected="members">
@@ -130,7 +141,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     /*------------------------------------------------------------------------*/
 
-    /*Get admin profile data*/
+
+    /*-------------------Get admin profile data-------------------------------*/
     const profileId = context.query.memberId as string;
 
     let res = await fetch(`http://localhost:4000/staff/${profileId}`);
@@ -144,6 +156,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             },
         }
     }
+    /*------------------------------------------------------------------------*/
 
     return {
         props: {

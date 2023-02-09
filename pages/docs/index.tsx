@@ -1,4 +1,4 @@
-/*----------------IMPORTS-----------------------*/
+/*----------------------------Imports-------------------------------------*/
 import Head from "next/head";
 import { useRouter } from "next/router";
 import style from '../../styles/Docs.module.css';
@@ -12,16 +12,31 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { GetServerSideProps } from "next";
 import { systemStatus } from "../../helpers/systemStatus";
-/*----------------------------------------------*/
+/*------------------------------------------------------------------------*/
 
+
+/*-----------------------------Types--------------------------------------*/
 type Props = {
     docs: Doc[],
     search: string
 }
+/*------------------------------------------------------------------------*/
 
 const Docs = ({ docs,search }: Props) => {
     
+
+    /*------------------------States------------------------------------------*/
     const { state, dispatch } = useContext(Context);
+    /*------------------------------------------------------------------------*/
+
+
+    /*------------------------------UseEffects--------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*-------------------------------Functions--------------------------------*/
+    /*------------------------------------------------------------------------*/
+
 
     return (
         <>
@@ -113,7 +128,7 @@ export default Docs;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*Check if the system is active.*/
+    /*------------------Check if the system is active.------------------------*/
     let systemActive = await systemStatus();
   
     if(!systemActive)
@@ -123,8 +138,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
               permanent: false,
           },
       }
+    /*------------------------------------------------------------------------*/
 
-    /*get data*/
+
+    /*----------------------try to get data-----------------------------------*/
     let search = context.query.search as string;
 
 
@@ -157,5 +174,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             },
         }
     }
-    
+    /*------------------------------------------------------------------------*/
 }

@@ -1,3 +1,4 @@
+/*-------------------------------Imports----------------------------------*/
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -13,26 +14,38 @@ import { User } from "../../../types/User";
 import Error from '../../../components/Error';
 import Success from "../../../components/Success";
 import Router from "next/router";
+/*------------------------------------------------------------------------*/
 
+
+/*--------------------------------Types-----------------------------------*/
 type Props = {
     loggedUser: User,
     docsReceived: any
 }
+/*------------------------------------------------------------------------*/
+
 
 const Docs = ({ loggedUser, docsReceived }: Props) => {
 
+    /*--------------------------------States----------------------------------*/
     const [ docButtonBox, setDocButtonBox ] = useState([false]); /*Show or not the buttons of a box*/
     const [ docs, setDocs ] = useState(docsReceived);
     const [ flashError, setFlashError ] = useState('');
     const [ flashSuccess, setFlashSucces ] = useState('');
+    /*------------------------------------------------------------------------*/
 
+
+    /*------------------------------UseEffects--------------------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*------------------------------------------------------------------------*/
 
+
+    /*-------------------------------Functions--------------------------------*/
     const openMenu = (index: number) => {
         let aux = [];
         for(let i = 0; i < docButtonBox.length; i++)
@@ -73,6 +86,8 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
         setFlashError('');
         setFlashSucces('');
     }
+    /*------------------------------------------------------------------------*/
+
 
     return (
         <Layout selected="docs">
@@ -132,6 +147,8 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
 
 export default Docs;
 
+
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*----------------------Try to authenticate-------------------------------*/
@@ -146,9 +163,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return {redirect: {destination: '/Panel/login',permanent: false,}}
     }
     /*------------------------------------------------------------------------*/
+    
 
+    /*-------------------------Get all docs-----------------------------------*/
     let res = await fetch('http://localhost:4000/docs');
     let docsResponse = await res.json();
+    /*------------------------------------------------------------------------*/
 
     return {
         props:{

@@ -1,5 +1,5 @@
+/*--------------------------------Imports---------------------------------*/
 import { Layout } from "../../../../Layouts";
-//import style from '../../../../styles/Admin/Docs.module.css';
 const Jodit = dynamic(() => import('./Jodit'), { ssr: false })
 import dynamic from 'next/dynamic'
 import { GetServerSideProps } from 'next';
@@ -12,15 +12,20 @@ import Link from "next/link";
 import style from '../../../../styles/Admin/Topic.module.css';
 import Error from "../../../../components/Error";
 import Success from "../../../../components/Success";
+/*------------------------------------------------------------------------*/
 
 
+/*---------------------------------Types----------------------------------*/
 type Props = {
     loggedUser: User,
     topic: any
 }
+/*------------------------------------------------------------------------*/
+
 
 const Docs = ({ loggedUser, topic }: Props) => {
     
+    /*--------------------------------States----------------------------------*/
     const [ changeSlug, setChangeSlug ] = useState(false);
     const [ title, setTitle ] = useState(topic['title']);
     const [ metaTags, setMetaTags ] = useState(topic['meta_tags']);
@@ -29,14 +34,20 @@ const Docs = ({ loggedUser, topic }: Props) => {
     const [ content, setContent ] = useState('');
     const [ flashSucces, setFlashSuccess ] = useState('');
     const [ flashError, setFlashError ] = useState('');
+    /*------------------------------------------------------------------------*/
 
+
+    /*-----------------------------UseEffects---------------------------------*/
     useEffect(()=>{
         if(!loggedUser){
             destroyCookie(undefined, 'token');
             Router.push('/Panel/login');
         }
     },[])
+    /*------------------------------------------------------------------------*/
 
+
+    /*------------------------------Functions---------------------------------*/
     const getContent = (content: string) => {
         setContent(content);
     }
@@ -67,6 +78,7 @@ const Docs = ({ loggedUser, topic }: Props) => {
     const closeFlashs = () => {
         setFlashSuccess('');
     }
+    /*------------------------------------------------------------------------*/
 
     return (
         <Layout selected="docs">
@@ -127,11 +139,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
     /*------------------------------------------------------------------------*/
 
-    /*Get Topic Data*/
+
+    /*--------------------Get Topic Data--------------------------------------*/
     const slugTopic = context.query.topic as string;
     const res = await fetch(`http://localhost:4000/topicBySlug/${slugTopic}`);
     let topicResponse = await res.json();
+    /*------------------------------------------------------------------------*/
 
+    
     return {
         props:{
             loggedUser: user['userFound'] || null,

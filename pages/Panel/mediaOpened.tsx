@@ -1,3 +1,4 @@
+/*--------------------------------Imports---------------------------------*/
 import style from '../../styles/Admin/mediaOpened.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,12 +6,33 @@ import { authentication } from '../../helpers/auth';
 import nookies, { parseCookies } from 'nookies';
 import { GetServerSideProps } from 'next';
 import { User } from '../../types/User';
+/*------------------------------------------------------------------------*/
 
+
+
+/*-----------------------------------Types--------------------------------*/
 type Props = {
     loggedAdmin: User
 }
+/*------------------------------------------------------------------------*/
+
+
 
 const mediaOpened = ({ loggedAdmin }: Props) => {
+
+
+    /*--------------------------------States----------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+
+    /*------------------------------UseEffects--------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*-------------------------------Functions--------------------------------*/
+    /*------------------------------------------------------------------------*/
+
     return (
         <main className={style.main}>
             <section className={style.container}>
@@ -59,6 +81,8 @@ const mediaOpened = ({ loggedAdmin }: Props) => {
 }
 
 export default mediaOpened;
+
+
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
     
