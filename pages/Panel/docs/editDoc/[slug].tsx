@@ -34,12 +34,7 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
 
 
     /*-----------------------------UseEffects---------------------------------*/
-    useEffect(()=>{
-        if(!loggedUser){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+    
     /*------------------------------------------------------------------------*/
 
 
@@ -48,7 +43,13 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
         setFlashError('');
     }
 
-    const registerDoc = async () => {
+    const editButton = async () => {
+
+        if(loggedUser['position'] == "1" && docOpened['author'] != loggedUser['id']){
+            setFlashError('You can only edit a document created by yourself.')
+            return false;
+        }
+
         if(docName && description && imageUrl && slug){
             
             let res = await fetch(`http://localhost:4000/doc/${docOpened['id']}`,{
@@ -86,11 +87,11 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
         <Layout selected="docs">
             <>
 
-            {flashError &&
-                <Error content={flashError} closeFunction={clearFlashs} />
-            }
+                {flashError &&
+                    <Error content={flashError} closeFunction={clearFlashs} />
+                }
 
-            <Title content="Edit Doc" />
+                <Title content="Edit Doc" />
                 <p className={style.subTitle}>Here you can create new documentation about anything you want.</p>
 
                 <div className={style.form}>
@@ -110,7 +111,7 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
                         <span>Change slug</span>
                     </div>
 
-                    <button className={style.registerButton} onClick={registerDoc}>Register</button>
+                    <button className={style.registerButton} onClick={editButton}>Edit</button>
                 </div>
             </>
         </Layout>

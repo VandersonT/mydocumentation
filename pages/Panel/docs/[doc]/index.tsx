@@ -37,12 +37,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
 
     /*--------------------------UseEffects------------------------------------*/
-    useEffect(()=>{
-        if(!loggedUser){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+    
     /*------------------------------------------------------------------------*/
 
 
@@ -74,7 +69,13 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
     }
 
     const newModuleAction = async () => {
-        let moduleName = prompt('teste');
+        
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only create a module in a documentation that you created.')
+            return false;
+        }
+        
+        let moduleName = prompt("Choose a name for this doc.");
 
         if(moduleName){
             if(confirm('Are you sure you want to create this module?')){
@@ -102,6 +103,11 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
     const deleteModule = (moduleId: number, index: number) => {
 
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only delete a document created by yourself.')
+            return false;
+        }
+
         if(!confirm('Are you sure you want to delete this module?'))
             return;
         
@@ -117,6 +123,11 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
     }
 
     const renameModule = (moduleId: number, index: number) => {
+
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only rename a module in a documentation that you created.')
+            return false;
+        }
 
         let newName = prompt("What's the new name of this module?");
 
@@ -154,6 +165,10 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
     const newTopic = async (moduleId: string) => {
 
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only create a topic in a documentation that you created.')
+            return false;
+        }
 
         let newTopicName = prompt("What's the topic name?");
 
@@ -190,6 +205,11 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
     const renameTopic = (topicId: number, index: number) => {
 
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only rename a topic in a documentation that you created.')
+            return false;
+        }
+
         let newTopicName = prompt("What's the new topic name?");
 
         if(newTopicName){
@@ -217,6 +237,11 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
     }
 
     const deleteTopic = (topicId: number, index: number) => {
+
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only delete a topic in a documentation that you created.')
+            return false;
+        }
 
         if(confirm('Are you sure you want to delete this topic?')){
             fetch(`http://localhost:4000/topic/${topicId}`, {

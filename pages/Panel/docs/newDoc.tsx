@@ -32,12 +32,7 @@ const Docs = ({ loggedUser }: Props) => {
 
 
     /*---------------------------UseEffects-----------------------------------*/
-    useEffect(()=>{
-        if(!loggedUser){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+
     /*------------------------------------------------------------------------*/
 
     
@@ -111,6 +106,8 @@ const Docs = ({ loggedUser }: Props) => {
 }
 
 export default Docs;
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 

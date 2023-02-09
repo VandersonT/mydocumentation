@@ -18,12 +18,13 @@ import Success from "../../../../components/Success";
 /*---------------------------------Types----------------------------------*/
 type Props = {
     loggedUser: User,
-    topic: any
+    topic: any,
+    doc: any
 }
 /*------------------------------------------------------------------------*/
 
 
-const Docs = ({ loggedUser, topic }: Props) => {
+const Docs = ({ loggedUser, topic, doc }: Props) => {
     
     /*--------------------------------States----------------------------------*/
     const [ changeSlug, setChangeSlug ] = useState(false);
@@ -38,12 +39,7 @@ const Docs = ({ loggedUser, topic }: Props) => {
 
 
     /*-----------------------------UseEffects---------------------------------*/
-    useEffect(()=>{
-        if(!loggedUser){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+    
     /*------------------------------------------------------------------------*/
 
 
@@ -53,6 +49,11 @@ const Docs = ({ loggedUser, topic }: Props) => {
     }
 
     const saveTopic = async () => {
+
+        if(loggedUser['position'] == "1" && doc['author'] != loggedUser['id']){
+            setFlashError('You can only edit a topic in a documentation that you created.')
+            return false;
+        }
 
         let res = await fetch(`http://localhost:4000/topic/${topic['id']}`,{
             method: 'PUT',
@@ -77,6 +78,7 @@ const Docs = ({ loggedUser, topic }: Props) => {
 
     const closeFlashs = () => {
         setFlashSuccess('');
+        setFlashError('');
     }
     /*------------------------------------------------------------------------*/
 
@@ -140,6 +142,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     /*------------------------------------------------------------------------*/
 
 
+    /*--------------------Get Doc Data--------------------------------------*/
+    const slugDoc = context.query.doc as string;
+    const resDoc = await fetch(`http://localhost:4000/docBySlug/${slugDoc}`);
+    let docResponse = await resDoc.json();
+    /*------------------------------------------------------------------------*/
+
+
     /*--------------------Get Topic Data--------------------------------------*/
     const slugTopic = context.query.topic as string;
     const res = await fetch(`http://localhost:4000/topicBySlug/${slugTopic}`);
@@ -150,7 +159,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props:{
             loggedUser: user['userFound'] || null,
-            topic: topicResponse['topicFound']
+            topic: topicResponse['topicFound'],
+            doc: docResponse['documentation']
         }
     }
 }
