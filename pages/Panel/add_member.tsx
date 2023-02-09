@@ -2,6 +2,8 @@ import { GetServerSideProps } from "next";
 import Router from "next/router";
 import nookies, { destroyCookie, parseCookies } from "nookies";
 import { useEffect, useState } from "react";
+import Error from "../../components/Error";
+import Success from "../../components/Success";
 import { Title } from "../../components/Title";
 import { authentication } from "../../helpers/auth";
 import { Layout } from "../../Layouts";
@@ -19,17 +21,27 @@ const add_member = ({ loggedAdmin }: Props) => {
     const [ email, setEmail ] = useState('');
     const [ phone, setPhone ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ position, setPosition ] = useState("1");
+    const [ position, setPosition ] = useState('1');
+    const [ flashError, setFlashError ] = useState('');
+    const [ flashSuccess, setFlashSuccess ] = useState('');
 
 
     /*-------------------UserEffects--------------------*/
-    useEffect(()=>{
-        if(!loggedAdmin){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+    
     /*--------------------------------------------------*/
+
+    const closeFlahs = () => {
+        setFlashError('');
+        setFlashSuccess('');
+    }
+
+    const clearAllFields = () => {
+        setName('');
+        setEmail('');
+        setPhone('');
+        setPassword('');
+        setPosition('1');
+    }
 
     const generatePass = () => {
         let chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$&ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -48,15 +60,55 @@ const add_member = ({ loggedAdmin }: Props) => {
         setShowPass(!showPass);
     }
 
-    const submit = () => {
+    const submit = async() => {
         
+        if(!name || !email || !phone || !password || !position){
+            setFlashError('You must not submit empty fields.');
+            return;
+        }
+
+        if(loggedAdmin['position'] == "1"){
+            setFlashError('You are not allowed to create a new member.');
+            return;
+        }
+
+        let res = await fetch('http://localhost:4000/staff',{
+            method: 'POST',
+            body: new URLSearchParams({
+                name,
+                email,
+                pass: password,
+                phone,
+                position
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        });
+
+        let response = await res.json();
+
+        if(response['error']){
+            setFlashError(response['error']);
+            return;
+        }
+
+        clearAllFields();
+        setFlashSuccess('You have successfully registered a new member.');
     }
 
     return (
         <Layout selected="members">
             <>
-                ddddd: {loggedAdmin['name']}
+                {flashError &&
+                    <Error content={flashError} closeFunction={closeFlahs} />
+                }
+                {flashSuccess &&
+                    <Success content={flashSuccess} closeFunction={closeFlahs} />
+                }
+                
                 <Title content="Add New Member" />
+                
                 <p className={style.subTitle}>Create a new account and send it to the person who will use it.
                 Afterwards, the person can enter the 'Members' section and edit their user.</p>
 
@@ -92,6 +144,8 @@ const add_member = ({ loggedAdmin }: Props) => {
 }
 
 export default add_member;
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
