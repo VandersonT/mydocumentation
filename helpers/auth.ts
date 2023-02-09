@@ -1,12 +1,7 @@
 export const authentication = async (token: any) => {
     /*Check if there is a token*/
     if(!token){
-        return {
-            redirect: {
-                destination: '/Panel/login',
-                permanent: false,
-            },
-        }
+        return false;
     }
     
     /*Search for user using token*/
@@ -19,6 +14,11 @@ export const authentication = async (token: any) => {
     });
 
     let user = await res.json();
+
+    /*Check if any users were found*/
+    if(user['error']){
+        return false;
+    }
 
     return user;
 }

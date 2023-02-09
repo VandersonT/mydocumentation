@@ -1,7 +1,8 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import Router from "next/router";
-import { destroyCookie, parseCookies } from "nookies";
+import nookies, { destroyCookie, parseCookies } from "nookies";
 import { useEffect } from "react";
 import MenuPanel from "../../components/MenuPanel";
 import { Title } from "../../components/Title";
@@ -52,7 +53,7 @@ const Members = ({ admins, loggedAdmin }: Props) => {
                                                 http://localhost:3000/assets/images/${(admin['position'] == '2') ? 'owner.png' : 'adm.jpg' }`}
                                             />
                                         </td>
-                                        <td className={style.link}>{admin['name']}</td>
+                                        <Link href={`/Panel/edit_member/${admin['id']}`}><td className={style.link}>{admin['name']}</td></Link>
                                         <td>{admin['phone']}</td>
                                         <td className={style.link}>
                                             <a target="_blank" href={`mailto:${admin['email']}`}>{admin['email']}</a>    
@@ -72,9 +73,18 @@ export default Members;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*Try to authenticate*/
+    /*----------------------Try to authenticate-------------------------------*/
     const cookies = parseCookies(context);
-    let user = await authentication(cookies.token);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
 
     /*Get staff's*/
     let res = await fetch('http://localhost:4000/staff');

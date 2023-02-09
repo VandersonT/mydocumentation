@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { destroyCookie, parseCookies } from "nookies";
+import nookies, { destroyCookie, parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import MenuPanel from "../../../components/MenuPanel";
 import { Title } from "../../../components/Title";
@@ -134,9 +134,18 @@ export default Docs;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*Try to authenticate*/
+    /*----------------------Try to authenticate-------------------------------*/
     const cookies = parseCookies(context);
-    let user = await authentication(cookies.token);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
 
     let res = await fetch('http://localhost:4000/docs');
     let docsResponse = await res.json();

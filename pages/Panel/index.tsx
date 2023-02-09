@@ -2,7 +2,7 @@
     import { GetServerSideProps } from 'next';
     import Head from 'next/head';
     import  Router from 'next/router';
-    import { destroyCookie, parseCookies } from 'nookies';
+    import nookies, { destroyCookie, parseCookies } from 'nookies';
     import { useEffect, useState } from 'react';
     import { User }  from '../../types/User';
     import { authentication } from '../../helpers/auth';
@@ -28,6 +28,7 @@ type Props = {
     currentDocs: any
 }
 
+
 const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) => {
     
     /*----------------------States----------------------*/
@@ -42,12 +43,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
     /*--------------------------------------------------*/
 
     /*-------------------UserEffects--------------------*/
-    useEffect(()=>{
-        if(!loggedUser){
-            destroyCookie(undefined, 'token');
-            Router.push('/Panel/login');
-        }
-    },[])
+    
     /*--------------------------------------------------*/
 
 
@@ -165,6 +161,8 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                     <title>Dashboard - Panel</title>
                 </Head>
 
+                ddddd: {loggedUser['id']}
+
                 {errorFlash && <Error content={errorFlash} closeFunction={clearFlashs} />}
 
                 {successFlash && <Success content={successFlash} closeFunction={clearFlashs} />}
@@ -277,23 +275,35 @@ export default Panel;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
     
-    /*Try to authenticate*/
+    /*----------------------Try to authenticate-------------------------------*/
     const cookies = parseCookies(context);
-    let user = await authentication(cookies.token);
+    let user = await authentication(cookies.token);//Try to authenticate
     
-    /*get most viewed docs*/
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
+
+    /*--------------------get most viewed docs--------------------------------*/
     let res = await fetch('http://localhost:4000/mostViewedDocs/5');
     let mostViewedDocs = await res.json();
+    /*------------------------------------------------------------------------*/
 
-    /*Get general data*/
+    /*---------------------Get general data-----------------------------------*/
     let res2 = await fetch('http://localhost:4000/globalDatas');
     let generalData = await res2.json();
+    /*------------------------------------------------------------------------*/
 
-    /*Get docs*/
+    /*------------------------Get docs----------------------------------------*/
     let res3 = await fetch('http://localhost:4000/docs?page=1')
     let currentDocs = await res3.json();
+    /*------------------------------------------------------------------------*/
 
-    /*Final Result*/
+    
     return {
         props: {
             loggedUser: user['userFound'] || null,

@@ -3,7 +3,7 @@ import { Layout } from "../../../../Layouts";
 const Jodit = dynamic(() => import('./Jodit'), { ssr: false })
 import dynamic from 'next/dynamic'
 import { GetServerSideProps } from 'next';
-import { destroyCookie, parseCookies } from "nookies";
+import nookies, { destroyCookie, parseCookies } from "nookies";
 import { authentication } from "../../../../helpers/auth";
 import { User } from "../../../../types/User";
 import { useEffect, useState } from "react";
@@ -114,9 +114,18 @@ export default Docs;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*Try to authenticate*/
+    /*----------------------Try to authenticate-------------------------------*/
     const cookies = parseCookies(context);
-    let user = await authentication(cookies.token);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
 
     /*Get Topic Data*/
     const slugTopic = context.query.topic as string;

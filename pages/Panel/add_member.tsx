@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import Router from "next/router";
-import { destroyCookie, parseCookies } from "nookies";
+import nookies, { destroyCookie, parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { Title } from "../../components/Title";
 import { authentication } from "../../helpers/auth";
@@ -95,9 +95,18 @@ export default add_member;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    /*Try to authenticate*/
+    /*----------------------Try to authenticate-------------------------------*/
     const cookies = parseCookies(context);
-    let user = await authentication(cookies.token);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
 
 
     return {

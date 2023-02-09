@@ -1,8 +1,16 @@
 import style from '../../styles/Admin/mediaOpened.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { authentication } from '../../helpers/auth';
+import nookies, { parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
+import { User } from '../../types/User';
 
-const mediaOpened = () => {
+type Props = {
+    loggedAdmin: User
+}
+
+const mediaOpened = ({ loggedAdmin }: Props) => {
     return (
         <main className={style.main}>
             <section className={style.container}>
@@ -51,3 +59,26 @@ const mediaOpened = () => {
 }
 
 export default mediaOpened;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+    
+    /*----------------------Try to authenticate-------------------------------*/
+    const cookies = parseCookies(context);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
+
+    
+    return {
+        props: {
+            loggedAdmin: user['userFound'],
+        }
+    }
+}

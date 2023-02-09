@@ -1,11 +1,19 @@
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import nookies, { parseCookies } from "nookies";
 import MenuPanel from "../../components/MenuPanel";
 import { Title } from "../../components/Title";
+import { authentication } from "../../helpers/auth";
 import { Layout } from "../../Layouts";
 import style from '../../styles/Admin/Media.module.css';
+import { User } from "../../types/User";
 
-const Media = () => {
+type Props = {
+    loggedAdmin: User
+}
+
+const Media = ({ loggedAdmin }: Props) => {
     return (
         <Layout selected="media">
             <>
@@ -39,3 +47,26 @@ const Media = () => {
 }
 
 export default Media;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+    
+    /*----------------------Try to authenticate-------------------------------*/
+    const cookies = parseCookies(context);
+    let user = await authentication(cookies.token);//Try to authenticate
+    
+    if(!user){
+        nookies.set(context, 'token', '', {
+            maxAge: -1,
+            path: '/',
+        });
+        return {redirect: {destination: '/Panel/login',permanent: false,}}
+    }
+    /*------------------------------------------------------------------------*/
+
+    
+    return {
+        props: {
+            loggedAdmin: user['userFound'] || null,
+        }
+    }
+}
