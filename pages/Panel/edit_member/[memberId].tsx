@@ -65,16 +65,37 @@ const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
     const trySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
 
         if(loggedAdmin['position'] == "1" && loggedAdmin['id'] != adminInfo['id']){
-            console.log('nao é dono e nem é seu perfil')
-            setFlashError("You can only edit your own profile.")
+            setFlashError("Only a global moderator can set a role.")
             return;
         }
 
         setPosition(e.target.value as string);
     }
 
-    const submit = () => {
+    const submit = async() => {
         
+        if(loggedAdmin['position'] == "1" && loggedAdmin['id'] != adminInfo['id']){
+            setFlashError("You can only edit your own profile.")
+            return;
+        }
+
+        let res = await fetch(`http://localhost:4000/staff/${adminInfo['id']}`,{
+            method: 'PUT',
+            body: new URLSearchParams({
+                name,
+                email,
+                pass: password,
+                phone,
+                position
+            }),
+        });
+
+        let response = await res.json();
+
+        if(response['error']){
+            setFlashError(response['error']);
+            return;
+        }
 
         setFlashSuccess("This profile has been updated.")
     }
