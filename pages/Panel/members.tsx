@@ -51,28 +51,30 @@ const Members = ({ admins, loggedAdmin }: Props) => {
                 <div className={style.tableBox}>
                     <table className={style.table}>
                         <tbody>
-                                <tr>
-                                    <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Position</th>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                            </tr>
+                            {admins.map((admin: User, index: number)=>(
+                                <tr key={index}>
+                                    <td>
+                                        <img src={`
+                                            http://localhost:3000/assets/images/${(admin['position'] == '2') ? 'owner.png' : 'adm.jpg' }`}
+                                        />
+                                    </td>
+                                    <Link href={`/Panel/edit_member/${admin['id']}`}>
+                                        <td className={style.link}>{admin['name']} {loggedAdmin['id'] == admin['id'] ? '[You]' : ''}</td>
+                                    </Link>
+                                    <td>{admin['phone']}</td>
+                                    <td className={style.link}>
+                                        <a target="_blank" href={`mailto:${admin['email']}`}>{admin['email']}</a>    
+                                    </td>
+                                    <td>{(admin['position'] == '2') ? 'Global Moderator' : 'Administrator'}</td>
                                 </tr>
-                                {admins.map((admin: User, index: number)=>(
-                                    <tr key={index}>
-                                        <td>
-                                            <img src={`
-                                                http://localhost:3000/assets/images/${(admin['position'] == '2') ? 'owner.png' : 'adm.jpg' }`}
-                                            />
-                                        </td>
-                                        <Link href={`/Panel/edit_member/${admin['id']}`}><td className={style.link}>{admin['name']}</td></Link>
-                                        <td>{admin['phone']}</td>
-                                        <td className={style.link}>
-                                            <a target="_blank" href={`mailto:${admin['email']}`}>{admin['email']}</a>    
-                                        </td>
-                                        <td>{(admin['position'] == '2') ? 'Global Moderator' : 'Administrator'}</td>
-                                    </tr>
-                                ))}
+                            ))}
                         </tbody>
                     </table>
                 </div>

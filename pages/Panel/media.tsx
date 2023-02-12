@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import nookies, { parseCookies } from "nookies";
+import { ChangeEvent, useState } from "react";
 import MenuPanel from "../../components/MenuPanel";
 import { Title } from "../../components/Title";
 import { authentication } from "../../helpers/auth";
@@ -15,7 +16,8 @@ import { User } from "../../types/User";
 
 /*-------------------------------------Types------------------------------*/
 type Props = {
-    loggedAdmin: User
+    loggedAdmin: User,
+    medias: any
 }
 /*------------------------------------------------------------------------*/
 
@@ -23,10 +25,11 @@ type Props = {
 
 /*------------------------------------------------------------------------*/
 
-const Media = ({ loggedAdmin }: Props) => {
-
+const Media = ({ loggedAdmin, medias }: Props) => {
 
     /*--------------------------------States----------------------------------*/
+    const [ media, setMedia ] = useState<File>();
+    const [ confirmMedia, setConfirmMedia ] = useState(false);
     /*------------------------------------------------------------------------*/
 
 
@@ -36,6 +39,20 @@ const Media = ({ loggedAdmin }: Props) => {
 
 
     /*-------------------------------Functions--------------------------------*/
+    const chooseMedia = (e: ChangeEvent<HTMLInputElement>) => {
+        
+        if (e.target.files){
+            setMedia(e.target.files[0]);
+            setConfirmMedia(true);
+        }
+    }
+    const teste = () => {
+
+        if (!media) return;
+          
+        console.log('media: '+media);
+        setConfirmMedia(false);
+    }
     /*------------------------------------------------------------------------*/
 
     return (
@@ -52,17 +69,25 @@ const Media = ({ loggedAdmin }: Props) => {
                     </select>
                     <button>Delete All</button>
                 </div>
+                
+                {confirmMedia &&
+                    <>
+                        <button onClick={teste} className={style.confirmSubmit}>Salvar Media</button>
+                        <div className={style.bgDark}></div>
+                    </>
+                }
 
                 <section className={style.mediaBox}>
-                    <div className={style.newMedia}>
+                    <label className={style.newMedia} htmlFor='selecao-arquivo'>
                         <i className="fa-solid fa-plus"></i>
-                    </div>
-                    <Link href="/Panel/mediaOpened">
-                        <img src="http://localhost:3000/assets/images/mediaTest.png" className={style.mediaSingle} />
-                    </Link>
-                    <Link href="/">
-                        <img src="http://localhost:3000/assets/images/mediaTest.png" className={style.mediaSingle} />
-                    </Link>
+                    </label>
+                    <input id='selecao-arquivo' type='file' onChange={chooseMedia}></input>
+
+                    {medias.map((media: any, index: number)=>(
+                        <Link href="/Panel/mediaOpened" key={index}>
+                            <img src={`http://localhost:4000/media/${media['name']}`} className={style.mediaSingle} />
+                        </Link>
+                    ))}
                 </section>
 
             </>
@@ -89,10 +114,15 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     }
     /*------------------------------------------------------------------------*/
 
-    
+    /*-------------------------Get Medias-------------------------------------*/
+    let res = await fetch('http://localhost:4000/media');
+    let response = await res.json();
+    /*------------------------------------------------------------------------*/
+
     return {
         props: {
             loggedAdmin: user['userFound'] || null,
+            medias: response['medias']
         }
     }
 }

@@ -44,6 +44,10 @@
     border-radius: 5px;
 }
 
+.mediaBox input[type='file'] {
+    display: none
+}
+
 .mediaSingle{
     width: 162px;
     height: 162px;
@@ -52,9 +56,44 @@
     border: 1px solid #C0C0C0;
 }
 
+.confirmSubmit{
+    background-color: #f44336;
+    color: #FFFFFF;
+    padding: 20px 40px;
+    border-radius: 5px;
+    position: fixed;
+    z-index: 4;
+    left: calc(50% - 50px);
+    top: 40%;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.confirmSubmit:hover{
+    background-color: #df3b2f;
+    color: #eeeeee;
+}
+
+.bgDark{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.6);
+}
+
 /*----------------*/
 /*  MEDIA-QUERY*/
 /*----------------*/
+@media screen and (max-width: 1000px){
+    .confirmSubmit{
+        left: 40%;
+        font-size: 14px;
+    }
+}
+
 @media screen and (max-width: 750px){
     .newMedia{
         width: 130px;
@@ -64,6 +103,9 @@
         width: 130px;
         height: 130px;
         margin: 10px 5px;
+    }
+    .confirmSubmit{
+        left: 35%;
     }
 }
 
@@ -83,6 +125,9 @@
         height: 220px;
         margin: 10px 5px;
     }
+    .confirmSubmit{
+        left: 30%;
+    }
 }
 
 
@@ -90,5 +135,8 @@
     .mediaSingle{
         width: 90%;
         height: auto;
+    }
+    .confirmSubmit{
+        left: 27%;
     }
 }
