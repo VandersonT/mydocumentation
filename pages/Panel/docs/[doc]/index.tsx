@@ -11,6 +11,7 @@ import style from '../../../../styles/Admin/DocSingle.module.css';
 import { User } from '../../../../types/User';
 import Error from '../../../../components/Error';
 import Success from '../../../../components/Success';
+import Head from 'next/head';
 /*------------------------------------------------------------------------*/
 
 
@@ -259,6 +260,9 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
     return (
         <Layout>
             <>
+                <Head>
+                    <title>{doc['name']} - Panel</title>
+                </Head>
 
                 {flashError &&
                     <Error content={flashError} closeFunction={clearFlashs} />

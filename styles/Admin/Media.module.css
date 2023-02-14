@@ -44,7 +44,7 @@
     border-radius: 5px;
 }
 
-.mediaBox input[type='file'] {
+.mediaBox .inputFile {
     display: none
 }
 

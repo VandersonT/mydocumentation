@@ -43,14 +43,17 @@ const Media = ({ loggedAdmin, medias }: Props) => {
         
         if (e.target.files){
             setMedia(e.target.files[0]);
+
             setConfirmMedia(true);
         }
     }
-    const teste = () => {
+
+    const teste = async () => {
 
         if (!media) return;
-          
-        console.log('media: '+media);
+
+        alert('This page is still under construction.');
+
         setConfirmMedia(false);
     }
     /*------------------------------------------------------------------------*/
@@ -77,18 +80,18 @@ const Media = ({ loggedAdmin, medias }: Props) => {
                     </>
                 }
 
-                <section className={style.mediaBox}>
+                <form className={style.mediaBox}>
                     <label className={style.newMedia} htmlFor='selecao-arquivo'>
                         <i className="fa-solid fa-plus"></i>
                     </label>
-                    <input id='selecao-arquivo' type='file' onChange={chooseMedia}></input>
+                    <input className={style.inputFile} id='selecao-arquivo' type='file' onChange={chooseMedia}></input>
 
                     {medias.map((media: any, index: number)=>(
                         <Link href="/Panel/mediaOpened" key={index}>
                             <img src={`http://localhost:4000/media/${media['name']}`} className={style.mediaSingle} />
                         </Link>
                     ))}
-                </section>
+                </form>
 
             </>
         </Layout>

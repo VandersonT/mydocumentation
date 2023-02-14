@@ -12,6 +12,7 @@ import Link from "next/link";
 import style from '../../../../styles/Admin/Topic.module.css';
 import Error from "../../../../components/Error";
 import Success from "../../../../components/Success";
+import Head from "next/head";
 /*------------------------------------------------------------------------*/
 
 
@@ -85,7 +86,9 @@ const Docs = ({ loggedUser, topic, doc }: Props) => {
     return (
         <Layout selected="docs">
             <>
-
+                <Head>
+                    <title>{topic['title']} - Panel</title>
+                </Head>
                 {flashError &&
                     <Error content={flashError} closeFunction={closeFlashs} />
                 }

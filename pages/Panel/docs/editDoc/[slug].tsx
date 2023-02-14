@@ -10,6 +10,7 @@ import nookies, { destroyCookie, parseCookies } from "nookies";
 import { GetServerSideProps } from "next";
 import {authentication} from '../../../../helpers/auth';
 import { User } from "../../../../types/User";
+import Head from "next/head";
 /*------------------------------------------------------------------------*/
 
 
@@ -86,6 +87,9 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
     return (
         <Layout selected="docs">
             <>
+                <Head>
+                    <title>{docOpened['name']} Editing - Panel</title>
+                </Head>
 
                 {flashError &&
                     <Error content={flashError} closeFunction={clearFlashs} />
