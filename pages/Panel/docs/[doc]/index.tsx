@@ -177,7 +177,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         if(newTopicName){
             let slug = slugGenerate();
 
-            let res = await fetch('${process.env.NEXT_PUBLIC_APIURL}/topic', {
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/topic`, {
                 method: 'POST',
                 body: new URLSearchParams({
                     title: newTopicName as string,
@@ -308,9 +308,9 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
                                                         {topicOpened[index] &&
                                                             <div className={style.linkOptions}>
-                                                                <Link href={`/Panel/docs/${doc['slug']}/${topic['slug']}`}>
+                                                                <a target="_blank" href={`/docs/${doc['slug']}/${topic['slug']}`}>
                                                                     <button>View</button>
-                                                                </Link>
+                                                                </a>
                                                                 <button onClick={() => renameTopic(topic['id'], index)}>Rename</button>
                                                                 <button onClick={ () => deleteTopic(topic['id'], index) } className={style.deleteColor}>Delete</button>
                                                             </div>
