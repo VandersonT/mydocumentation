@@ -47,7 +47,7 @@ const Header = ({ link }: Props) => {
 
             <div className={`${style.headerDesktop} ${(state.theme.status == 'dark') ? themeMode.headerDesktopDark : ''}`}>
                 <Link href={link}>
-                    <img className={style.logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')`} alt="my documentation logo" />
+                    <img className={style.logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/${(state.theme.status == 'dark') ? 'logo.png' : 'logo2.png'}`} alt="my documentation logo" />
                 </Link>
                 <div className={`${style.form} ${(state.theme.status == 'dark') ? themeMode.formDark : ''}`}>
                     <input type="text" placeholder="Search for some documentation" onChange={handleSearch} value={search}/>
