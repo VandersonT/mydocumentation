@@ -117,16 +117,16 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
                 <meta name="keywords" content={openedTopic['meta_tags']} />
 
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://localhost:3000/docs" />
+                <meta property="og:url" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/docs`} />
                 <meta property="og:title" content={openedTopic['title']+" - MyDocumentation"} />
                 <meta property="og:description" content={openedTopic['description']} />
-                <meta property="og:image" content="http://localhost:3000/assets/imagem/image.png" />
+                <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png`} />
 
                 <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content="http://localhost:3000/docs" />
+                <meta property="twitter:url" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/docs`} />
                 <meta property="twitter:title" content={openedTopic['title']+" - MyDocumentation"} />
                 <meta property="twitter:description" content={openedTopic['description']} />
-                <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
+                <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png`} />
             </Head>
 
             <Header link="/docs"/>
@@ -243,7 +243,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     let openedTopic;
     
     try{
-        const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docBySlug/${slug}`);
         docResponse = await res.json();
 
         if(!docResponse['documentation']) {
@@ -256,11 +256,11 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
         }
 
         /*Get Doc modules*/
-        const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
+        const resM = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/moduleByDoc/${docResponse['documentation']['id']}`);
         moduleResponse = await resM.json();
 
         /*Get Module topics*/
-        const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
+        const resT = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/topicByDoc/${docResponse['documentation']['id']}`);
         topicResponse = await resT.json();
 
         

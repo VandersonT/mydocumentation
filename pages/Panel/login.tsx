@@ -33,7 +33,7 @@ const Login = () => {
             try{
                 setLoading(true);
                 
-                let res = await fetch("http://localhost:4000/login",{
+                let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/login`,{
                     method: 'POST',
                     body: new URLSearchParams({email, password}),
                     headers: {

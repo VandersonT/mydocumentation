@@ -4,6 +4,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { Context } from '../contexts/Context';
 
+
 //Css's
 import style from '../styles/Home.module.css';
 
@@ -56,28 +57,28 @@ const Home: NextPage = () => {
         <meta name="keywords" content="" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://localhost:3000/" />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_SYSTEMURL} />
         <meta property="og:title" content="MyDocumentation" />
         <meta property="og:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
-        <meta property="og:image" content="http://localhost:3000/assets/imagem/image.png" />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png`} />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="http://localhost:3000/" />
+        <meta property="twitter:url" content={process.env.NEXT_PUBLIC_SYSTEMURL} />
         <meta property="twitter:title" content="MyDocumentation" />
         <meta property="twitter:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
-        <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
+        <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png`} />
       </Head>
 
       <header className={style.header}>
         {/*Menu Destok*/}
         <section className={style.header__menuDesktop}>
-          <img className={style.menuBar__logo} src="http://localhost:3000/assets/images/logo.png" alt="my documentation logo" />
+          <img className={style.menuBar__logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/logo.png`} alt="my documentation logo" />
           <Button1 text="Documentation" path="/docs"/>
         </section>
 
         {/*Menu Mobile*/}
         <section className={style.header__menuMobile}>
-          <img className={style.menuBar__logo} src="http://localhost:3000/assets/images/logo.png" alt="my documentation logo" />
+          <img className={style.menuBar__logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/logo.png`} alt="my documentation logo" />
           <div className={style.docIcon}><i className="fa-solid fa-file-lines"></i></div>
         </section>
 
@@ -114,11 +115,11 @@ const Home: NextPage = () => {
             <p className={style.text}>The objective of our system is to simplify the documentation of different technologies, making it as clear as possible. We simplify all the documentation, teaching only the foundation needed to learn a technology.</p>
           </div>
           <div>
-            <img className={style.star1} src="http://localhost:3000/assets/images/star.png" alt="star image" />
-            <img  className={style.star2} src="http://localhost:3000/assets/images/star.png" alt="star image" />
-            <img  className={style.star3} src="http://localhost:3000/assets/images/star.png" alt="star image" />
+            <img className={style.star1} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/star.png`} alt="star image" />
+            <img  className={style.star2} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/star.png`} alt="star image" />
+            <img  className={style.star3} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/star.png`} alt="star image" />
           </div>
-          <img className={style.about__image} src="http://localhost:3000/assets/svgs/night.png" alt="night image" />
+          <img className={style.about__image} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/svgs/night.png`} alt="night image" />
         </section>
 
         <section className={`${style.docs} ${style.container}`}>
@@ -134,7 +135,7 @@ const Home: NextPage = () => {
         </section>
         
         <section className={`${style.banner} ${style.container}`}>
-          <img src="http://localhost:3000/assets/svgs/seatedMan.png" />
+          <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/svgs/seatedMan.png`} />
           <h3>Check out all our documentation for free</h3>
           <Button1 text="Check" path="/docs" />
         </section>
@@ -143,7 +144,7 @@ const Home: NextPage = () => {
           <h2 className={style.title}>Frequently Asked Questions</h2>
           <p className={style.text}>Below you will find answers to the most common questions. Read them to learn more about our free system</p>
           <div className={style.questions__content}>
-            <img src="http://localhost:3000/assets/svgs/question.png" alt="question image" />
+            <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/svgs/question.png`} alt="question image" />
             <div className={style.content_questions}>
               <div className={style.questions__questionSingle}>
                 <div onClick={() => openQuestion(0)} className={`${style.questionSingle__title} ${(questions[0]) ? style.questionOpened : ''}`}>
@@ -198,7 +199,7 @@ const Home: NextPage = () => {
 
       <footer className={style.footer}>
 
-        <img src="http://localhost:3000/assets/svgs/newletters.png" alt="newsletter image" />
+        <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/svgs/newletters.png`} alt="newsletter image" />
 
         <section className={style.newsletters}>
           <div className={style.newsletters__info}>

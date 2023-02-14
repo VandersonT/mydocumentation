@@ -75,7 +75,7 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
         docs.splice(index, 1);
         
         /*Remove item from database*/
-        let res = await fetch(`http://localhost:4000/doc/${docId}}`, {
+        let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/doc/${docId}}`, {
             method: 'DELETE'
         });
 
@@ -166,7 +166,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     
 
     /*-------------------------Get all docs-----------------------------------*/
-    let res = await fetch('http://localhost:4000/docs');
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs`);
     let docsResponse = await res.json();
     /*------------------------------------------------------------------------*/
 

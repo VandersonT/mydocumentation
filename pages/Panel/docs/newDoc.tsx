@@ -45,7 +45,7 @@ const Docs = ({ loggedUser }: Props) => {
     const registerDoc = async () => {
         if(docName && description && imageUrl && slug){
             
-            let res = await fetch('http://localhost:4000/doc',{
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/doc`,{
                 method: 'POST',
                 body: new URLSearchParams({
                     name: docName,

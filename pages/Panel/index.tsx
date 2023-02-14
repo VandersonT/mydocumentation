@@ -64,14 +64,14 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
         
         /*Get docs*/
         if(showAllDocs){
-            let res = await fetch('http://localhost:4000/docs?page='+(currentPagination+1))
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page='+(currentPagination+1)`)
             currentDocs = await res.json();
             setCurrentPagination(currentPagination+1);
 
             setTableDoc(currentDocs['docs']);
             setNexPageExists(currentDocs['anotherPage']);
         }else{
-            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+(currentPagination+1));
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+(currentPagination+1)`);
             currentDocs = await res.json();
             setCurrentPagination(currentPagination+1);
 
@@ -86,14 +86,14 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
         
         /*Get docs*/
         if(showAllDocs){
-            let res = await fetch('http://localhost:4000/docs?page='+(currentPagination-1))
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page='+(currentPagination-1)`)
             currentDocs = await res.json();
 
             setCurrentPagination(currentPagination-1);
             setTableDoc(currentDocs['docs']);
             setNexPageExists(currentDocs['anotherPage']);
         }else{
-            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+(currentPagination-1));
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+(currentPagination-1)`);
             currentDocs = await res.json();
             setCurrentPagination(currentPagination-1);
 
@@ -110,7 +110,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
 
             setCurrentPagination(1);
 
-            let res = await fetch('http://localhost:4000/docByName/'+docSearched+'?page='+1);
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+1`);
             let aux = await res.json();
 
             setTableDoc(aux['docFound']);
@@ -120,7 +120,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
             /*Now we aren't showing searched docs, but all docs*/
             setShowAllDocs(true);
 
-            let res = await fetch('http://localhost:4000/docs?page=1')
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page=1`)
             currentDocs = await res.json();
 
             setCurrentPagination(1);
@@ -137,7 +137,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
             return;
         }
 
-        let res = await fetch('http://localhost:4000/system',{
+        let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/system`,{
             method: 'PUT',
             body: new URLSearchParams({
                 status: ((systemStatus) ? 'false' : 'true'), /*if enabled, disable, And vice versa.*/
@@ -174,7 +174,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                     <Title content="Dashboard" />
 
                     <section className={style.welcome}>
-                        <img src="http://localhost:3000/assets/images/logoP.png" alt="" />
+                        <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/logoP.png`} alt="" />
                         <div className={style.welcomeMsg}>
                             <h3>Welcome to Control Panel</h3>
                             <p>Here you can control the entire system, from changing the theme color to creating, removing or editing some documentation. The platform seeks to be as simple and intuitive as possible so that you don’t encounter problems when using it. If you need any help just click the button below.</p>
@@ -183,7 +183,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                                 Help me
                             </a>
                         </div>
-                        <img src="http://localhost:3000/assets/images/imgPanel.png" />
+                        <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/imgPanel.png`} />
                     </section>
 
                     <section className={style.status}>
@@ -293,17 +293,17 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     /*------------------------------------------------------------------------*/
 
     /*--------------------get most viewed docs--------------------------------*/
-    let res = await fetch('http://localhost:4000/mostViewedDocs/5');
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/mostViewedDocs/5`);
     let mostViewedDocs = await res.json();
     /*------------------------------------------------------------------------*/
 
     /*---------------------Get general data-----------------------------------*/
-    let res2 = await fetch('http://localhost:4000/globalDatas');
+    let res2 = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/globalDatas`);
     let generalData = await res2.json();
     /*------------------------------------------------------------------------*/
 
     /*------------------------Get docs----------------------------------------*/
-    let res3 = await fetch('http://localhost:4000/docs?page=1')
+    let res3 = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page=1`)
     let currentDocs = await res3.json();
     /*------------------------------------------------------------------------*/
 

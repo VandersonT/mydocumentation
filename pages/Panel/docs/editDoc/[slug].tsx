@@ -53,7 +53,7 @@ const Docs = ({ loggedUser, docOpened }: Props) => {
 
         if(docName && description && imageUrl && slug){
             
-            let res = await fetch(`http://localhost:4000/doc/${docOpened['id']}`,{
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/doc/${docOpened['id']}`,{
                 method: 'PUT',
                 body: new URLSearchParams({
                     name: docName,
@@ -144,7 +144,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*------------------------Get doc data------------------------------------*/
     const slug = context.query.slug as string;
-    let res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docBySlug/${slug}`);
     let response = await res.json();
     /*------------------------------------------------------------------------*/
     

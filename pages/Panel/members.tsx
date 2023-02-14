@@ -62,7 +62,7 @@ const Members = ({ admins, loggedAdmin }: Props) => {
                                 <tr key={index}>
                                     <td>
                                         <img src={`
-                                            http://localhost:3000/assets/images/${(admin['position'] == '2') ? 'owner.png' : 'adm.jpg' }`}
+                                            ${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/${(admin['position'] == '2') ? 'owner.png' : 'adm.jpg' }`}
                                         />
                                     </td>
                                     <Link href={`/Panel/edit_member/${admin['id']}`}>
@@ -104,7 +104,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
     /*-----------------------Get staff's--------------------------------------*/
-    let res = await fetch('http://localhost:4000/staff');
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/staff`);
     let response = await res.json();
     /*------------------------------------------------------------------------*/
 

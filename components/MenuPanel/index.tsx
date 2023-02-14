@@ -37,7 +37,7 @@ const MenuPanel = ({ selected }: Props) => {
                 <div className={style.menuBox}>
 
                     <div className={style.panelLogo}>    
-                        <img src="http://localhost:3000/assets/images/panelLogo.png" alt="panel logo" />
+                        <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/panelLogo.png`} alt="panel logo" />
                     </div>
 
                     <ul className={style.menu}>

@@ -47,7 +47,7 @@ const Header = ({ link }: Props) => {
 
             <div className={`${style.headerDesktop} ${(state.theme.status == 'dark') ? themeMode.headerDesktopDark : ''}`}>
                 <Link href={link}>
-                    <img className={style.logo} src={"http://localhost:3000/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')} alt="my documentation logo" />
+                    <img className={style.logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/"+((state.theme.status == 'dark') ? 'logo.png' : 'logo2.png')`} alt="my documentation logo" />
                 </Link>
                 <div className={`${style.form} ${(state.theme.status == 'dark') ? themeMode.formDark : ''}`}>
                     <input type="text" placeholder="Search for some documentation" onChange={handleSearch} value={search}/>
@@ -65,7 +65,7 @@ const Header = ({ link }: Props) => {
                 <div className={`${style.header} ${(state.theme.status == 'dark') ? themeMode.headerDark : ''}`}>
                     <div></div>
                     <Link href="/">
-                        <img src="http://localhost:3000/assets/images/icon1.png" alt="my documentation logo" />
+                        <img src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/icon1.png`} alt="my documentation logo" />
                     </Link>
                     <div onClick={changeTheme}>
                         {(state.theme.status == 'light') ? <i className="fa-solid fa-cloud-moon"></i> : <i className="fa-solid fa-cloud-sun"></i>}

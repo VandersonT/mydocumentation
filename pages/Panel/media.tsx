@@ -88,7 +88,7 @@ const Media = ({ loggedAdmin, medias }: Props) => {
 
                     {medias.map((media: any, index: number)=>(
                         <Link href="/Panel/mediaOpened" key={index}>
-                            <img src={`http://localhost:4000/media/${media['name']}`} className={style.mediaSingle} />
+                            <img src={`${process.env.NEXT_PUBLIC_APIURL}/media/${media['name']}`} className={style.mediaSingle} />
                         </Link>
                     ))}
                 </form>
@@ -118,7 +118,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     /*------------------------------------------------------------------------*/
 
     /*-------------------------Get Medias-------------------------------------*/
-    let res = await fetch('http://localhost:4000/media');
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/media`);
     let response = await res.json();
     /*------------------------------------------------------------------------*/
 

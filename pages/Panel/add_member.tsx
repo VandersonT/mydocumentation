@@ -72,7 +72,7 @@ const add_member = ({ loggedAdmin }: Props) => {
             return;
         }
 
-        let res = await fetch('http://localhost:4000/staff',{
+        let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/staff`,{
             method: 'POST',
             body: new URLSearchParams({
                 name,

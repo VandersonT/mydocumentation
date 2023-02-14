@@ -56,7 +56,7 @@ const Docs = ({ loggedUser, topic, doc }: Props) => {
             return false;
         }
 
-        let res = await fetch(`http://localhost:4000/topic/${topic['id']}`,{
+        let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/topic/${topic['id']}`,{
             method: 'PUT',
             body: new URLSearchParams({
                 content,
@@ -147,14 +147,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*--------------------Get Doc Data--------------------------------------*/
     const slugDoc = context.query.doc as string;
-    const resDoc = await fetch(`http://localhost:4000/docBySlug/${slugDoc}`);
+    const resDoc = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docBySlug/${slugDoc}`);
     let docResponse = await resDoc.json();
     /*------------------------------------------------------------------------*/
 
 
     /*--------------------Get Topic Data--------------------------------------*/
     const slugTopic = context.query.topic as string;
-    const res = await fetch(`http://localhost:4000/topicBySlug/${slugTopic}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/topicBySlug/${slugTopic}`);
     let topicResponse = await res.json();
     /*------------------------------------------------------------------------*/
 

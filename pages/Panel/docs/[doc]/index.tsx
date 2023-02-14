@@ -81,7 +81,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         if(moduleName){
             if(confirm('Are you sure you want to create this module?')){
 
-                let res = await fetch('http://localhost:4000/module',{
+                let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/module`,{
                     method: 'POST',
                     body: new URLSearchParams({title: moduleName, doc_id: doc['id']}),
                     headers: {
@@ -113,7 +113,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
             return;
         
         /*Remove item from database with all its topics*/
-        fetch(`http://localhost:4000/module/${moduleId}`, {
+        fetch(`${process.env.NEXT_PUBLIC_APIURL}/module/${moduleId}`, {
             method: 'DELETE'
         });
 
@@ -134,7 +134,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
         if(newName){
 
-            fetch(`http://localhost:4000/module/${moduleId}`,{
+            fetch(`${process.env.NEXT_PUBLIC_APIURL}/module/${moduleId}`,{
                 method: 'PUT',
                 body: new URLSearchParams({title: newName}),
                 headers: {
@@ -177,7 +177,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         if(newTopicName){
             let slug = slugGenerate();
 
-            let res = await fetch('http://localhost:4000/topic', {
+            let res = await fetch('${process.env.NEXT_PUBLIC_APIURL}/topic', {
                 method: 'POST',
                 body: new URLSearchParams({
                     title: newTopicName as string,
@@ -215,7 +215,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
         if(newTopicName){
 
-            fetch(`http://localhost:4000/topic/${topicId}`,{
+            fetch(`${process.env.NEXT_PUBLIC_APIURL}/topic/${topicId}`,{
                 method: 'PUT',
                 body: new URLSearchParams({
                     title: newTopicName as string,
@@ -245,7 +245,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
         }
 
         if(confirm('Are you sure you want to delete this topic?')){
-            fetch(`http://localhost:4000/topic/${topicId}`, {
+            fetch(`${process.env.NEXT_PUBLIC_APIURL}/topic/${topicId}`, {
                 method: 'DELETE'
             });
 
@@ -355,7 +355,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     /*----------------------Get doc data--------------------------------------*/
     const slug = context.query.doc as string;
-    const res = await fetch(`http://localhost:4000/docBySlug/${slug}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docBySlug/${slug}`);
     let docResponse = await res.json();
 
     
@@ -371,14 +371,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 
     /*---------------------Get doc module-------------------------------------*/
-    const resM = await fetch(`http://localhost:4000/moduleByDoc/${docResponse['documentation']['id']}`);
+    const resM = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/moduleByDoc/${docResponse['documentation']['id']}`);
     let moduleResponse = await resM.json();
     /*------------------------------------------------------------------------*/
     
 
 
     /*---------------------Get Module topics----------------------------------*/
-    const resT = await fetch(`http://localhost:4000/topicByDoc/${docResponse['documentation']['id']}`);
+    const resT = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/topicByDoc/${docResponse['documentation']['id']}`);
     let topicResponse = await resT.json();
     /*------------------------------------------------------------------------*/
 

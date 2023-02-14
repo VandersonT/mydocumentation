@@ -79,7 +79,7 @@ const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
             return;
         }
 
-        let res = await fetch(`http://localhost:4000/staff/${adminInfo['id']}`,{
+        let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/staff/${adminInfo['id']}`,{
             method: 'PUT',
             body: new URLSearchParams({
                 name,
@@ -166,7 +166,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     /*-------------------Get admin profile data-------------------------------*/
     const profileId = context.query.memberId as string;
 
-    let res = await fetch(`http://localhost:4000/staff/${profileId}`);
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/staff/${profileId}`);
     let response = await res.json();
 
     if(response['error']){

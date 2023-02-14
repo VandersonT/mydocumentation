@@ -51,16 +51,16 @@ const Docs = ({ docs,search }: Props) => {
                 <meta name="keywords" content="" />
 
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="http://localhost:3000/" />
+                <meta property="og:url" content={process.env.NEXT_PUBLIC_SYSTEMURL} />
                 <meta property="og:title" content="MyDocumentation" />
                 <meta property="og:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
-                <meta property="og:image" content="http://localhost:3000/assets/imagem/image.png" />
+                <meta property="og:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png`} />
 
                 <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content="http://localhost:3000/" />
+                <meta property="twitter:url" content={process.env.NEXT_PUBLIC_SYSTEMURL} />
                 <meta property="twitter:title" content="MyDocumentation" />
                 <meta property="twitter:description" content="This system is for you who are looking for documentation in different languages in a simplified and easy to understand way." />
-                <meta property="twitter:image" content="http://localhost:3000/assets/imagem/image.png" />
+                <meta property="twitter:image" content={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/imagem/image.png}`} />
             </Head>
 
             <Header link="/"/>
@@ -150,12 +150,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let docs;
     try{
         if(search){
-            res = await fetch(`http://localhost:4000/docByName/${search}`);
+            res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/${search}`);
             docsResponse = await res.json();
             docs = docsResponse['docFound'];
         }else{
             search = '';
-            res = await fetch('http://localhost:4000/docs');
+            res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs`);
             docsResponse = await res.json();
             docs = docsResponse['docs'];
         }

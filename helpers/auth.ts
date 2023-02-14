@@ -5,7 +5,7 @@ export const authentication = async (token: any) => {
     }
     
     /*Search for user using token*/
-    let res = await fetch('http://localhost:4000/auth', {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/auth`, {
         method: 'POST',
         body: new URLSearchParams({token}),
         headers: {
