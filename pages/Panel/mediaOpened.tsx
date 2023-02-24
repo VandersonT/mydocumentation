@@ -18,7 +18,7 @@ type Props = {
 
 
 
-const mediaOpened = ({ loggedAdmin }: Props) => {
+const MediaOpened = ({ loggedAdmin }: Props) => {
 
 
     /*--------------------------------States----------------------------------*/
@@ -80,7 +80,7 @@ const mediaOpened = ({ loggedAdmin }: Props) => {
     )
 }
 
-export default mediaOpened;
+export default MediaOpened;
 
 
 

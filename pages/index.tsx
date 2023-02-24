@@ -187,7 +187,7 @@ const Home: NextPage = () => {
                 </div>
                 {questions[3] && 
                   <div className={`${style.questionSingle__content} ${style.text}`}>
-                    Soon we'll create this feature and you'll be able to send us your suggestions.
+                    Soon we&apos;ll create this feature and you&apos;ll be able to send us your suggestions.
                   </div>
                 }
               </div>

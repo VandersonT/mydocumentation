@@ -1,6 +1,6 @@
 /*--------------------------------Imports---------------------------------*/
 import { Layout } from "../../../../Layouts";
-const Jodit = dynamic(() => import('./Jodit'), { ssr: false })
+const Jodit = dynamic(() => import('../../../../components/Jodit'), { ssr: false })
 import dynamic from 'next/dynamic'
 import { GetServerSideProps } from 'next';
 import nookies, { destroyCookie, parseCookies } from "nookies";

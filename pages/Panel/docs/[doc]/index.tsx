@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Router from 'next/router';
 import nookies, { destroyCookie, parseCookies } from 'nookies';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Title2 from '../../../../components/Title2';
 import { authentication } from '../../../../helpers/auth';
 import { Layout } from '../../../../Layouts';
@@ -277,7 +277,7 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
                 <div className={style.modulesBox}>            
                     
                     {(modules.length < 1) && <p className={style.warning}>
-                        We didn't find any modules.<br/>
+                        We didn&apos;t find any modules.<br/>
                         If you want to create now,
                         <span className={style.clickHere} onClick={newModuleAction}> click here</span>
                     </p> }
@@ -308,9 +308,12 @@ const Doc = ({ loggedUser, doc, mods, tops }: Props) => {
 
                                                         {topicOpened[index] &&
                                                             <div className={style.linkOptions}>
-                                                                <a target="_blank" href={`/docs/${doc['slug']}/${topic['slug']}`}>
+                                                                <a target="_blank" rel="noreferrer" href={`/docs/${doc['slug']}/${topic['slug']}`}>
                                                                     <button>View</button>
                                                                 </a>
+                                                                <Link rel="noreferrer" href={`/Panel/docs/${doc['slug']}/${topic['slug']}`}>
+                                                                    <button>Edit</button>
+                                                                </Link>
                                                                 <button onClick={() => renameTopic(topic['id'], index)}>Rename</button>
                                                                 <button onClick={ () => deleteTopic(topic['id'], index) } className={style.deleteColor}>Delete</button>
                                                             </div>

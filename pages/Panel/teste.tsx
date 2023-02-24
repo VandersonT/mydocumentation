@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next';
 import { setCookie, parseCookies } from 'nookies';
 import nookies, { destroyCookie } from 'nookies'
 
-const teste = ({ teste }: any) => {
+const Teste = ({ teste }: any) => {
 
     const criaCookie = () => {
         setCookie(null, 'theme', 'dark', {
@@ -28,7 +28,7 @@ const teste = ({ teste }: any) => {
 
 }
 
-export default teste;
+export default Teste;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
     let teste = '';

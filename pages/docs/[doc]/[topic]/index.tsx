@@ -78,7 +78,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
         if(searchTopic != ""){
 
             setTopicWasFound(false);
-            setErrorMessage(`No result for "${searchTopic}". Try again with a different keyword.`)
+            setErrorMessage(`No result for  "${searchTopic}". Try again with a different keyword.`)
             
             for(let i = 0; i < top.length; i++){
                 if(top[i]['title'].indexOf(searchTopic) != -1){

@@ -21,7 +21,7 @@ type Props = {
 /*------------------------------------------------------------------------*/
 
 
-const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
+const Edit_member = ({ adminInfo, loggedAdmin }: Props) => {
     
     /*--------------------------------States----------------------------------*/
     const [ showPass, setShowPass ] = useState(false);
@@ -145,7 +145,7 @@ const edit_member = ({ adminInfo, loggedAdmin }: Props) => {
     )
 }
 
-export default edit_member;
+export default Edit_member;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 

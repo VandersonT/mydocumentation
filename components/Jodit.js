@@ -1,10 +1,10 @@
-import { Layout } from '../../../../Layouts';
-import style from '../../../../styles/Admin/Topic.module.css';
+import { Layout } from '../Layouts';
+import style from '../styles/Admin/Topic.module.css';
 import JoditEditor from 'jodit-react';
 import { useEffect, useRef, useState } from 'react';
 import HTMLReactParser from 'html-react-parser';
 import Link from 'next/link';
-import Success from '../../../../components/Success';
+import Success from './Success';
 
 const Jodit = ({sendContent, defaultContent}) => {
     

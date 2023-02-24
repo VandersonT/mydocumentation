@@ -14,7 +14,7 @@ type Props = {
     loggedAdmin: User
 }
 
-const add_member = ({ loggedAdmin }: Props) => {
+const Add_member = ({ loggedAdmin }: Props) => {
 
     const [ showPass, setShowPass ] = useState(false);
     const [ name, setName ] = useState('');
@@ -110,7 +110,7 @@ const add_member = ({ loggedAdmin }: Props) => {
                 <Title content="Add New Member" />
                 
                 <p className={style.subTitle}>Create a new account and send it to the person who will use it.
-                Afterwards, the person can enter the 'Members' section and edit their user.</p>
+                Afterwards, the person can enter the &apos;Members&apos; section and edit their user.</p>
 
                 <div className={style.form}>
                     <label htmlFor="name">Username:</label>
@@ -143,7 +143,7 @@ const add_member = ({ loggedAdmin }: Props) => {
     )
 }
 
-export default add_member;
+export default Add_member;
 
 
 

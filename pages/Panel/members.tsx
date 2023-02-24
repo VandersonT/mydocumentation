@@ -70,7 +70,7 @@ const Members = ({ admins, loggedAdmin }: Props) => {
                                     </Link>
                                     <td>{admin['phone']}</td>
                                     <td className={style.link}>
-                                        <a target="_blank" href={`mailto:${admin['email']}`}>{admin['email']}</a>    
+                                        <a target="_blank" rel="noreferrer" href={`mailto:${admin['email']}`}>{admin['email']}</a>    
                                     </td>
                                     <td>{(admin['position'] == '2') ? 'Global Moderator' : 'Administrator'}</td>
                                 </tr>

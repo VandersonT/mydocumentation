@@ -127,7 +127,7 @@ const Docs = ({ loggedUser, docsReceived }: Props) => {
                                                     <button>Edit</button>
                                                 </Link>
                                                 <button onClick={() => deleteDoc(doc['id'], index)}>Trash</button>
-                                                <a href={`/docs/${doc['slug']}/none`} target="_blank">
+                                                <a href={`/docs/${doc['slug']}/none`} target="_blank" rel="noreferrer">
                                                     <button>View Online</button>
                                                 </a>
                                             </div>

@@ -101,14 +101,14 @@ const Docs = ({ docs,search }: Props) => {
 
                         {(search && docs.length < 1) &&
                             <>
-                                <p className={style.noDoc}>No documentation for "{search}".</p> 
+                                <p className={style.noDoc}>No documentation for &ldquo;{search}&ldquo;.</p> 
                                 <p className={style.noDoc}>Try again with a different keyword.</p>
                             </>
                         }
 
                         {(!search && docs.length < 1) &&
                             <>
-                                <p className={style.noDoc}>I'm very sorry! but we don't have any documentation available.</p> 
+                                <p className={style.noDoc}>I&apos;m very sorry! but we don&apos;t have any documentation available.</p> 
                                 <p className={style.noDoc}>Try another day again.</p>
                             </>
                         }

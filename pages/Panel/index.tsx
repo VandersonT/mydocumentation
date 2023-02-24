@@ -178,7 +178,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
                         <div className={style.welcomeMsg}>
                             <h3>Welcome to Control Panel</h3>
                             <p>Here you can control the entire system, from changing the theme color to creating, removing or editing some documentation. The platform seeks to be as simple and intuitive as possible so that you don’t encounter problems when using it. If you need any help just click the button below.</p>
-                            <a target="_blank" className={style.buttonHelp} href="https://web.whatsapp.com/send?phone=5533988860799">
+                            <a target="_blank" rel="noreferrer" className={style.buttonHelp} href="https://web.whatsapp.com/send?phone=5533988860799">
                                 <i className="fa-solid fa-arrow-right"></i>
                                 Help me
                             </a>
