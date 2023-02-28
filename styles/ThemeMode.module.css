@@ -48,11 +48,18 @@
 .selectedDark{color: #878787 !important;}
 .moduleDark{border-top: 1px solid #232631;}
 .menuMobileBtnDark{color: rgb(209, 209, 209);}
+.menuBtnDark{color: rgb(226, 226, 226);}
 /*Content*/
 .contentDark h1{color: #FFFFFF !important;}
 .contentDark p {color: #D7D7DC !important;}
 .docContentDark {color: #FFFFFF;}
 
+
+@media screen and (max-width: 1147px){
+    .sideBarDark {
+        background: transparent !important;
+    }
+}
 
 @media screen and (max-width: 1000px){
     .sideBarDarkS{

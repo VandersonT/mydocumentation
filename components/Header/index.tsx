@@ -72,8 +72,10 @@ const Header = ({ link }: Props) => {
                     </div>
                 </div>
                 <div className={`${style.searchBox} ${(state.theme.status == 'dark') ? themeMode.searchBoxDark : ''}`}>
-                    <input type="text" placeholder="Search for some documentation" />
-                    <button> <i className="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" placeholder="Search for some documentation" onChange={handleSearch} value={search} />
+                    <button>
+                        <Link href={"/docs?search="+search}><i className="fa-solid fa-magnifying-glass"></i></Link>
+                    </button>
                 </div>
             </div>
 

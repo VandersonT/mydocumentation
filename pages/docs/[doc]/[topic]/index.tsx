@@ -144,7 +144,7 @@ const Single = ({ doc, mods, top, openedTopic }: Props) => {
 
                         <button onClick={openMenuMobile} className={`${style.menuMobileBtn} ${(state.theme.status == 'dark') ? themeMode.menuMobileBtnDark : ''}`}>
                             {(menuMobileStatus) ? <i className="fa-solid fa-caret-down"></i> : <i className="fa-solid fa-caret-right"></i> }
-                            <span>Menu</span>
+                            <span className={(state.theme.status == 'dark') ? themeMode.menuBtnDark : ''}>Menu</span>
                         </button>
 
                         {menuMobileStatus &&

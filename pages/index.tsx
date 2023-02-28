@@ -13,6 +13,7 @@ import { Button1 } from '../components/Button1';
 import { SkillBox } from '../components/SkillBox';
 import { SkillBox2 } from '../components/SkillBox2';
 import { systemStatus } from '../helpers/systemStatus';
+import Link from 'next/link';
 /*------------------------------------------------------------------------*/
 
 
@@ -79,7 +80,9 @@ const Home: NextPage = () => {
         {/*Menu Mobile*/}
         <section className={style.header__menuMobile}>
           <img className={style.menuBar__logo} src={`${process.env.NEXT_PUBLIC_SYSTEMURL}/assets/images/logo.png`} alt="my documentation logo" />
-          <div className={style.docIcon}><i className="fa-solid fa-file-lines"></i></div>
+          <Link href="/docs">
+            <div className={style.docIcon}><i className="fa-solid fa-file-lines"></i></div>
+          </Link>
         </section>
 
         <section className={style.header__infoHeader}>
