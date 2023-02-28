@@ -13,6 +13,7 @@ import { Module } from "../../../../types/Module";
 import { Topic } from "../../../../types/Topic";
 import { systemStatus } from "../../../../helpers/systemStatus";
 import HTMLReactParser from "html-react-parser";
+import { checkView } from "../../../../helpers/checkView";
 /*------------------------------------------------------------------------*/
 
 
@@ -235,6 +236,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     const topicSlug = context.query.topic as string;
     /*------------------------------------------------------------------------*/
 
+    /*Check View*/
+    await checkView(context);
 
     /*-------------Try to connect to api and get the data---------------------*/
     let docResponse;

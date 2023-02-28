@@ -12,6 +12,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import { GetServerSideProps } from "next";
 import { systemStatus } from "../../helpers/systemStatus";
+import { checkView } from "../../helpers/checkView";
 /*------------------------------------------------------------------------*/
 
 
@@ -139,6 +140,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     /*------------------------------------------------------------------------*/
 
+    /*Check View*/
+    await checkView(context);
 
     /*----------------------try to get data-----------------------------------*/
     let search = context.query.search as string;

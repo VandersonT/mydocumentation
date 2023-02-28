@@ -14,6 +14,7 @@ import { SkillBox } from '../components/SkillBox';
 import { SkillBox2 } from '../components/SkillBox2';
 import { systemStatus } from '../helpers/systemStatus';
 import Link from 'next/link';
+import { checkView } from '../helpers/checkView';
 /*------------------------------------------------------------------------*/
 
 
@@ -265,6 +266,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   /*------------------------------------------------------------------------*/
   
+  await checkView(context);
 
   return {props: {}}
 }
