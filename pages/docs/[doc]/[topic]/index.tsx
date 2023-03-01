@@ -14,6 +14,7 @@ import { Topic } from "../../../../types/Topic";
 import { systemStatus } from "../../../../helpers/systemStatus";
 import HTMLReactParser from "html-react-parser";
 import { checkView } from "../../../../helpers/checkView";
+import { sendViewToDoc } from "../../../../helpers/sendViewToDoc";
 /*------------------------------------------------------------------------*/
 
 
@@ -238,7 +239,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
     /*Check View*/
     await checkView(context);
-
+    
     /*-------------Try to connect to api and get the data---------------------*/
     let docResponse;
     let moduleResponse;
@@ -287,6 +288,9 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
                 "slug": ""
             };
         }
+
+        /*Send view for this doc*/
+        await sendViewToDoc(context, docResponse['documentation']['id'], slug);
         
         return {
             props: {
