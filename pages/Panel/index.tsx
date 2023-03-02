@@ -110,7 +110,7 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
 
             setCurrentPagination(1);
 
-            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+1`);
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/${docSearched}?page=1`);
             let aux = await res.json();
 
             setTableDoc(aux['docFound']);
