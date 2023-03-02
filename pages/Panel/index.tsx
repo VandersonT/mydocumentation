@@ -64,14 +64,14 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
         
         /*Get docs*/
         if(showAllDocs){
-            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page='+(currentPagination+1)`)
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page=${(currentPagination+1)}`)
             currentDocs = await res.json();
             setCurrentPagination(currentPagination+1);
 
             setTableDoc(currentDocs['docs']);
             setNexPageExists(currentDocs['anotherPage']);
         }else{
-            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+(currentPagination+1)`);
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/${docSearched}?page=${(currentPagination+1)}`);
             currentDocs = await res.json();
             setCurrentPagination(currentPagination+1);
 
@@ -86,14 +86,14 @@ const Panel = ({ loggedUser, mostViewedDocs, generalData, currentDocs }: Props) 
         
         /*Get docs*/
         if(showAllDocs){
-            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page='+(currentPagination-1)`)
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docs?page=${(currentPagination-1)}`)
             currentDocs = await res.json();
 
             setCurrentPagination(currentPagination-1);
             setTableDoc(currentDocs['docs']);
             setNexPageExists(currentDocs['anotherPage']);
         }else{
-            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/'+docSearched+'?page='+(currentPagination-1)`);
+            let res = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/docByName/${docSearched}?page=${(currentPagination-1)}`);
             currentDocs = await res.json();
             setCurrentPagination(currentPagination-1);
 
