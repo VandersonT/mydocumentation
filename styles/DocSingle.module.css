@@ -109,9 +109,9 @@
 /*CONTENT*/
 /*-----------------------------------*/
 .content{
-    margin-left: 30px;
+    width: calc(100% - 320px);
     margin-bottom: 50px;
-    padding: 90px 0 0 45px;
+    padding: 90px 45px 0 45px;
 }
 
 .content h1 {
@@ -202,7 +202,8 @@
         bottom: 0;
     }
     .content{
-        padding: 50px 20px 40px 0;
+        width: 100%;
+        padding: 50px 32px 60px 32px;
         margin-bottom: 0;
     }
     .menuMobileBtn{
@@ -214,6 +215,12 @@
     }
     .menuMobileBtn span{
         margin-left: 6px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .content{
+        padding: 50px 20px 60px 20px;
     }
 }
 
