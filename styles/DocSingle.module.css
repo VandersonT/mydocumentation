@@ -114,6 +114,11 @@
     padding: 90px 45px 0 45px;
 }
 
+.content img{
+    max-width: 100%;
+    height: auto;
+}
+
 .content h1 {
     font-size: 40px;
     color: #282C34;
