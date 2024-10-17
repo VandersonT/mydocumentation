@@ -24,7 +24,7 @@ async function fetchDynamicRoutes() {
 }
 
 export default async function handler(req, res) {
-  const hostname = 'http://localhost:3000/'; // Altere para o seu domínio
+  const hostname = `${process.env.NEXT_PUBLIC_SYSTEMURL}/`; // Altere para o seu domínio
 
   // Cria uma stream para o sitemap
   const stream = new SitemapStream({ hostname });
